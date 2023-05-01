@@ -4,6 +4,11 @@
  */
 package main;
 
+import java.awt.List;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author yatac
@@ -26,23 +31,166 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        MenuPanel = new javax.swing.JPanel();
+        ButtonsGrid = new javax.swing.JPanel();
+        ButtonReporteVentas = new javax.swing.JLabel();
+        ButtonProveedores = new javax.swing.JLabel();
+        ButtonProductps = new javax.swing.JLabel();
+        ButtonClientes = new javax.swing.JLabel();
+        ButtonVentas = new javax.swing.JLabel();
+        ButtonDetalleVentas = new javax.swing.JLabel();
+        LogoPanel = new javax.swing.JPanel();
+        LogoLabel = new javax.swing.JLabel();
+        MenuLabel = new javax.swing.JLabel();
+        ContentJpanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        MenuPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ButtonsGrid.setOpaque(false);
+        ButtonsGrid.setPreferredSize(new java.awt.Dimension(442, 600));
+        ButtonsGrid.setLayout(new java.awt.GridLayout(6, 1, 0, 16));
+
+        ButtonReporteVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ButtonReporteVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnReporteVentas.png"))); // NOI18N
+        ButtonReporteVentas.setAlignmentX(0.5F);
+        ButtonReporteVentas.setIconTextGap(1);
+        ButtonReporteVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonReporteVentasMouseClicked(evt);
+            }
+        });
+        ButtonsGrid.add(ButtonReporteVentas);
+
+        ButtonProveedores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ButtonProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnProveedores.png"))); // NOI18N
+        ButtonProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonProveedoresMouseClicked(evt);
+            }
+        });
+        ButtonsGrid.add(ButtonProveedores);
+
+        ButtonProductps.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ButtonProductps.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnProductos.png"))); // NOI18N
+        ButtonProductps.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonProductpsMouseClicked(evt);
+            }
+        });
+        ButtonsGrid.add(ButtonProductps);
+
+        ButtonClientes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnClientes.png"))); // NOI18N
+        ButtonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonClientesMouseClicked(evt);
+            }
+        });
+        ButtonsGrid.add(ButtonClientes);
+
+        ButtonVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ButtonVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnVentas.png"))); // NOI18N
+        ButtonVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonVentasMouseClicked(evt);
+            }
+        });
+        ButtonsGrid.add(ButtonVentas);
+
+        ButtonDetalleVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ButtonDetalleVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnDetalleVentas.png"))); // NOI18N
+        ButtonDetalleVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonDetalleVentasMouseClicked(evt);
+            }
+        });
+        ButtonsGrid.add(ButtonDetalleVentas);
+
+        MenuPanel.add(ButtonsGrid, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 440, 550));
+
+        LogoPanel.setBackground(new java.awt.Color(204, 204, 204));
+        LogoPanel.setOpaque(false);
+        LogoPanel.setPreferredSize(new java.awt.Dimension(442, 320));
+
+        LogoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LogoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoIsrael.png"))); // NOI18N
+
+        javax.swing.GroupLayout LogoPanelLayout = new javax.swing.GroupLayout(LogoPanel);
+        LogoPanel.setLayout(LogoPanelLayout);
+        LogoPanelLayout.setHorizontalGroup(
+            LogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LogoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+        );
+        LogoPanelLayout.setVerticalGroup(
+            LogoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LogoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+        );
+
+        MenuPanel.add(LogoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 320));
+
+        MenuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MenuLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BackgroundMenu.png"))); // NOI18N
+        MenuPanel.add(MenuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        ContentJpanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout ContentJpanelLayout = new javax.swing.GroupLayout(ContentJpanel);
+        ContentJpanel.setLayout(ContentJpanelLayout);
+        ContentJpanelLayout.setHorizontalGroup(
+            ContentJpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1610, Short.MAX_VALUE)
+        );
+        ContentJpanelLayout.setVerticalGroup(
+            ContentJpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(MenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(ContentJpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
+            .addComponent(MenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentJpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ButtonReporteVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseClicked
+        cambiarIconoColor(ButtonReporteVentas);
+    }//GEN-LAST:event_ButtonReporteVentasMouseClicked
+
+    private void ButtonProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseClicked
+       cambiarIconoColor(ButtonProveedores);
+    }//GEN-LAST:event_ButtonProveedoresMouseClicked
+
+    private void ButtonProductpsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductpsMouseClicked
+       cambiarIconoColor(ButtonProductps);
+    }//GEN-LAST:event_ButtonProductpsMouseClicked
+
+    private void ButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseClicked
+        cambiarIconoColor(ButtonClientes);
+    }//GEN-LAST:event_ButtonClientesMouseClicked
+
+    private void ButtonVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseClicked
+        cambiarIconoColor(ButtonVentas);
+    }//GEN-LAST:event_ButtonVentasMouseClicked
+
+    private void ButtonDetalleVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseClicked
+       cambiarIconoColor(ButtonDetalleVentas);
+    }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,6 +227,47 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * *********METHODS ANIMATION*******************
+     */
+    
+    
+    public void cambiarIconoColor(JLabel labelWhite) {
+        String rutas[]= {"src/img/BtnReporteVentas","src/img/BtnProveedores","src/img/BtnProductos","src/img/BtnClientes","src/img/BtnVentas","src/img/BtnDetalleVentas"};
+        String rute="";
+        
+        ArrayList<JLabel> listaLabels =  new ArrayList<>();
+        listaLabels.add(ButtonReporteVentas);
+        listaLabels.add(ButtonProveedores);
+        listaLabels.add(ButtonProductps);
+        listaLabels.add(ButtonClientes);
+        listaLabels.add(ButtonVentas);
+        listaLabels.add(ButtonDetalleVentas);
+        
+        for(int i=0; i<6; i++){
+             if (! listaLabels.get(i).equals(labelWhite)) {
+                 rute = rutas[i]+".png";
+                 listaLabels.get(i).setIcon(new ImageIcon(rute));
+             }else {
+                 rute = rutas[i]+"White.png";
+                 listaLabels.get(i).setIcon(new ImageIcon(rute));
+             }
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ButtonClientes;
+    private javax.swing.JLabel ButtonDetalleVentas;
+    private javax.swing.JLabel ButtonProductps;
+    private javax.swing.JLabel ButtonProveedores;
+    private javax.swing.JLabel ButtonReporteVentas;
+    private javax.swing.JLabel ButtonVentas;
+    private javax.swing.JPanel ButtonsGrid;
+    private javax.swing.JPanel ContentJpanel;
+    private javax.swing.JLabel LogoLabel;
+    private javax.swing.JPanel LogoPanel;
+    private javax.swing.JLabel MenuLabel;
+    private javax.swing.JPanel MenuPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package main;
 
+import design.MethodsResponsive;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.List;
@@ -19,13 +20,19 @@ import raven.glasspanepopup.GlassPanePopup;
  */
 public class Main extends javax.swing.JFrame {
 
+
+    
+    
     private boolean maximize = true;
+    private int xMouse, yMouse;
+    private ArrayList<JLabel> listaLabels =  new ArrayList<>();
+   
     
     
     public Main() {
-        initComponents();
-        autoRisize();    
+        initComponents();  
         GlassPanePopup.install(this);
+        initResizeDataLabels();
     }
 
     /**
@@ -158,14 +165,23 @@ public class Main extends javax.swing.JFrame {
         MenuPanel.add(MenuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         ContentJpanel.setBackground(new java.awt.Color(255, 255, 255));
+        ContentJpanel.setPreferredSize(new java.awt.Dimension(1478, 30));
 
         HeadPanel.setBackground(new java.awt.Color(255, 255, 255));
+        HeadPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                HeadPanelMouseDragged(evt);
+            }
+        });
         HeadPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 HeadPanelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 HeadPanelMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                HeadPanelMousePressed(evt);
             }
         });
 
@@ -293,13 +309,13 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(MenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ContentJpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ContentJpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1484, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(MenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(ContentJpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentJpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1080, Short.MAX_VALUE)
         );
 
         pack();
@@ -340,27 +356,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
-        closeLabel.setIcon(new ImageIcon("src/HeadButtons/BtnCloseWhite.png"));
+        closeLabel.setIcon(new ImageIcon("src/img/BtnCloseWhite.png"));
         btnClose.setBackground(new Color(235, 20, 20));
     }//GEN-LAST:event_btnCloseMouseEntered
 
     private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
-        closeLabel.setIcon(new ImageIcon("src/HeadButtons/BtnClose.png"));
+        closeLabel.setIcon(new ImageIcon("src/img/BtnClose.png"));
         btnClose.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_btnCloseMouseExited
-
-    private void maximizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseClicked
-        if (maximize) {
-            setSize(1020, 720);
-            setLocationRelativeTo(null);
-            maximize = false;
-            
-        } else {
-            setExtendedState(MAXIMIZED_BOTH);
-            maximize = true;
-            
-        }
-    }//GEN-LAST:event_maximizeLabelMouseClicked
 
     private void maximizeLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseEntered
         btnMaximize.setBackground(new Color(220, 220, 220));
@@ -389,6 +392,23 @@ public class Main extends javax.swing.JFrame {
     private void HeadPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeadPanelMouseExited
         HeadPanel.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_HeadPanelMouseExited
+
+    private void HeadPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeadPanelMouseDragged
+      if(maximize == false){
+        setSize(1020, 720);
+        int x=evt.getXOnScreen(), y= evt.getYOnScreen();
+        this.setLocation(x-xMouse, y-yMouse);
+      }
+    }//GEN-LAST:event_HeadPanelMouseDragged
+
+    private void HeadPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeadPanelMousePressed
+        xMouse=evt.getX();
+        yMouse=evt.getY();
+    }//GEN-LAST:event_HeadPanelMousePressed
+
+    private void maximizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseClicked
+        maximizeResize();
+    }//GEN-LAST:event_maximizeLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -433,15 +453,6 @@ public class Main extends javax.swing.JFrame {
     public void cambiarIconoColor(JLabel labelWhite) {
         String rutas[]= {"src/img/BtnReporteVentas","src/img/BtnProveedores","src/img/BtnProductos","src/img/BtnClientes","src/img/BtnVentas","src/img/BtnDetalleVentas"};
         String rute="";
-        
-        ArrayList<JLabel> listaLabels =  new ArrayList<>();
-        listaLabels.add(ButtonReporteVentas);
-        listaLabels.add(ButtonProveedores);
-        listaLabels.add(ButtonProductps);
-        listaLabels.add(ButtonClientes);
-        listaLabels.add(ButtonVentas);
-        listaLabels.add(ButtonDetalleVentas);
-        
         for(int i=0; i<6; i++){
              if (! listaLabels.get(i).equals(labelWhite)) {
                  rute = rutas[i]+".png";
@@ -453,13 +464,52 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
+    private void maximizeResize(){
+        if (maximize) {
+            setSize(1180, 820);
+            setLocationRelativeTo(null);
+            maximize = false;          
+        } else {
+            setExtendedState(MAXIMIZED_BOTH);
+            maximize = true;         
+        }
+    }
 
+    
+    public void initResizeDataLabels(){      
+        autoRisize();
+        autoList();
+        /*ResizeButton*/
+        double buttonsWidthLabel = (94.11764705882353*MenuPanel.getWidth())/100;
+        double buttonsHeigthLabel = (5.925925925925926*MenuPanel.getHeight())/100;        
+        /*Resize Logo*/
+        double buttonLogoWidthLabel = (61.99095022624434*MenuPanel.getWidth())/100;
+        double buttonLogoHeigthLabel = (25.37037037037037*MenuPanel.getHeight())/100;        
+        String rutas[]= {"src/img/BtnReporteVentas.png","src/img/BtnProveedores.png","src/img/BtnProductos.png","src/img/BtnClientes.png","src/img/BtnVentas.png","src/img/BtnDetalleVentas.png","src/img/BtnDetalleVentas.png"};
+        for(int i=0; i<listaLabels.size(); i++){
+           listaLabels.get(i).setIcon(MethodsResponsive.ScaleIcon(listaLabels.get(i),(int)Math.ceil(buttonsWidthLabel ) , (int)Math.ceil(buttonsHeigthLabel)));
+        }      
+        LogoLabel.setIcon(MethodsResponsive.ScaleIcon(LogoLabel,(int)Math.ceil(buttonLogoWidthLabel ) , (int)Math.ceil(buttonLogoHeigthLabel)));
+    }
+    
+    
     private void autoRisize(){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int Width = (int) screenSize.getWidth();
         int Height = (int) screenSize.getHeight();
-        System.out.println("Widht"+ Width + " Heigth: " + Height);
         this.setSize(Width, Height );
+    }
+    
+    private void autoList(){       
+        /*List Button*/
+        // listaLabels.add(LogoLabel);
+        listaLabels.add(ButtonReporteVentas);
+        listaLabels.add(ButtonProveedores);
+        listaLabels.add(ButtonProductps);
+        listaLabels.add(ButtonClientes);
+        listaLabels.add(ButtonVentas);
+        listaLabels.add(ButtonDetalleVentas);
+        listaLabels.add(ButtonExit);       
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,6 +18,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import view.panels.PanelCliente;
 import view.panels.PanelProducts;
 import view.panels.PanelProveedores;
 
@@ -172,7 +173,7 @@ public class MainOrigin extends javax.swing.JFrame {
         );
         ContentPanelLayout.setVerticalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 732, Short.MAX_VALUE)
         );
 
         HeadPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -289,9 +290,7 @@ public class MainOrigin extends javax.swing.JFrame {
                 .addComponent(MenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(HeadPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(HeadPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,14 +357,14 @@ public class MainOrigin extends javax.swing.JFrame {
     private void ButtonProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseClicked
         cambiarIconoColor(ButtonProductos);
        // updatePanelMinMax(2);        
-       indexPanel = 0;
+       indexPanel = 1;
        updatePanelMinMax();
        // addConatiner(new PanelProducts(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonProductosMouseClicked
 
     private void ButtonProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseClicked
        cambiarIconoColor(ButtonProveedores);
-       indexPanel = 1;
+       indexPanel = 2;
        updatePanelMinMax();
        
     }//GEN-LAST:event_ButtonProveedoresMouseClicked
@@ -386,7 +385,8 @@ public class MainOrigin extends javax.swing.JFrame {
 
     private void ButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseClicked
         cambiarIconoColor(ButtonClientes);
-        indexPanel = 1;
+        indexPanel = 0;
+        updatePanelMinMax();
     }//GEN-LAST:event_ButtonClientesMouseClicked
 
     /**
@@ -536,6 +536,7 @@ public class MainOrigin extends javax.swing.JFrame {
         listaLabels.add(ButtonExit);  
         
         /*JPANEL*/
+        listaJpanel.add(new PanelCliente());
         listaJpanel.add(new PanelProducts());
         listaJpanel.add(new PanelProveedores());
         

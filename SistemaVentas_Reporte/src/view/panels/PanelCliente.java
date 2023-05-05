@@ -4,9 +4,10 @@
  */
 package view.panels;
 
-import Model.ModelCellProveedores;
+import Model.ModelCellClientes;
 import javax.swing.table.DefaultTableModel;
-import table.TableProveedores.TableActionEventProveedores;
+import table.TableClient.TableActionEventCliente;
+
 
 
 
@@ -14,12 +15,12 @@ import table.TableProveedores.TableActionEventProveedores;
  *
  * @author yatac
  */
-public class PanelProveedores extends javax.swing.JPanel {
+public class PanelCliente extends javax.swing.JPanel {
 
-    public PanelProveedores() {
+    public PanelCliente() {
         initComponents();
-        TableProveedores.fixTable(jScrollPane1);
-        TableProveedores.setIconsColumns(6, 5,6);
+        TableClientes.fixTable(jScrollPane1);
+        TableClientes.setIconsColumns(6, 5,6);
         initData();
     }
 
@@ -54,7 +55,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableProveedores = new table.TableProveedores.TableProveedores();
+        TableClientes = new table.TableClient.TableClientes();
 
         ContentButtonsSearch.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -91,7 +92,7 @@ public class PanelProveedores extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TextSearchLayout.createSequentialGroup()
                 .addComponent(IconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(txtSearchProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                .addComponent(txtSearchProveedores))
         );
         TextSearchLayout.setVerticalGroup(
             TextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +163,7 @@ public class PanelProveedores extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
@@ -197,7 +198,7 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        TableProveedores.setModel(new javax.swing.table.DefaultTableModel(
+        TableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -205,23 +206,23 @@ public class PanelProveedores extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TableProveedores);
+        jScrollPane1.setViewportView(TableClientes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1)
-                .addGap(23, 23, 23))
+                .addGap(37, 37, 37))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-                .addGap(21, 21, 21))
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -240,15 +241,15 @@ public class PanelProveedores extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /*EVENTO DE BOTONES*/
-    TableActionEventProveedores event = new TableActionEventProveedores() {
+    TableActionEventCliente event = new TableActionEventCliente() {
         @Override
-        public void onEdit(ModelCellProveedores proveedores) {
-            System.out.println("Proveedores editar" + TableProveedores.getSelectedRow());
+        public void onEdit(ModelCellClientes clientes) {
+            System.out.println("Edit cliente" + TableClientes.getSelectedRow());
         }
 
         @Override
-        public void onDelete(ModelCellProveedores proveedores) {
-            System.out.println("Proveedores  eliminar" + TableProveedores.getSelectedRow());
+        public void onDelete(ModelCellClientes clientes) {
+            System.out.println("Delete cliente" + TableClientes.getSelectedRow());
         }
        
     };
@@ -258,13 +259,13 @@ public class PanelProveedores extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData(){
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Ruc", "Nombre", "Tipo", "Telefono","Correo","Editar", "Eliminar"};
-        TableProveedores.setModel(modelo);
+        String columns[] = {"Dni", "Nombre", "Apellido", "Telefono","Correo","Editar", "Eliminar"};
+        TableClientes.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
           for(int i=0; i<30; i++){
             //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
             // 12, 12.5f,"Abierto").toRowTable(event));
-            TableProveedores.addRow(new ModelCellProveedores("102323212341", "Editorial ramirez", "persona natural", "829232412", "correo@email").toRowTable(event));
+            TableClientes.addRow(new ModelCellClientes("72832321", "Juan Luis", "Arteafga Ramirez", "9231312", "correo@email").toRowTable(event));
         }   
     }
     
@@ -273,7 +274,7 @@ public class PanelProveedores extends javax.swing.JPanel {
     private javax.swing.JPanel ContentButtonsSearch;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
-    private table.TableProveedores.TableProveedores TableProveedores;
+    private table.TableClient.TableClientes TableClientes;
     private javax.swing.JPanel TextSearch;
     private javax.swing.JLabel TitleProveedores;
     private javax.swing.JLabel btn_AgregarProveedores;

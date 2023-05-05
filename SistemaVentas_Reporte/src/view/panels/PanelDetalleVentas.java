@@ -4,23 +4,22 @@
  */
 package view.panels;
 
-import Model.ModelCellClientes;
+import Model.ModelCellDetalles;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
-import table.TableClient.TableActionEventCliente;
-
-
-
+import table.TableDetalles.TableActionEventDetalles;
 
 /**
  *
  * @author yatac
  */
-public class PanelCliente extends javax.swing.JPanel {
+public class PanelDetalleVentas extends javax.swing.JPanel {
 
-    public PanelCliente() {
+    public PanelDetalleVentas() {
         initComponents();
-        TableClientes.fixTable(jScrollPane1);
-        TableClientes.setIconsColumns(6, 5,6);
+       TableDetalles.fixTable(jScrollPane2);
+        TableDetalles.setIconsColumns(8, 6,7,5);
         initData();
     }
 
@@ -54,8 +53,8 @@ public class PanelCliente extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TableClientes = new table.TableClient.TableClientes();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableDetalles = new table.TableDetalles.TableDetalles();
 
         ContentButtonsSearch.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -163,7 +162,7 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
@@ -198,7 +197,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        TableClientes.setModel(new javax.swing.table.DefaultTableModel(
+        TableDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -206,23 +205,23 @@ public class PanelCliente extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TableClientes);
+        jScrollPane2.setViewportView(TableDetalles);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1)
-                .addGap(37, 37, 37))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2)
+                .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1)
-                .addGap(28, 28, 28))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -241,16 +240,20 @@ public class PanelCliente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /*EVENTO DE BOTONES*/
-    TableActionEventCliente event = new TableActionEventCliente() {
+    TableActionEventDetalles event = new TableActionEventDetalles () {
         @Override
-        public void onEdit(ModelCellClientes clientes) {
-            System.out.println("Edit cliente" + TableClientes.getSelectedRow());
+        public void onEdit(ModelCellDetalles detalles) {
+            System.out.println("edit "+ TableDetalles.getSelectedRow());
         }
 
         @Override
-        public void onDelete(ModelCellClientes clientes) {
-            System.out.println("Delete cliente" + TableClientes.getSelectedRow());
-            System.out.println("BORANDOOOOOOOO");
+        public void onDelete(ModelCellDetalles detalles) {
+            System.out.println(" delete"+ TableDetalles.getSelectedRow());
+        }
+
+        @Override
+        public void onView(ModelCellDetalles detalles) {
+            System.out.println("detalles "+ TableDetalles.getSelectedRow());
         }
        
     };
@@ -258,15 +261,22 @@ public class PanelCliente extends javax.swing.JPanel {
     
 
     /*INIT DATA*/
-    private void initData(){
+    private void initData() {
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Dni", "Nombre", "Apellido", "Telefono","Correo","Editar", "Eliminar"};
-        TableClientes.setModel(modelo);
+        String columns[] = {"Nº Venta", "Cliente", "Telefono", "Total Venta","Fecha","Productos","Editar", "Eliminar"};
+        TableDetalles.setModel(modelo);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String cadenaFecha = "01/05/2023";
+        Date fecha = null;
+        try {
+          fecha = formatoFecha.parse(cadenaFecha);      
+        } catch (Exception e) {
+            System.out.println("Error Fecha: " + e.getMessage());
+        }
+        
         modelo.setColumnIdentifiers(columns);
           for(int i=0; i<30; i++){
-            //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
-            // 12, 12.5f,"Abierto").toRowTable(event));
-            TableClientes.addRow(new ModelCellClientes("72832321", "Juan Luis", "Arteafga Ramirez", "9231312", "correo@email").toRowTable(event));
+           TableDetalles.addRow(new ModelCellDetalles("000002", "Crishtopher Ramirez", "89382323", 123.01f, "2023-02-01").toRowTable(event));
         }   
     }
     
@@ -275,7 +285,7 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JPanel ContentButtonsSearch;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
-    private table.TableClient.TableClientes TableClientes;
+    private table.TableDetalles.TableDetalles TableDetalles;
     private javax.swing.JPanel TextSearch;
     private javax.swing.JLabel TitleProveedores;
     private javax.swing.JLabel btn_AgregarProveedores;
@@ -285,7 +295,7 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

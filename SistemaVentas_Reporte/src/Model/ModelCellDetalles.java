@@ -4,67 +4,78 @@
  */
 package Model;
 
-import Buttons.ModelActionProductos;
-import table.TableProduct.TableActionEventDetalle;
+import Buttons.ModelActionDetalles;
+import java.util.Date;
+import table.TableDetalles.TableActionEventDetalles;
+
 
 /**
  *
  * @author yatac
  */
 public class ModelCellDetalles {
-    private String codigo;
-    private String producto;
-    private int cantidad;
-    private float precioU;
-    private String estado;
-   
-    public static void ModelCellClientes(){
+    
+    private String nVenta;
+    private String cliente;
+    private String telefono;
+    private Float totalVenta;
+    private String fecha;
+    
+    
+    public static void ModelCellDetalles(){
         /*Constructor por defecto*/
     }
+
+    public ModelCellDetalles(String nVenta, String cliente, String telefono, Float totalVenta, String fecha) {
+        this.nVenta = nVenta;
+        this.cliente = cliente;
+        this.telefono = telefono;
+        this.totalVenta = totalVenta;
+        this.fecha = fecha;
+    }
+
+    public String getnVenta() {
+        return nVenta;
+    }
+
+    public void setnVenta(String nVenta) {
+        this.nVenta = nVenta;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Float getTotalVenta() {
+        return totalVenta;
+    }
+
+    public void setTotalVenta(Float totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
     
-    public ModelCellDetalles(String codigo, String producto, int cantidad, float precioU, String estado) {
-        this.codigo = codigo;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.precioU = precioU;
-        this.estado = estado;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getProducto() {
-        return producto;
-    }
-
-    public void setProducto(String producto) {
-        this.producto = producto;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public float getPrecioU() {
-        return precioU;
-    }
-
-    public void setPrecioU(float precioU) {
-        this.precioU = precioU;
-    }
-
-       
-    public Object[] toRowTable(TableActionEventDetalle event){
-        return new Object[]{codigo, producto, cantidad, precioU, new ModelActionProductos(this, event), new ModelActionProductos(this, event),new ModelActionProductos(this, event)};
+    public Object[] toRowTable(TableActionEventDetalles event){
+        return new Object[]{nVenta, cliente, telefono, totalVenta,fecha, new ModelActionDetalles(this, event), new ModelActionDetalles(this,  event),new ModelActionDetalles(this, event)};
     }
     
 }

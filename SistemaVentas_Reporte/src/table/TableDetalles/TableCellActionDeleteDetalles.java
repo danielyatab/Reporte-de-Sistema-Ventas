@@ -2,17 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package table.TableClient;
+package table.TableDetalles;
 
 import Buttons.ModelActionClientes;
-import table.TableProveedores.*;
-import table.TableProduct.*;
-import Buttons.ModelActionProductos;
-import Buttons.ModelActionProveedores;
-import Buttons.PanelActionDeleteClientes;
-import Buttons.PanelActionDeleteProduct;
+import Buttons.ModelActionDetalles;
+import Buttons.PanelActionDeleteDetalles;
 import Buttons.PanelActionEditClientes;
-import Buttons.PanelActionEditProveedores;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
@@ -23,17 +18,18 @@ import javax.swing.JTable;
  *
  * @author yatac
  */
-public class TableCellActionDeleteCliente extends DefaultCellEditor{
-    private ModelActionClientes data;
+public class TableCellActionDeleteDetalles extends DefaultCellEditor{
     
-    public TableCellActionDeleteCliente() {
+    private ModelActionDetalles data;
+
+    public TableCellActionDeleteDetalles() {
         super(new JCheckBox());
     }
 
     @Override
     public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int i, int i1) {
-        data = (ModelActionClientes) o;        
-        PanelActionDeleteClientes cell = new PanelActionDeleteClientes(data);
+        data = (ModelActionDetalles) o;        
+        PanelActionDeleteDetalles cell = new PanelActionDeleteDetalles(data);
         cell.setBackground(new Color(30, 30, 30, 50));
         return cell;
     }

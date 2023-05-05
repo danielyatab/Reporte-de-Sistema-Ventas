@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import view.panels.PanelCliente;
+import view.panels.PanelDetalleVentas;
 import view.panels.PanelProducts;
 import view.panels.PanelProveedores;
 
@@ -376,7 +377,8 @@ public class MainOrigin extends javax.swing.JFrame {
 
     private void ButtonDetalleVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseClicked
        cambiarIconoColor(ButtonDetalleVentas);
-       indexPanel = 5;
+       indexPanel = 3;
+       updatePanelMinMax();
     }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     private void ButtonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseClicked
@@ -539,7 +541,7 @@ public class MainOrigin extends javax.swing.JFrame {
         listaJpanel.add(new PanelCliente());
         listaJpanel.add(new PanelProducts());
         listaJpanel.add(new PanelProveedores());
-        
+        listaJpanel.add(new PanelDetalleVentas());
         
     }
     

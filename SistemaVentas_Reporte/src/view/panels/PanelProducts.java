@@ -20,7 +20,7 @@ public class PanelProducts extends javax.swing.JPanel {
     public PanelProducts() {
         initComponents();
         TableProductos.fixTable(jScrollPane1);
-        TableProductos.setIconsColumns(6, 5,6,0);
+        TableProductos.setIconsColumns(6, 5,6);
         initData();
     }
 

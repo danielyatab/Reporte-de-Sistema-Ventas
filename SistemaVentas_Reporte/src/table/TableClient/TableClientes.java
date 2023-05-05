@@ -105,12 +105,12 @@ public class TableClientes extends JTable{
            Object o = null;
            ModelActionClientes data;
            data = (ModelActionClientes) o; 
-            PanelActionEditClientes cell = new PanelActionEditClientes(data);           
+           PanelActionEditClientes cell = new PanelActionEditClientes(data);           
            return cell;
         /*Retorno de boton Eliminar*/
         }else if(column == columnDelete){
            Object o = null;
-            ModelActionClientes data;
+           ModelActionClientes data;
            data = (ModelActionClientes) o; 
            PanelActionDeleteClientes cell = new PanelActionDeleteClientes(data);   
            return cell;

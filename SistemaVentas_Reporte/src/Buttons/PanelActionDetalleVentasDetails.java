@@ -13,19 +13,19 @@ import java.awt.event.ActionListener;
  *
  * @author yatac
  */
-public class PanelActionDetalleVentas extends javax.swing.JPanel {
+public class PanelActionDetalleVentasDetails extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelAction
      */
-    public PanelActionDetalleVentas(ModelActionProductos data) {
+    public PanelActionDetalleVentasDetails(ModelActionDetalles data) {
         initComponents();
         setOpaque(false);
         /*Accion del Boton*/
         btnDetalle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                data.getEvent().onView(data.getProducto());
+                data.getEvent().onView(data.getDetalles());
             }
         });
     }

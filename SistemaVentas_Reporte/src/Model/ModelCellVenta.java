@@ -5,36 +5,29 @@
 package Model;
 
 import Buttons.ModelActionProductos;
+import Buttons.ModelActionVenta;
+import table.Venta.TableActionEventVenta;
 
 /**
  *
  * @author yatac
  */
 public class ModelCellVenta {
-    private String codigo;
+   
+    
     private String producto;
     private int cantidad;
-    private float precioU;
-    private String estado;
-   
-    public static void ModelCellClientes(){
+    private double total;
+    
+
+    public static void ModelCellVenta(){
         /*Constructor por defecto*/
     }
-    
-    public ModelCellVenta(String codigo, String producto, int cantidad, float precioU, String estado) {
-        this.codigo = codigo;
+
+    public ModelCellVenta(String producto, int cantidad, double total) {
         this.producto = producto;
         this.cantidad = cantidad;
-        this.precioU = precioU;
-        this.estado = estado;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        this.total = total;
     }
 
     public String getProducto() {
@@ -45,8 +38,6 @@ public class ModelCellVenta {
         this.producto = producto;
     }
 
-
-
     public int getCantidad() {
         return cantidad;
     }
@@ -55,18 +46,16 @@ public class ModelCellVenta {
         this.cantidad = cantidad;
     }
 
-    public float getPrecioU() {
-        return precioU;
+    public double getTotal() {
+        return total;
     }
 
-    public void setPrecioU(float precioU) {
-        this.precioU = precioU;
+    public void setTotal(double total) {
+        this.total = total;
     }
-
     
-    
-    public Object[] toRowTable(TableActionEvent event){
-        return new Object[]{codigo, producto, cantidad, precioU, new ModelActionProductos(this, event), new ModelActionProductos(this, event),new ModelActionProductos(this, event)};
+    public Object[] toRowTable(TableActionEventVenta event){
+        return new Object[]{producto, cantidad, total, new ModelActionVenta(this, event), new ModelActionVenta(this, event)};
     }
     
 }

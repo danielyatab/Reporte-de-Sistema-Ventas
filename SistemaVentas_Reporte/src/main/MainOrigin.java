@@ -12,7 +12,6 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,6 +21,9 @@ import view.panels.PanelCliente;
 import view.panels.PanelDetalleVentas;
 import view.panels.PanelProducts;
 import view.panels.PanelProveedores;
+import view.panels.PanelReporteVentas;
+import view.panels.PanelVentas;
+import view.panels.forms.FormDetalleProductos;
 
 /**
  *
@@ -30,6 +32,7 @@ import view.panels.PanelProveedores;
 public class MainOrigin extends javax.swing.JFrame {
     private ArrayList<JLabel> listaLabels =  new ArrayList<>();
     private ArrayList<JPanel> listaJpanel =  new ArrayList<>();
+    private ArrayList<JPanel> listaForms =  new ArrayList<>();
     private String rutas[] = {"src/img/btn_ReporteVentas", "src/img/btn_Clientes", "src/img/btn_Productos", "src/img/btn_Proveedores", "src/img/btn_Ventas", "src/img/btn_DetalleVentas", "src/img/btn_LogOut"};
     private String rute = "";
     private int indexPanel=0;
@@ -39,15 +42,18 @@ public class MainOrigin extends javax.swing.JFrame {
     
     public MainOrigin() {
         initComponents();
-        autoList();
-        maximizeResize();
+        Maximize.width_maximize = getWidth();
+        Maximize.heigth_maximize = getHeight();
+        autoList(); 
+        updatePanelMinMax();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        MenuPanel = new FondoPanel();
+        MenuPanel = new javax.swing.JPanel();
         ButtonReporteVentas = new javax.swing.JLabel();
         LogoLabel = new javax.swing.JLabel();
         ButtonExit = new javax.swing.JLabel();
@@ -57,6 +63,7 @@ public class MainOrigin extends javax.swing.JFrame {
         ButtonDetalleVentas = new javax.swing.JLabel();
         ButtonClientes = new javax.swing.JLabel();
         ContentPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         HeadPanel = new javax.swing.JPanel();
         btnClose = new javax.swing.JPanel();
         closeLabel = new javax.swing.JLabel();
@@ -166,15 +173,23 @@ public class MainOrigin extends javax.swing.JFrame {
 
         ContentPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
         ContentPanel.setLayout(ContentPanelLayout);
         ContentPanelLayout.setHorizontalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 872, Short.MAX_VALUE)
+            .addGroup(ContentPanelLayout.createSequentialGroup()
+                .addGap(346, 346, 346)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ContentPanelLayout.setVerticalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
+            .addGroup(ContentPanelLayout.createSequentialGroup()
+                .addGap(296, 296, 296)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         HeadPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -321,12 +336,7 @@ public class MainOrigin extends javax.swing.JFrame {
 
     private void maximizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseClicked
         maximizeResize();
-        updatePanelMinMax();
-        if(Maximize.maximize){
-            Maximize.maximize = false;
-        }else {
-            Maximize.maximize = true;
-        }        
+        resizeFormsPanels();
     }//GEN-LAST:event_maximizeLabelMouseClicked
 
     private void maximizeLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseEntered
@@ -353,32 +363,46 @@ public class MainOrigin extends javax.swing.JFrame {
     private void ButtonReporteVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseClicked
         cambiarIconoColor(ButtonReporteVentas);
         indexPanel = 0;
+        Maximize.isForm = false;
+        resizeFormsPanels();
     }//GEN-LAST:event_ButtonReporteVentasMouseClicked
 
     private void ButtonProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseClicked
-        cambiarIconoColor(ButtonProductos);
+       cambiarIconoColor(ButtonProductos);
+       
        // updatePanelMinMax(2);        
-       indexPanel = 1;
+       Maximize.isForm = false;
+       resizeFormsPanels();
+       indexPanel = 2;
        updatePanelMinMax();
        // addConatiner(new PanelProducts(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonProductosMouseClicked
 
     private void ButtonProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseClicked
+       Maximize.isForm = false;
+       resizeFormsPanels();
        cambiarIconoColor(ButtonProveedores);
-       indexPanel = 2;
+       indexPanel = 3;
        updatePanelMinMax();
        
     }//GEN-LAST:event_ButtonProveedoresMouseClicked
 
     private void ButtonVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseClicked
+       Maximize.isForm = false;
+       resizeFormsPanels();
        cambiarIconoColor(ButtonVentas);
        indexPanel = 4;
+       updatePanelMinMax();
+       
     }//GEN-LAST:event_ButtonVentasMouseClicked
 
     private void ButtonDetalleVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseClicked
-       cambiarIconoColor(ButtonDetalleVentas);
-       indexPanel = 3;
-       updatePanelMinMax();
+            cambiarIconoColor(ButtonDetalleVentas);
+            indexPanel = 5;
+            Maximize.isForm = false;
+            
+            resizeFormsPanels();
+            //updatePanelMinMax();
     }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     private void ButtonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseClicked
@@ -386,9 +410,11 @@ public class MainOrigin extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonExitMouseClicked
 
     private void ButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseClicked
-        cambiarIconoColor(ButtonClientes);
-        indexPanel = 0;
-        updatePanelMinMax();
+       Maximize.isForm = false;
+       resizeFormsPanels();
+       cambiarIconoColor(ButtonClientes);
+       indexPanel = 1;
+       updatePanelMinMax();
     }//GEN-LAST:event_ButtonClientesMouseClicked
 
     /**
@@ -427,6 +453,17 @@ public class MainOrigin extends javax.swing.JFrame {
         });
     }
 
+    
+    public void resizeFormsPanels(){
+       if(Maximize.isForm){
+            setUpdateDetalleProduct();
+        }else {
+            updatePanelMinMax();
+        }
+       
+        
+    }
+    
     private void maximizeResize() {
         if (maximize) {
             setSize(1220, 760);
@@ -500,16 +537,25 @@ public class MainOrigin extends javax.swing.JFrame {
         int width = getWidth() - MenuPanel.getWidth();
         int heigth_min = 760;
         int heigth_max = getHeight() - HeadPanel.getHeight();
-        
+        System.out.println("WID:" + width + "Heigth:" + heigth_max);
         if(!maximize){
             addConatiner(listaJpanel.get(indexPanel), width, heigth_min, ContentPanel);  
         }else {
             addConatiner(listaJpanel.get(indexPanel), width, heigth_max, ContentPanel); 
         }
-                 
     }
   
-    
+    public void  setUpdateDetalleProduct(){
+        int width = getWidth() - MenuPanel.getWidth();
+        int heigth_min = 760;
+        int heigth_max = getHeight() - HeadPanel.getHeight();
+        System.out.println("LLEGUE A EJECUTAR");
+        if(maximize){
+            addConatiner(listaForms.get(Maximize.indexForms), width, heigth_max, ContentPanel);  
+        }else {
+            addConatiner(listaForms.get(Maximize.indexForms), width, heigth_min, ContentPanel); 
+        }
+    }
      /**
      *
      * @param p Panel de Ingreso
@@ -538,11 +584,17 @@ public class MainOrigin extends javax.swing.JFrame {
         listaLabels.add(ButtonExit);  
         
         /*JPANEL*/
+        listaJpanel.add(new PanelReporteVentas());
         listaJpanel.add(new PanelCliente());
         listaJpanel.add(new PanelProducts());
         listaJpanel.add(new PanelProveedores());
+        listaJpanel.add(new PanelVentas());
         listaJpanel.add(new PanelDetalleVentas());
         
+        
+        listaForms.add(new FormDetalleProductos());
+        
+        //addConatiner(new PanelReporteVentas(), getWidth()-442, getHeight(), ContentPanel);
     }
     
     
@@ -562,6 +614,7 @@ public class MainOrigin extends javax.swing.JFrame {
     private javax.swing.JPanel btnMaximize;
     private javax.swing.JPanel btnMinimize;
     private javax.swing.JLabel closeLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel maximizeLabel;
     private javax.swing.JLabel minimizeLabel;
     // End of variables declaration//GEN-END:variables

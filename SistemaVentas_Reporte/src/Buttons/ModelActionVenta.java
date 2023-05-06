@@ -1,37 +1,37 @@
 package Buttons;
 
-import Model.ModelCellProveedores;
-import table.TableProveedores.TableActionEventProveedores;
+import Model.ModelCellVenta;
+import table.Venta.TableActionEventVenta;
 
 
 public class ModelActionVenta {
 
-    public ModelCellProveedores getProveedores() {
-        return proveedores;
+    public ModelCellVenta getVenta() {
+        return venta;
     }
 
-    public void setProveedores(ModelCellProveedores proveedores) {
-        this.proveedores = proveedores;
+    public void setVenta(ModelCellVenta venta) {
+        this.venta = venta;
     }
 
-    public TableActionEventProveedores getEvent() {
+    public TableActionEventVenta getEvent() {
         return event;
     }
 
-    public void setEvent(TableActionEventProveedores event) {
+    public void setEvent(TableActionEventVenta event) {
         this.event = event;
     }
 
-    
-    public ModelActionVenta(ModelCellProveedores proveedores, TableActionEventProveedores event) {
-        this.proveedores = proveedores;
+    public ModelActionVenta(ModelCellVenta venta, TableActionEventVenta event) {
+        this.venta = venta;
         this.event = event;
     }
 
+   
     public ModelActionVenta() {
         
     }
 
-    private ModelCellProveedores proveedores;
-    private TableActionEventProveedores event;
+    private ModelCellVenta venta;
+    private TableActionEventVenta event;
 }

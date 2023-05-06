@@ -5,10 +5,16 @@
 package view.panels;
 
 import Model.ModelCellDetalles;
+import design.Maximize;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableDetalles.TableActionEventDetalles;
+import view.panels.forms.FormDetalle;
+import view.panels.forms.FormDetalleProductos;
 
 /**
  *
@@ -16,15 +22,31 @@ import table.TableDetalles.TableActionEventDetalles;
  */
 public class PanelDetalleVentas extends javax.swing.JPanel {
 
+    
+    
     public PanelDetalleVentas() {
-        initComponents();
+       initComponents();
        TableDetalles.fixTable(jScrollPane2);
-        TableDetalles.setIconsColumns(8, 6,7,5);
-        initData();
+       TableDetalles.setIconsColumns(8, 6,7,5);
+       initData();
     }
 
     
-    
+    public void setContentPanel(){
+
+        Component[] componentes = getComponents(); // Obtener todos los componentes del panel padre
+        for (Component componente : componentes) {
+            System.out.println("NAME COMPONENTE;"+componente.getName());
+            if (componente instanceof JPanel && componente.getName().equals("FormDetalleProductos")) {
+                System.out.println("Enmcontreel componente XDDDDDDD");
+                // Verificar si el componente es un JPanel y si su nombre es "panelSuperpuesto"
+                ContentPanel.remove(componente); // Eliminar el panel superpuesto del panel padre
+                ContentPanel.revalidate(); // Actualizar la interfaz de usuario
+                ContentPanel.repaint(); // Repintar el panel padre
+                break; // Salir del ciclo for
+            }
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,6 +59,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
 
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        PanelContent = new javax.swing.JPanel();
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
         btn_ExportarExcel = new javax.swing.JLabel();
@@ -52,7 +75,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
+        ContentPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableDetalles = new table.TableDetalles.TableDetalles();
 
@@ -195,7 +218,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        ContentPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         TableDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,36 +230,47 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(TableDetalles);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
+        ContentPanel.setLayout(ContentPanelLayout);
+        ContentPanelLayout.setHorizontalGroup(
+            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane2)
                 .addGap(26, 26, 26))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        ContentPanelLayout.setVerticalGroup(
+            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                .addGap(21, 21, 21))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addGap(53, 53, 53))
+        );
+
+        javax.swing.GroupLayout PanelContentLayout = new javax.swing.GroupLayout(PanelContent);
+        PanelContent.setLayout(PanelContentLayout);
+        PanelContentLayout.setHorizontalGroup(
+            PanelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        PanelContentLayout.setVerticalGroup(
+            PanelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelContentLayout.createSequentialGroup()
+                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(PanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 /*EVENTO DE BOTONES*/
@@ -244,6 +278,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         @Override
         public void onEdit(ModelCellDetalles detalles) {
             System.out.println("edit "+ TableDetalles.getSelectedRow());
+            addContainer(new FormDetalle(), getWidth(), getHeight(), PanelContent);
         }
 
         @Override
@@ -253,7 +288,10 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
 
         @Override
         public void onView(ModelCellDetalles detalles) {
-            System.out.println("detalles "+ TableDetalles.getSelectedRow());
+            Maximize.isForm = true;
+            Maximize.test =true;
+            System.out.println("On view");
+            addContainer(new FormDetalleProductos(), getWidth(), getHeight(), PanelContent);
         }
        
     };
@@ -281,10 +319,29 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
     }
     
     
+     /**
+     *
+     * @param p Panel de Ingreso
+     * @param width Ancho
+     * @param height Alto
+     * @param c contenedor
+     */
+    public void addContainer(JPanel p, int width, int height, JPanel c) {
+        p.setSize(width, height);
+        p.setLocation(0, 0);
+        c.removeAll();
+        c.add(p, BorderLayout.CENTER);
+        c.revalidate();
+        c.repaint();
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;
+    private javax.swing.JPanel ContentPanel;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
+    private javax.swing.JPanel PanelContent;
     private table.TableDetalles.TableDetalles TableDetalles;
     private javax.swing.JPanel TextSearch;
     private javax.swing.JLabel TitleProveedores;
@@ -294,7 +351,6 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

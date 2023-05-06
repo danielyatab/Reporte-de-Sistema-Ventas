@@ -2,18 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package table.TableDetalles;
+package table.Venta;
 
 import table.TableClient.*;
 import Buttons.ModelActionClientes;
-import Buttons.ModelActionDetalles;
+import Buttons.ModelActionVenta;
 import Design.ShadowRenderer;
 import Design.ScrollBar;
 import Buttons.PanelActionDeleteClientes;
-import Buttons.PanelActionDeleteDetalles;
-import Buttons.PanelActionDetalleVentasDetails;
+import Buttons.PanelActionDeleteVenta;
 import Buttons.PanelActionEditClientes;
-import Buttons.PanelActionEditDetalles;
+import Buttons.PanelActionEditVenta;
 import Table.TableProduct.TableCell;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -34,28 +33,25 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import table.TableHeader;
-import table.TableProduct.TableCellActionDetalles;
 
 /**
  *
  * @author yatac
  */
-public class TableDetalles extends JTable{
+public class TableVenta extends JTable{
     private BufferedImage imageShadow;    
     private int columns;
     private int columnEdit;
     private int columnDelete;
-    private int columnDetalles;
     
-    public void setIconsColumns(int columns, int columnEdit, int columnDelete,int columnDetalles){
+    public void setIconsColumns(int columns, int columnDelete, int columnEdit){
         this.columns = columns;
-        this.columnEdit = columnEdit;
         this.columnDelete = columnDelete;
-        this.columnDetalles = columnDetalles ;
+        this.columnEdit = columnEdit;
     }
     
     
-    public TableDetalles( ){
+    public TableVenta( ){
         setRowHeight(56);
         getTableHeader().setReorderingAllowed(false);
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
@@ -103,6 +99,7 @@ public class TableDetalles extends JTable{
             System.out.println("Error:"+ e.getMessage());
         }
         
+        
     }
     
     @Override
@@ -110,25 +107,17 @@ public class TableDetalles extends JTable{
         /*Retorno de boton Editar*/
         if(column == columnEdit){
            Object o = null;
-           ModelActionDetalles data;
-           data = (ModelActionDetalles) o; 
-            PanelActionEditDetalles cell = new PanelActionEditDetalles(data);           
+            ModelActionVenta data;
+            data = (ModelActionVenta) o; 
+            PanelActionEditVenta cell = new PanelActionEditVenta(data);   
            return cell;
-        /*Retorno de boton Eliminar*/
+        /*Retorno de Celdas con informacion*/
         }else if(column == columnDelete){
-           Object o = null;
-           ModelActionDetalles data;
-           data = (ModelActionDetalles) o; 
-           PanelActionDeleteDetalles cell = new PanelActionDeleteDetalles(data);   
+            Object o = null;
+            ModelActionVenta data;
+            data = (ModelActionVenta) o; 
+            PanelActionDeleteVenta cell = new PanelActionDeleteVenta(data);   
            return cell;
-        /*Retorno de Celdas con informacion*/
-        }else if(column == columnDetalles){
-           Object o = null;
-           ModelActionDetalles data;
-           data = (ModelActionDetalles) o; 
-           PanelActionDetalleVentasDetails cell = new PanelActionDetalleVentasDetails(data);   
-           return cell;
-        /*Retorno de Celdas con informacion*/
         }else{
             String value="";
             if(getValueAt(row,column) != null){
@@ -143,13 +132,11 @@ public class TableDetalles extends JTable{
     @Override
     public TableCellEditor getCellEditor(int row, int col) {
         //Se COLOCA EL NUMEOR DE COLUMNA EL CUAL CONTENDRA LOS BTNS CON ACCIONES
-        if (col == columnEdit) {
-            return new TableCellActionEditDetalles();
-        } else if(col == columnDelete){
-            return new TableCellActionDeleteDetalles();
-        } else if(col == columnDetalles){
-            return new TableCellActionDetailsDetalles();
-        }else {
+        if(col == columnEdit){
+            return new TableCellActionEditVenta();
+        }else if (col == columnDelete) {
+            return new TableCellActionDeleteVenta();
+        }  else {
             return super.getCellEditor(row, col);
         }
     }

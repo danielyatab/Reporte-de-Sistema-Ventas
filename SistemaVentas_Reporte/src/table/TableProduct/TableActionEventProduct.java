@@ -11,6 +11,7 @@ import Model.ModelCellProduct;
  *
  * @author yatac
  */
+
 public interface TableActionEventProduct {
     public void onEdit(ModelCellProduct producto);
     public void onDelete(ModelCellProduct producto);

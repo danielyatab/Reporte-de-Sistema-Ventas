@@ -4,13 +4,11 @@
  */
 package view.panels;
 
-import Model.ModelCellProduct;
-import Table.TableProduct.TableActionEventProduct;
-import design.Maximize;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
+import Model.ModelCellClientes;
+import Model.ModelCellVenta;
 import javax.swing.table.DefaultTableModel;
-import view.panels.forms.FormProducts;
+import table.TableClient.TableActionEventCliente;
+import table.Venta.TableActionEventVenta;
 
 
 
@@ -19,12 +17,12 @@ import view.panels.forms.FormProducts;
  *
  * @author yatac
  */
-public class PanelProducts extends javax.swing.JPanel {
+public class PanelVentas extends javax.swing.JPanel {
 
-    public PanelProducts() {
+    public PanelVentas() {
         initComponents();
-        TableProductos.fixTable(jScrollPane1);
-        TableProductos.setIconsColumns(6, 5,6);
+        TableVenta.fixTable(jScrollPane1);
+        TableVenta.setIconsColumns(4, 3,10);
         initData();
     }
 
@@ -42,7 +40,6 @@ public class PanelProducts extends javax.swing.JPanel {
 
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        ContentPanel = new javax.swing.JPanel();
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
         btn_ExportarExcel = new javax.swing.JLabel();
@@ -60,9 +57,10 @@ public class PanelProducts extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableProductos = new Table.TableProduct.TableProduct();
+        TableVenta = new table.Venta.TableVenta();
+        jPanel1 = new javax.swing.JPanel();
 
-        ContentButtonsSearch.setBackground(new java.awt.Color(255, 255, 255));
+        ContentButtonsSearch.setBackground(new java.awt.Color(250, 250, 250));
 
         TitleProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Proveedores.png"))); // NOI18N
 
@@ -74,11 +72,6 @@ public class PanelProducts extends javax.swing.JPanel {
 
         btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_NewProveedor.png"))); // NOI18N
         btn_AgregarProveedores.setToolTipText("");
-        btn_AgregarProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_AgregarProveedoresMouseClicked(evt);
-            }
-        });
 
         ContextSearch.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -173,7 +166,7 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
@@ -208,7 +201,7 @@ public class PanelProducts extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        TableProductos.setModel(new javax.swing.table.DefaultTableModel(
+        TableVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -216,68 +209,67 @@ public class PanelProducts extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TableProductos);
+        jScrollPane1.setViewportView(TableVenta);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1)
-                .addGap(38, 38, 38))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+                .addGap(31, 31, 31))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1)
-                .addGap(29, 29, 29))
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addGap(19, 19, 19))
         );
 
-        javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
-        ContentPanel.setLayout(ContentPanelLayout);
-        ContentPanelLayout.setHorizontalGroup(
-            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 342, Short.MAX_VALUE)
         );
-        ContentPanelLayout.setVerticalGroup(
-            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContentPanelLayout.createSequentialGroup()
-                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_AgregarProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProveedoresMouseClicked
-        addContainer(new FormProducts(), getWidth(), getHeight(), ContentPanel);
-    }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 /*EVENTO DE BOTONES*/
-    TableActionEventProduct event = new TableActionEventProduct() {
-
+    TableActionEventVenta event = new TableActionEventVenta() {
         @Override
-        public void onEdit(ModelCellProduct producto) {
-            System.out.println("Product Editar" + TableProductos.getSelectedRow() );
-            Maximize.updateCrud = true;
-            addContainer(new FormProducts(), getWidth(), getHeight(), ContentPanel);
+        public void onDelete(ModelCellVenta venta) {
+            System.out.println("Eliminar venta");
         }
 
         @Override
-        public void onDelete(ModelCellProduct producto) {
-            System.out.println("Product Eliminar" + TableProductos.getSelectedRow() );
+        public void onEdit(ModelCellVenta venta) {
+            System.out.println("HOla ");
         }
         
     };
@@ -287,39 +279,22 @@ public class PanelProducts extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData(){
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Codigo", "Nombre","Tipo", "Cantidad", "Precio U.", "Editar", "Eliminar"};
-        TableProductos.setModel(modelo);
+        String columns[] = {"Producto","Cantidad","Importe", "Eliminar"};
+        TableVenta.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
           for(int i=0; i<30; i++){
-            TableProductos.addRow(new ModelCellProduct("13123sd", "galleta soda V",
-             "golosina",12, 12.5f).toRowTable(event));
+            //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
+            // 12, 12.5f,"Abierto").toRowTable(event));
+            TableVenta.addRow(new ModelCellVenta("Galleta", 12, 192.02f).toRowTable(event));
         }   
     }
     
     
-    
-    /**
-     *
-     * @param p Panel de Ingreso
-     * @param width Ancho
-     * @param height Alto
-     * @param c contenedor
-     */
-    public void addContainer(JPanel p, int width, int height, JPanel c) {
-        p.setSize(width, height);
-        p.setLocation(0, 0);
-        c.removeAll();
-        c.add(p, BorderLayout.CENTER);
-        c.revalidate();
-        c.repaint();
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;
-    private javax.swing.JPanel ContentPanel;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
-    private Table.TableProduct.TableProduct TableProductos;
+    private table.Venta.TableVenta TableVenta;
     private javax.swing.JPanel TextSearch;
     private javax.swing.JLabel TitleProveedores;
     private javax.swing.JLabel btn_AgregarProveedores;
@@ -328,6 +303,7 @@ public class PanelProducts extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

@@ -5,8 +5,13 @@
 package view.panels;
 
 import Model.ModelCellClientes;
+import design.Maximize;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableClient.TableActionEventCliente;
+import view.panels.forms.FormClientes;
+import view.panels.forms.FormProducts;
 
 
 
@@ -20,7 +25,7 @@ public class PanelCliente extends javax.swing.JPanel {
     public PanelCliente() {
         initComponents();
         TableClientes.fixTable(jScrollPane1);
-        TableClientes.setIconsColumns(6, 5,6);
+        TableClientes.setIconsColumns(7, 5,6);
         initData();
     }
 
@@ -38,6 +43,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        ContentPanel = new javax.swing.JPanel();
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
         btn_ExportarExcel = new javax.swing.JLabel();
@@ -53,7 +59,7 @@ public class PanelCliente extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
+        ContentTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableClientes = new table.TableClient.TableClientes();
 
@@ -69,6 +75,11 @@ public class PanelCliente extends javax.swing.JPanel {
 
         btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_NewProveedor.png"))); // NOI18N
         btn_AgregarProveedores.setToolTipText("");
+        btn_AgregarProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_AgregarProveedoresMouseClicked(evt);
+            }
+        });
 
         ContextSearch.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -196,7 +207,7 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        ContentTable.setBackground(new java.awt.Color(255, 255, 255));
 
         TableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -208,49 +219,67 @@ public class PanelCliente extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(TableClientes);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout ContentTableLayout = new javax.swing.GroupLayout(ContentTable);
+        ContentTable.setLayout(ContentTableLayout);
+        ContentTableLayout.setHorizontalGroup(
+            ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentTableLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1)
                 .addGap(37, 37, 37))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        ContentTableLayout.setVerticalGroup(
+            ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentTableLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1)
                 .addGap(28, 28, 28))
+        );
+
+        javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
+        ContentPanel.setLayout(ContentPanelLayout);
+        ContentPanelLayout.setHorizontalGroup(
+            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        ContentPanelLayout.setVerticalGroup(
+            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentPanelLayout.createSequentialGroup()
+                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(ContentTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_AgregarProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProveedoresMouseClicked
+            addContainer(new FormClientes(), getWidth(), getHeight(), ContentPanel);
+    }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 /*EVENTO DE BOTONES*/
     TableActionEventCliente event = new TableActionEventCliente() {
         @Override
         public void onEdit(ModelCellClientes clientes) {
             System.out.println("Edit cliente" + TableClientes.getSelectedRow());
+            Maximize.updateCrud = true;
+            addContainer(new FormClientes(), getWidth(), getHeight(), ContentPanel);
         }
 
         @Override
         public void onDelete(ModelCellClientes clientes) {
             System.out.println("Delete cliente" + TableClientes.getSelectedRow());
             System.out.println("BORANDOOOOOOOO");
+             
         }
        
     };
@@ -270,9 +299,26 @@ public class PanelCliente extends javax.swing.JPanel {
         }   
     }
     
+    /**
+     *
+     * @param p Panel de Ingreso
+     * @param width Ancho
+     * @param height Alto
+     * @param c contenedor
+     */
+    public void addContainer(JPanel p, int width, int height, JPanel c) {
+        p.setSize(width, height);
+        p.setLocation(0, 0);
+        c.removeAll();
+        c.add(p, BorderLayout.CENTER);
+        c.revalidate();
+        c.repaint();
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;
+    private javax.swing.JPanel ContentPanel;
+    private javax.swing.JPanel ContentTable;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
     private table.TableClient.TableClientes TableClientes;
@@ -284,7 +330,6 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

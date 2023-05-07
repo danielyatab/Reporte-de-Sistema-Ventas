@@ -55,8 +55,9 @@ public class PanelCliente extends javax.swing.JPanel {
         IconSearch = new javax.swing.JLabel();
         typeName = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        typeName1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         ContentTable = new javax.swing.JPanel();
@@ -65,7 +66,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
         ContentButtonsSearch.setBackground(new java.awt.Color(250, 250, 250));
 
-        TitleProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Proveedores.png"))); // NOI18N
+        TitleProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/TitleClientes.png"))); // NOI18N
 
         btn_ExportarExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_ExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ExportarExcel.png"))); // NOI18N
@@ -73,7 +74,7 @@ public class PanelCliente extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ImportarExcel.png"))); // NOI18N
 
-        btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_NewProveedor.png"))); // NOI18N
+        btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_newCLIENTE.png"))); // NOI18N
         btn_AgregarProveedores.setToolTipText("");
         btn_AgregarProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,7 +104,7 @@ public class PanelCliente extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TextSearchLayout.createSequentialGroup()
                 .addComponent(IconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(txtSearchProveedores))
+                .addComponent(txtSearchProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
         );
         TextSearchLayout.setVerticalGroup(
             TextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,43 +119,61 @@ public class PanelCliente extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/typeTelefono.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/typeRuc.png"))); // NOI18N
-
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(16, 21, 64));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Consumibles", "Libros" }));
         jComboBox1.setBorder(null);
         jComboBox1.setFocusable(false);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(16, 21, 64));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documento", "DNI", "RUC" }));
+        jComboBox2.setBorder(null);
+        jComboBox2.setFocusable(false);
+
+        typeName1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnBuscarPorApellido.png"))); // NOI18N
 
         javax.swing.GroupLayout ContextSearchLayout = new javax.swing.GroupLayout(ContextSearch);
         ContextSearch.setLayout(ContextSearchLayout);
         ContextSearchLayout.setHorizontalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContextSearchLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(TextSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(94, 94, 94)
+                .addGap(15, 15, 15)
+                .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(typeName)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(typeName1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel3)
-                .addGap(29, 29, 29)
+                .addGap(12, 12, 12)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(60, 60, 60))
         );
         ContextSearchLayout.setVerticalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContextSearchLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(typeName1)
+                    .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(typeName)))
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(typeName))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,7 +193,7 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
@@ -194,10 +213,10 @@ public class PanelCliente extends javax.swing.JPanel {
             .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_ExportarExcel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_AgregarProveedores, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TitleProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TitleProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,14 +245,14 @@ public class PanelCliente extends javax.swing.JPanel {
             .addGroup(ContentTableLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1)
-                .addGap(37, 37, 37))
+                .addGap(56, 56, 56))
         );
         ContentTableLayout.setVerticalGroup(
             ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentTableLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1)
-                .addGap(28, 28, 28))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
@@ -266,6 +285,10 @@ public class PanelCliente extends javax.swing.JPanel {
     private void btn_AgregarProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProveedoresMouseClicked
             addContainer(new FormClientes(), getWidth(), getHeight(), ContentPanel);
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 /*EVENTO DE BOTONES*/
     TableActionEventCliente event = new TableActionEventCliente() {
         @Override
@@ -327,9 +350,9 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JLabel btn_AgregarProveedores;
     private javax.swing.JLabel btn_ExportarExcel;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -337,6 +360,7 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField txtSearchProveedores;
     private javax.swing.JLabel typeName;
+    private javax.swing.JLabel typeName1;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -64,7 +64,7 @@ public class PanelProducts extends javax.swing.JPanel {
 
         ContentButtonsSearch.setBackground(new java.awt.Color(255, 255, 255));
 
-        TitleProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Proveedores.png"))); // NOI18N
+        TitleProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/TitleProductos.png"))); // NOI18N
 
         btn_ExportarExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_ExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ExportarExcel.png"))); // NOI18N
@@ -72,7 +72,7 @@ public class PanelProducts extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ImportarExcel.png"))); // NOI18N
 
-        btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_NewProveedor.png"))); // NOI18N
+        btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_newPRODUCTO.png"))); // NOI18N
         btn_AgregarProveedores.setToolTipText("");
         btn_AgregarProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -102,7 +102,7 @@ public class PanelProducts extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TextSearchLayout.createSequentialGroup()
                 .addComponent(IconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(txtSearchProveedores))
+                .addComponent(txtSearchProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
         );
         TextSearchLayout.setVerticalGroup(
             TextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,11 +113,11 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        typeName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/typeNombre.png"))); // NOI18N
+        typeName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnBuscarPorCodigo.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/typeTelefono.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/typeNombre.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/typeRuc.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnBuscarPorPrecio.png"))); // NOI18N
 
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
@@ -133,7 +133,7 @@ public class PanelProducts extends javax.swing.JPanel {
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(TextSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(94, 94, 94)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(typeName)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
@@ -141,19 +141,21 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(29, 29, 29)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(43, 43, 43))
         );
         ContextSearchLayout.setVerticalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(typeName)))
+                .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContextSearchLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(typeName))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -173,7 +175,7 @@ public class PanelProducts extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
@@ -193,10 +195,10 @@ public class PanelProducts extends javax.swing.JPanel {
             .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_ExportarExcel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_AgregarProveedores, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TitleProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TitleProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(btn_AgregarProveedores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

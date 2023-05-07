@@ -13,7 +13,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import main.MainOrigin;
+import main.Main;
 import table.Venta.TableActionEventVenta;
 import view.panels.PanelDetalleVentas;
 import view.panels.PanelProducts;

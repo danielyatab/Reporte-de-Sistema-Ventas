@@ -13,10 +13,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import view.panels.PanelCliente;
 import view.panels.PanelDetalleVentas;
 import view.panels.PanelProducts;
@@ -29,7 +34,8 @@ import view.panels.forms.FormDetalleProductos;
  *
  * @author yatac
  */
-public class MainOrigin extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
+    
     private ArrayList<JLabel> listaLabels =  new ArrayList<>();
     private ArrayList<JPanel> listaJpanel =  new ArrayList<>();
     private ArrayList<JPanel> listaForms =  new ArrayList<>();
@@ -37,13 +43,13 @@ public class MainOrigin extends javax.swing.JFrame {
     private String rute = "";
     private int indexPanel=0;
     static boolean maximize = false;
-    //Timer timer;
-    int alpha = 0;
+
     
-    public MainOrigin() {
+    public Main() {
         initComponents();
         Maximize.width_maximize = getWidth();
         Maximize.heigth_maximize = getHeight();
+        Maximize.mainSet = true;
         autoList(); 
         updatePanelMinMax();
         setLocationRelativeTo(null);
@@ -63,7 +69,6 @@ public class MainOrigin extends javax.swing.JFrame {
         ButtonDetalleVentas = new javax.swing.JLabel();
         ButtonClientes = new javax.swing.JLabel();
         ContentPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         HeadPanel = new javax.swing.JPanel();
         btnClose = new javax.swing.JPanel();
         closeLabel = new javax.swing.JLabel();
@@ -71,6 +76,8 @@ public class MainOrigin extends javax.swing.JFrame {
         maximizeLabel = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JPanel();
         minimizeLabel = new javax.swing.JLabel();
+        btnUsuarios = new javax.swing.JPanel();
+        labelUsuarios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -173,26 +180,19 @@ public class MainOrigin extends javax.swing.JFrame {
 
         ContentPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("jLabel1");
-
         javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
         ContentPanel.setLayout(ContentPanelLayout);
         ContentPanelLayout.setHorizontalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContentPanelLayout.createSequentialGroup()
-                .addGap(346, 346, 346)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 872, Short.MAX_VALUE)
         );
         ContentPanelLayout.setVerticalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContentPanelLayout.createSequentialGroup()
-                .addGap(296, 296, 296)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 721, Short.MAX_VALUE)
         );
 
         HeadPanel.setBackground(new java.awt.Color(255, 255, 255));
+        HeadPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnClose.setBackground(new java.awt.Color(255, 255, 255));
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,7 +219,7 @@ public class MainOrigin extends javax.swing.JFrame {
         );
         btnCloseLayout.setVerticalGroup(
             btnCloseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(closeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(closeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnMaximize.setBackground(new java.awt.Color(255, 255, 255));
@@ -278,12 +278,38 @@ public class MainOrigin extends javax.swing.JFrame {
             .addComponent(minimizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        btnUsuarios.setBackground(new java.awt.Color(217, 217, 217));
+
+        labelUsuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnUsuarios.png"))); // NOI18N
+        labelUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelUsuariosMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnUsuariosLayout = new javax.swing.GroupLayout(btnUsuarios);
+        btnUsuarios.setLayout(btnUsuariosLayout);
+        btnUsuariosLayout.setHorizontalGroup(
+            btnUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnUsuariosLayout.createSequentialGroup()
+                .addComponent(labelUsuarios)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+        btnUsuariosLayout.setVerticalGroup(
+            btnUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnUsuariosLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(labelUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout HeadPanelLayout = new javax.swing.GroupLayout(HeadPanel);
         HeadPanel.setLayout(HeadPanelLayout);
         HeadPanelLayout.setHorizontalGroup(
             HeadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeadPanelLayout.createSequentialGroup()
-                .addContainerGap(748, Short.MAX_VALUE)
+                .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,6 +322,7 @@ public class MainOrigin extends javax.swing.JFrame {
             .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnMaximize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -321,7 +348,23 @@ public class MainOrigin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        System.exit(0);
+       
+        /*
+        *   Desactivar modo Nibus por Windows
+        */
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        
+        String[] opciones = {"Si","No"};
+        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+        if (opcion == JOptionPane.YES_OPTION) {
+             System.exit(0);
+        } 
+       
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
@@ -406,7 +449,11 @@ public class MainOrigin extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     private void ButtonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseClicked
+       Maximize.mainSet = true;
        cambiarIconoColor(ButtonExit);
+       LoginInit log = new LoginInit();
+       log.setVisible(true);
+       dispose();
     }//GEN-LAST:event_ButtonExitMouseClicked
 
     private void ButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseClicked
@@ -417,51 +464,19 @@ public class MainOrigin extends javax.swing.JFrame {
        updatePanelMinMax();
     }//GEN-LAST:event_ButtonClientesMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainOrigin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainOrigin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainOrigin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainOrigin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainOrigin().setVisible(true);
-            }
-        });
-    }
-
-    
+    private void labelUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelUsuariosMouseClicked
+        Users user =  new Users();
+        user.setMainEnter(true);
+        user.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_labelUsuariosMouseClicked
+  
     public void resizeFormsPanels(){
        if(Maximize.isForm){
             setUpdateDetalleProduct();
         }else {
             updatePanelMinMax();
         }
-       
-        
     }
     
     private void maximizeResize() {
@@ -574,6 +589,8 @@ public class MainOrigin extends javax.swing.JFrame {
 
     
     private void autoList(){
+       
+        ButtonReporteVentas.setIcon(new ImageIcon("src/img/btn_ReporteVentasWhite.png"));
         /*JLABEL*/
         listaLabels.add(ButtonReporteVentas);
         listaLabels.add(ButtonClientes);
@@ -613,11 +630,17 @@ public class MainOrigin extends javax.swing.JFrame {
     private javax.swing.JPanel btnClose;
     private javax.swing.JPanel btnMaximize;
     private javax.swing.JPanel btnMinimize;
+    private javax.swing.JPanel btnUsuarios;
     private javax.swing.JLabel closeLabel;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelUsuarios;
     private javax.swing.JLabel maximizeLabel;
     private javax.swing.JLabel minimizeLabel;
     // End of variables declaration//GEN-END:variables
+    
+    
+    /*
+    * BACKGROOUND MENU
+    */
     class FondoPanel extends JPanel
     {
         private Image imagen;

@@ -5,8 +5,12 @@
 package view.panels;
 
 import Model.ModelCellProveedores;
+import design.Maximize;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableProveedores.TableActionEventProveedores;
+import view.panels.forms.FormProveedores;
 
 
 
@@ -35,8 +39,7 @@ public class PanelProveedores extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
+        ContentPanel = new javax.swing.JPanel();
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
         btn_ExportarExcel = new javax.swing.JLabel();
@@ -68,6 +71,11 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_NewProveedor.png"))); // NOI18N
         btn_AgregarProveedores.setToolTipText("");
+        btn_AgregarProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_AgregarProveedoresMouseClicked(evt);
+            }
+        });
 
         ContextSearch.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -122,7 +130,7 @@ public class PanelProveedores extends javax.swing.JPanel {
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(TextSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(94, 94, 94)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(typeName)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
@@ -220,30 +228,55 @@ public class PanelProveedores extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-                .addGap(21, 21, 21))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
+        );
+
+        javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
+        ContentPanel.setLayout(ContentPanelLayout);
+        ContentPanelLayout.setHorizontalGroup(
+            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        ContentPanelLayout.setVerticalGroup(
+            ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentPanelLayout.createSequentialGroup()
+                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 913, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 672, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_AgregarProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProveedoresMouseClicked
+        addContainer(new FormProveedores(), getWidth(), getHeight(), ContentPanel);
+        
+    }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 /*EVENTO DE BOTONES*/
     TableActionEventProveedores event = new TableActionEventProveedores() {
         @Override
         public void onEdit(ModelCellProveedores proveedores) {
-            System.out.println("Proveedores editar" + TableProveedores.getSelectedRow());
+            addContainer(new FormProveedores(), getWidth(), getHeight(), ContentPanel);
+            Maximize.updateCrud = false;
         }
 
         @Override
@@ -269,8 +302,26 @@ public class PanelProveedores extends javax.swing.JPanel {
     }
     
     
+    /**
+     *
+     * @param p Panel de Ingreso
+     * @param width Ancho
+     * @param height Alto
+     * @param c contenedor
+     */
+    public void addContainer(JPanel p, int width, int height, JPanel c) {
+        p.setSize(width, height);
+        p.setLocation(0, 0);
+        c.removeAll();
+        c.add(p, BorderLayout.CENTER);
+        c.revalidate();
+        c.repaint();
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;
+    private javax.swing.JPanel ContentPanel;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
     private table.TableProveedores.TableProveedores TableProveedores;
@@ -285,8 +336,6 @@ public class PanelProveedores extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField txtSearchProveedores;
     private javax.swing.JLabel typeName;

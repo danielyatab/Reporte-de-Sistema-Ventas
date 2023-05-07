@@ -16,4 +16,6 @@ public class Maximize {
     public static int heigth_maximize = 0;
     public static int indexForms =0;
     public static boolean updateCrud = false;
+    public static boolean mainSet = false;
+    
 }

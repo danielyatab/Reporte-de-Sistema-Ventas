@@ -5,7 +5,6 @@
 package Model;
 
 import Buttons.ModelActionClientes;
-import Buttons.ModelActionProductos;
 import table.TableClient.TableActionEventCliente;
 
 /**
@@ -14,11 +13,20 @@ import table.TableClient.TableActionEventCliente;
  */
 public class ModelCellClientes {
     
+    private String idCliente;
     private String dni;
     private String nombre;
     private String apellido;
     private String telefono;
     private String correo;
+
+    public ModelCellClientes(String idCliente, String dni, String nombre, String apellido, String telefono, String correo) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
 
     public ModelCellClientes(String dni, String nombre, String apellido, String telefono, String correo) {
         this.dni = dni;
@@ -26,6 +34,13 @@ public class ModelCellClientes {
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
+    }
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getDni() {

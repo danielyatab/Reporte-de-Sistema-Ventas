@@ -4,8 +4,17 @@
  */
 package main;
 
+import Model.ModelUser;
+import controller.JsonUserValidation;
+import controller.Threads;
+import controller.ValidateRegular;
 import java.awt.Color;
+import static java.lang.String.valueOf;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import static main.Users.setMainEnter;
 
 /**
  *
@@ -13,13 +22,20 @@ import javax.swing.ImageIcon;
  */
 public class LoginInit extends javax.swing.JFrame {
 
+    JsonUserValidation jsonUser = new JsonUserValidation();
+        
+    private static boolean check = true;
+    private static boolean checkSetUser = true;
+    private static boolean checkSetPassword = true;
     /**
      * Creates new form LoginInit
      */
     public LoginInit() {
         initComponents();
+        setFocusable(true);
         setLocationRelativeTo(null);
         setBackground(new Color(0,0,0,0));
+        
     }
 
     /**
@@ -31,7 +47,9 @@ public class LoginInit extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        CheckBoxPassword = new javax.swing.JLabel();
+        btnClose = new javax.swing.JLabel();
+        btnIniciarSesion = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         txtUsuario = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
@@ -43,14 +61,37 @@ public class LoginInit extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/btnIniciar.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        CheckBoxPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/CheckOffBlack.png"))); // NOI18N
+        CheckBoxPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                CheckBoxPasswordMouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 290, 80));
+        getContentPane().add(CheckBoxPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 530, 160, 40));
+
+        btnClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnClose.png"))); // NOI18N
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCloseMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCloseMouseExited(evt);
+            }
+        });
+        getContentPane().add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 30, 30));
+
+        btnIniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/btnIniciar.png"))); // NOI18N
+        btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 290, 80));
 
         jSeparator2.setBackground(new java.awt.Color(0, 0, 103));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 103));
@@ -70,19 +111,19 @@ public class LoginInit extends javax.swing.JFrame {
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 103));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 103));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 550, 280, 10));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 520, 280, 10));
 
         txtContraseña.setBackground(new java.awt.Color(255, 255, 255));
-        txtContraseña.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
+        txtContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtContraseña.setForeground(new java.awt.Color(0, 0, 103));
-        txtContraseña.setText("Ingrese la Contraseña");
+        txtContraseña.setText("Ingrese Contraseña");
         txtContraseña.setBorder(null);
         txtContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtContraseñaMouseClicked(evt);
             }
         });
-        getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 290, 50));
+        getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 290, 50));
 
         btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/btnVolver_1.png"))); // NOI18N
         btnVolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,25 +160,97 @@ public class LoginInit extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverMouseClicked
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
-        txtUsuario.setText("");
+         if (checkSetUser) {
+            txtUsuario.setText("");
+            if(checkSetPassword ){
+                txtContraseña.setText("");
+                checkSetPassword = false;
+            }
+            checkSetUser = false;
+        }
     }//GEN-LAST:event_txtUsuarioMouseClicked
 
     private void txtContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraseñaMouseClicked
-         txtContraseña.setText("");
+        if (checkSetPassword) {
+            txtUsuario.setText("");
+            if(checkSetUser){
+                txtContraseña.setText("");
+                checkSetUser = false;
+            }
+            checkSetPassword = false;
+        }
+       
     }//GEN-LAST:event_txtContraseñaMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        Main main = new Main();
-        main.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
+        char[] contraseña = txtContraseña.getPassword();
+        String passwordStr = valueOf(contraseña);
+        int newPassword = contraseña.length;
+        String userName = txtUsuario.getText();
+        ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
+        ModelUser user = new ModelUser(userName, passwordStr);
+        
+        if(checkSetPassword){
+            JOptionPane.showMessageDialog(null, "Termine de llenar los campos", "", 0, icono);
+        }else {
+            //Reset Diseño
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+                e.printStackTrace();
+            }
+            if (ValidateRegular.SYMBOLS_PATTERN.matcher(userName).matches()) {
+                    if(jsonUser.validarUsuario(user)){
+                        Main main = new Main();
+                        main.setVisible(true);
+                        dispose();
+                    }
+            } else {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener espacios o simbolos, ejemplo: admin123", "", 0, icono);
+                txtUsuario.setText("");
+                txtContraseña.setText("");
+                txtContraseña.setFocusable(true);
+            }
+        }
+        
+    }//GEN-LAST:event_btnIniciarSesionMouseClicked
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
+//        btnClose.setIcon(new ImageIcon("src/img/BtnCloseWhite.png"));
+    }//GEN-LAST:event_btnCloseMouseEntered
+
+    private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
+        //btnClose.setIcon(new ImageIcon("src/img/BtnClose.png"));
+    }//GEN-LAST:event_btnCloseMouseExited
+
+    private void CheckBoxPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CheckBoxPasswordMouseClicked
+        if (check) {
+            CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOnBlack.png"));
+            check = false;
+            txtContraseña.setEchoChar((char) 0);
+            if(checkSetPassword){
+                txtContraseña.setText("");
+                checkSetPassword = false; 
+            }
+        } else {
+            CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOffBlack.png"));
+            check = true;
+            txtContraseña.setEchoChar('*');
+        }
+    }//GEN-LAST:event_CheckBoxPasswordMouseClicked
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bakcground;
+    private javax.swing.JLabel CheckBoxPassword;
+    private javax.swing.JLabel btnClose;
+    private javax.swing.JLabel btnIniciarSesion;
     private javax.swing.JLabel btnVolver;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPasswordField txtContraseña;

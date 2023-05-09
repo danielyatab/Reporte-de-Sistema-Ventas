@@ -4,7 +4,6 @@
  */
 package Model;
 
-import Buttons.ModelActionProductos;
 import Buttons.ModelActionProveedores;
 import table.TableProveedores.TableActionEventProveedores;
 

@@ -5,8 +5,6 @@
 package table.ventaDiaria;
 
 import Design.ScrollBar;
-import Table.TableProduct.TableCell;
-//import Table.TableProduct.TableCell;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;

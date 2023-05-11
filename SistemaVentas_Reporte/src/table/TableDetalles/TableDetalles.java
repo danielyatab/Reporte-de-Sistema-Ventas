@@ -4,17 +4,12 @@
  */
 package table.TableDetalles;
 
-import table.TableClient.*;
-import Buttons.ModelActionClientes;
 import Buttons.ModelActionDetalles;
 import Design.ShadowRenderer;
 import Design.ScrollBar;
-import Buttons.PanelActionDeleteClientes;
 import Buttons.PanelActionDeleteDetalles;
 import Buttons.PanelActionDetalleVentasDetails;
-import Buttons.PanelActionEditClientes;
 import Buttons.PanelActionEditDetalles;
-import Table.TableProduct.TableCell;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
@@ -34,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import table.TableHeader;
-import table.TableProduct.TableCellActionDetalles;
+import table.TableCell;
 
 /**
  *

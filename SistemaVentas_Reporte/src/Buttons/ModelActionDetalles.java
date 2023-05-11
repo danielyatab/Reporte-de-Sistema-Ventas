@@ -3,7 +3,6 @@ package Buttons;
 import Model.ModelCellDetalles;
 import table.TableDetalles.TableActionEventDetalles;
 
-
 public class ModelActionDetalles {
 
     public ModelCellDetalles getDetalles() {
@@ -26,7 +25,6 @@ public class ModelActionDetalles {
         this.detalles = detalles;
         this.event = event;
     }
-
 
     private ModelCellDetalles detalles;
     private TableActionEventDetalles event;

@@ -3,7 +3,6 @@ package Buttons;
 import Model.ModelCellProduct;
 import Table.TableProduct.TableActionEventProduct;
 
-
 public class ModelActionProductos {
 
     public ModelCellProduct getProducto() {
@@ -23,14 +22,11 @@ public class ModelActionProductos {
     }
 
     
-    
     public ModelActionProductos(ModelCellProduct producto, TableActionEventProduct event) {
         this.producto = producto;
         this.event = event;
     }
 
-
- 
     public ModelActionProductos() {
         
     }

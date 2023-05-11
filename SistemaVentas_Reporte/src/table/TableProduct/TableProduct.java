@@ -8,7 +8,6 @@ import Design.ShadowRenderer;
 import Design.ScrollBar;
 import Buttons.ModelActionProductos;
 import Buttons.PanelActionDeleteProduct;
-import Buttons.PanelActionDetalleVentasDetails;
 import Buttons.PanelActionEditProductos;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -28,8 +27,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import table.TableCell;
 import table.TableHeader;
-import table.TableProduct.TableCellActionDetalles;
 
 /**
  *
@@ -40,7 +39,6 @@ public class TableProduct extends JTable{
     private int columns;
     private int columnEdit;
     private int columnDelete;
-    private int columnDetalle;
     
     public void setIconsColumns(int columns, int columnEdit, int columnDelete){
         this.columns = columns;

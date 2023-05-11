@@ -29,8 +29,7 @@ public class JsonUserValidation {
 
     private static List<ModelUser> usersGlobal = null;
     static ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
-    
-    
+
     /*Retorno de Usuarios*/
     public static List<ModelUser> returnUser() {
         Gson gson = new Gson();
@@ -45,14 +44,12 @@ public class JsonUserValidation {
 
     /*Retorno de Usuarios*/
     public static void addUser(ModelUser newUser) {
-        newUser.setId(idRandom());
-        while (!comprobarUserCode(newUser)) {
-            newUser.setId(idRandom());
-        }
-        comprobarUserName(newUser);
+        verifCodeUser(newUser);
+        comprobarUser(newUser);
     }
 
-    public static void modificarProductos(List<ModelUser> usersMod) {
+    /*Update Usuarios*/
+    public static void modificarUsuario(List<ModelUser> usersMod) {
         Gson gson = new Gson();
         try (Writer writer = new FileWriter(FileJson.rutaUser)) {
             gson.toJson(usersMod, writer);
@@ -77,97 +74,49 @@ public class JsonUserValidation {
     /**
      * ***********************CRUD JSON******************************
      */
-    
-     public static boolean validarUsuario(ModelUser usuario){
-          List<ModelUser> users = returnUser();
-          for(ModelUser u: users){
-              if(usuario.getUser().equals(u.getUser())){
-                if(encriptarSha256(usuario.getPassword()).equals(u.getPassword())){
-                    ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
-                    JOptionPane.showMessageDialog(null, "Regitro Exitoso", "", 0, icononew);                  
-                    return true;
-                }else {
-                    JOptionPane.showMessageDialog(null, "La contraseña no es valido", "", 0, icono);     
-                    return false;    
-                }
-              }
-          }
-         JOptionPane.showMessageDialog(null, "El usuario no se encuentra registrado", "", 0, icono);   
-         return false;
-     }
-    
-    
-    
-    /*
-    public static boolean updateProducto(ModelUser userModificado){
-        
-        List<ModelUser> users = returnProductos();
-            for(int i=0; i<users.size(); i++){
-                if(users.get(i).getUser()== userModificado.getId()){
-                   users.set(i, userModificado);
-                   break;
-                }
-            }
-            modificarProductos(users);
-        
-    }
-    
-   
-    public static ModelUser searchProducto(String userSearch){
-        ModelUser searchUser =  new ModelUser();
-        for( ModelUser p: returnProductos()){
-            if(p.getUser()== userSearch){
-                searchUser = p;
-                break;
-            }else {
-                searchUser = null;
-            }
-        }       
-        return searchUser;
-    }
-        
-    public static void deleteProducto(String nameUser){
-        ModelUser searchPerson =  new  ModelUser();
-        List<ModelUser> listUser = returnProductos();
-       for(int i=0; i<listUser.size(); i++){
-            if(listUser.get(i).getUser()== nameUser){
-               listUser.remove(i);
-               break;
-            }
-        }             
-        modificarProductos(listUser);
-    }
-    
-    
-    
-    
-     */
-    
-    
-    
-    /**
-     * ***********************METODOS DE INTEGRACION DE DATOS JSON******************************
-     */
-    //Veificacion no repetitiva de id
-    public static boolean comprobarUserName(ModelUser us) {
+    public static boolean validarUsuario(ModelUser usuario) {
         List<ModelUser> users = returnUser();
-        for (ModelUser u : returnUser()) {
-            if (u.getUser().equals(us.getUser())) {
-                //MessageError
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                    e.printStackTrace();
+        for (ModelUser u : users) {
+            if (usuario.getUser().equals(u.getUser())) {
+                if (encriptarSha256(usuario.getPassword()).equals(u.getPassword())) {
+                    ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+                    JOptionPane.showMessageDialog(null, "Regitro Exitoso", "", 0, icononew);
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "La contraseña no es valido", "", 0, icono);
+                    return false;
                 }
-                JOptionPane.showMessageDialog(null, "El usuario ya se encuentra registrado", "", 0, icono);
-                return false;
             }
         }
-        us.setPassword(encriptarSha256(us.getPassword()));
-        users.add(us);
-        modificarProductos(users);
-        ValidateRegular.setCreateUser = true;
-        return true;
+        JOptionPane.showMessageDialog(null, "El usuario no se encuentra registrado", "", 0, icono);
+        return false;
+    }
+
+    /**
+     * ***********************METODOS DE INTEGRACION DE DATOS
+     * JSON******************************
+     */
+    //Veificacion no repetitiva de id
+    public static boolean comprobarUser(ModelUser us) {
+        List<ModelUser> users = returnUser();
+        if (comprobarNombreUser(us)) {
+            return false;
+        } else {
+            us.setPassword(encriptarSha256(us.getPassword()));
+            users.add(us);
+            modificarUsuario(users);
+            modificarUserHistorial(users);
+            ValidateRegular.setCreateUser = true;
+            return true;
+        }
+
+    }
+
+    public static void verifCodeUser(ModelUser newUser) {
+        newUser.setId(idRandom());
+        while (!comprobarUserCode(newUser)) {
+            newUser.setId(idRandom());
+        }
     }
 
     public static boolean comprobarUserCode(ModelUser us) {
@@ -177,10 +126,33 @@ public class JsonUserValidation {
                 return false;
             }
         }
+
+        for (ModelUser user : returnUserHistorial()) {
+            //Si el id historial es igual o el usuario
+            if (user.getId().equals(us.getId())) {
+                System.out.println("El id se repite");
+                return false;
+            }
+        }
         return true;
     }
-    
-    
+
+    public static boolean comprobarNombreUser(ModelUser user) {
+        for (ModelUser u : returnUser()) {
+            if (u.getUser().equals(user.getUser())) {
+                //MessageError
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+                    e.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(null, "El Usuario ya se encuentra registrado", "", 0, icono);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Id random
     private static String idRandom() {
         Random random = new Random();
@@ -203,6 +175,27 @@ public class JsonUserValidation {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<ModelUser> returnUserHistorial() {
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(FileJson.rutaIdUser)) { // Asegura que se cerrara de manera segura el archivo
+            usersGlobal = gson.fromJson(reader, new TypeToken<List<ModelUser>>() {
+            }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return usersGlobal;
+    }
+
+    public static void modificarUserHistorial(List<ModelUser> user) {
+        Gson gson = new Gson();
+        //LLenado clientes
+        try (Writer writer2 = new FileWriter(FileJson.rutaIdUser)) {
+            gson.toJson(user, writer2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

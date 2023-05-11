@@ -258,8 +258,8 @@ public class PanelVentas extends javax.swing.JPanel {
             ContentTableProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentTableProductLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addGap(70, 70, 70))
         );
 
         ContentClienteBoleta.setBackground(new java.awt.Color(255, 255, 255));

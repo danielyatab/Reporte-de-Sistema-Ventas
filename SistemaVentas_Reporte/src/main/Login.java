@@ -4,6 +4,7 @@
  */
 package main;
 
+import Model.conexion.FullCrudMysql;
 import controller.Threads;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,17 +19,21 @@ import main.LoginInit;
 public class Login extends javax.swing.JFrame {
 
     Threads ejecutor = new Threads();
-    Thread hilo = new Thread( ejecutor);
-    
+    Thread hilo = new Thread(ejecutor);
+
     public Login() {
         hilo.start();
+        try {
+            new FullCrudMysql();
+        } catch (Exception e) {
+            System.out.println("Error de conexion");
+        }
         initComponents();
         setLocationRelativeTo(null);
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
     }
 
-    
-   @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -105,11 +110,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseExited
 
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
-       btnIniciarSesion.setIcon(new ImageIcon("src/img/Login/InicarSesiondScale.png"));
+        btnIniciarSesion.setIcon(new ImageIcon("src/img/Login/InicarSesiondScale.png"));
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
     private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
-       btnIniciarSesion.setIcon(new ImageIcon("src/img/Login/InicarSesion.png"));
+        btnIniciarSesion.setIcon(new ImageIcon("src/img/Login/InicarSesion.png"));
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
     private void btnCrearUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseEntered
@@ -133,7 +138,6 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCrearUsuarioMouseClicked
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -157,6 +161,9 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -165,8 +172,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-    
-     /**
+
+    /**
      *
      * @param p Panel de Ingreso
      * @param width Ancho
@@ -181,7 +188,7 @@ public class Login extends javax.swing.JFrame {
         c.revalidate();
         c.repaint();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backgroundLogin;
     private javax.swing.JLabel btnClose;

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model.conexion;
 
 import java.sql.Connection;
@@ -40,7 +36,7 @@ public class Conexion {
     
     public static void conectar_db(){
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventory", "root", "12@danielYting*3");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemaventasreporte", "root", "12@danielYting*3");
         } catch (SQLException e) {
             System.out.println("ERROR al conectar:" + e.getMessage());
         }

@@ -3,7 +3,6 @@ package Buttons;
 import Model.ModelCellVenta;
 import table.Venta.TableActionEventVenta;
 
-
 public class ModelActionVenta {
 
     public ModelCellVenta getVenta() {
@@ -26,7 +25,6 @@ public class ModelActionVenta {
         this.venta = venta;
         this.event = event;
     }
-
    
     public ModelActionVenta() {
         

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Table.TableProduct;
+package table;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,7 +19,7 @@ public class TableCell extends JLabel{
     public TableCell(String value){
         super(value);
         setForeground(new Color(60,60,60));
-        setFont(new java.awt.Font("sansserif", -2, 16));
+        setFont(new java.awt.Font("sansserif", 0, 13));
         setForeground(new Color(102,102,102));
         setBorder(new EmptyBorder(6,6,6,6));
     }

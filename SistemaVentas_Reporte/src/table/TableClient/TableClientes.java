@@ -9,7 +9,6 @@ import Design.ShadowRenderer;
 import Design.ScrollBar;
 import Buttons.PanelActionDeleteClientes;
 import Buttons.PanelActionEditClientes;
-import Table.TableProduct.TableCell;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
@@ -29,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import table.TableHeader;
+import table.TableCell;
 
 /**
  *

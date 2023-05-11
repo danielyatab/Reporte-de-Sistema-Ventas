@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import Buttons.ModelActionClientes;
 import table.TableClient.TableActionEventCliente;
-
 /**
  *
  * @author yatac
@@ -14,27 +9,45 @@ import table.TableClient.TableActionEventCliente;
 public class ModelCellClientes {
     
     private String idCliente;
-    private String dni;
+    private String tipoDocumento;
+    private String numDocumento;
     private String nombre;
     private String apellido;
     private String telefono;
     private String correo;
 
-    public ModelCellClientes(String idCliente, String dni, String nombre, String apellido, String telefono, String correo) {
-        this.dni = dni;
+    public ModelCellClientes(){
+    
+    }
+
+    public ModelCellClientes(String idCliente, String nombre, String apellido , String tipoDocumento, String numDocumento, String telefono, String correo) {
+        this.idCliente = idCliente;
+        this.tipoDocumento = tipoDocumento;
+        this.numDocumento = numDocumento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
     }
 
-    public ModelCellClientes(String dni, String nombre, String apellido, String telefono, String correo) {
-        this.dni = dni;
+    public ModelCellClientes(String nombre, String apellido , String tipoDocumento, String numDocumento, String telefono, String correo) {
+        this.tipoDocumento = tipoDocumento;
+        this.numDocumento = numDocumento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
     }
+    
+    public String getNumDocumento() {
+        return numDocumento;
+    }
+
+    public void setNumDocumento(String numDocumento) {
+        this.numDocumento = numDocumento;
+    }
+    
+    
     public String getIdCliente() {
         return idCliente;
     }
@@ -43,14 +56,14 @@ public class ModelCellClientes {
         this.idCliente = idCliente;
     }
 
-    public String getDni() {
-        return dni;
+    public String getTipoDocumento() {
+        return tipoDocumento;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
-
+    
     public String getNombre() {
         return nombre;
     }
@@ -84,7 +97,7 @@ public class ModelCellClientes {
     }
    
     public Object[] toRowTable(TableActionEventCliente event){
-        return new Object[]{dni, nombre, apellido, telefono,correo, new ModelActionClientes(this, event), new ModelActionClientes(this, event)};
+        return new Object[]{nombre, apellido,  tipoDocumento,numDocumento, telefono,correo, new ModelActionClientes(this, event), new ModelActionClientes(this, event)};
     }
     
 }

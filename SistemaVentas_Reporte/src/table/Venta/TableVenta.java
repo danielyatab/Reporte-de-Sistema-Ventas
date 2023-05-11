@@ -1,19 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package table.Venta;
 
-import table.TableClient.*;
-import Buttons.ModelActionClientes;
 import Buttons.ModelActionVenta;
 import Design.ShadowRenderer;
 import Design.ScrollBar;
-import Buttons.PanelActionDeleteClientes;
 import Buttons.PanelActionDeleteVenta;
-import Buttons.PanelActionEditClientes;
 import Buttons.PanelActionEditVenta;
-import Table.TableProduct.TableCell;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
@@ -33,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import table.TableHeader;
+import table.TableCell;
 
 /**
  *
@@ -98,8 +90,6 @@ public class TableVenta extends JTable{
         } catch (Exception e) {
             System.out.println("Error:"+ e.getMessage());
         }
-        
-        
     }
     
     @Override

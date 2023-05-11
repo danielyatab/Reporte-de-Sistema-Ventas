@@ -1,10 +1,7 @@
 package Buttons;
 
 import Model.ModelCellClientes;
-import Model.ModelCellProveedores;
 import table.TableClient.TableActionEventCliente;
-import table.TableProveedores.TableActionEventProveedores;
-
 
 public class ModelActionClientes {
 
@@ -28,8 +25,6 @@ public class ModelActionClientes {
         this.clientes = clientes;
         this.event = event;
     }
-
-   
 
     public ModelActionClientes() {
         

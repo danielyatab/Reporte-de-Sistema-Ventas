@@ -1,7 +1,8 @@
-
 package main;
 
 import Model.ModelUser;
+import Model.conexion.Conexion;
+import Model.conexion.CrudMysql;
 import controller.JsonUserValidation;
 import controller.ValidateRegular;
 import java.awt.Color;
@@ -22,8 +23,7 @@ public class Users extends javax.swing.JFrame {
     private static boolean checkSetUser = true;
     private static boolean checkSetPassword = true;
     private JsonUserValidation crudUser = new JsonUserValidation();
-    
-    
+
     public static boolean isMainEnter() {
         return mainEnter;
     }
@@ -158,8 +158,8 @@ public class Users extends javax.swing.JFrame {
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
         if (checkSetUser) {
             txtUsuario.setText("");
-            
-            if(checkSetPassword ){
+
+            if (checkSetPassword) {
                 txtContraseña.setText("");
                 checkSetPassword = false;
             }
@@ -170,7 +170,7 @@ public class Users extends javax.swing.JFrame {
     private void txtContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraseñaMouseClicked
         if (checkSetPassword) {
             txtUsuario.setText("");
-            if(checkSetUser){
+            if (checkSetUser) {
                 txtContraseña.setText("");
                 checkSetUser = false;
             }
@@ -185,10 +185,10 @@ public class Users extends javax.swing.JFrame {
         String userName = txtUsuario.getText();
         ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
         ModelUser user = new ModelUser();
-         
-        if(checkSetPassword){
+
+        if (checkSetPassword) {
             JOptionPane.showMessageDialog(null, "Termine de llenar los campos", "", 0, icono);
-        }else {
+        } else {
             //Reset Diseño
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -205,13 +205,23 @@ public class Users extends javax.swing.JFrame {
                     user.setUser(userName);
                     user.setCargo("Empleado");
                     user.setPassword(passwordStr);
+                    //JSON
                     crudUser.addUser(user);
-                    if(ValidateRegular.setCreateUser){
+
+                    //MYSQL => Actualizado de base de datos de ambos contenidos
+                    try {
+                        CrudMysql.crudMysqlUsuarios();
+                        CrudMysql.crudMysqlHistorialUsuarios();
+                    } catch (Exception e) {
+                        System.out.println("Sin conexion a internet Mysql");
+                    }
+
+                    if (ValidateRegular.setCreateUser) {
                         LoginInit login = new LoginInit();
                         setMainEnter(false);
                         login.setVisible(true);
                         ValidateRegular.setCreateUser = false;
-                    }else {
+                    } else {
                         System.out.println("No entro opero si agreggo");
                     }
                 }
@@ -236,9 +246,9 @@ public class Users extends javax.swing.JFrame {
         if (check) {
             CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOn.png"));
             check = false;
-            if(checkSetPassword){
+            if (checkSetPassword) {
                 txtContraseña.setText("");
-                checkSetPassword = false; 
+                checkSetPassword = false;
             }
             txtContraseña.setEchoChar((char) 0);
         } else {
@@ -249,7 +259,6 @@ public class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_CheckBoxPasswordMouseClicked
 
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackgroundCreateUser;
     private javax.swing.JLabel CheckBoxPassword;

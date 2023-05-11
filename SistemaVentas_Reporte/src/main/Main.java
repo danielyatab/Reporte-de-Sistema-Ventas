@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package main;
 
 import design.Maximize;
@@ -33,25 +29,37 @@ import view.panels.forms.FormDetalleProductos;
  * @author yatac
  */
 public class Main extends javax.swing.JFrame {
-    
-    private ArrayList<JLabel> listaLabels =  new ArrayList<>();
-    private ArrayList<JPanel> listaJpanel =  new ArrayList<>();
-    private ArrayList<JPanel> listaForms =  new ArrayList<>();
+
+    private ArrayList<JLabel> listaLabels = new ArrayList<>();
+    private ArrayList<JPanel> listaJpanel = new ArrayList<>();
+    private ArrayList<JPanel> listaForms = new ArrayList<>();
     private String rutas[] = {"src/img/btn_ReporteVentas", "src/img/btn_Clientes", "src/img/btn_Productos", "src/img/btn_Proveedores", "src/img/btn_Ventas", "src/img/btn_DetalleVentas", "src/img/btn_LogOut"};
     private String rute = "";
-    private int indexPanel=0;
+    private int indexPanel = 0;
     static boolean maximize = false;
 
-    
     public Main() {
         initComponents();
+        //Reset Design
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         Maximize.width_maximize = getWidth();
         Maximize.heigth_maximize = getHeight();
         Maximize.mainSet = true;
-        autoList(); 
+        autoList();
         updatePanelMinMax();
         setLocationRelativeTo(null);
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -88,6 +96,12 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonReporteVentasMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonReporteVentasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonReporteVentasMouseExited(evt);
+            }
         });
 
         LogoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,6 +113,12 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonExitMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonExitMouseExited(evt);
+            }
         });
 
         ButtonProveedores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -106,6 +126,12 @@ public class Main extends javax.swing.JFrame {
         ButtonProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonProveedoresMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonProveedoresMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonProveedoresMouseExited(evt);
             }
         });
 
@@ -115,6 +141,12 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonProductosMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonProductosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonProductosMouseExited(evt);
+            }
         });
 
         ButtonVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -122,6 +154,12 @@ public class Main extends javax.swing.JFrame {
         ButtonVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonVentasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonVentasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonVentasMouseExited(evt);
             }
         });
 
@@ -131,6 +169,12 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonDetalleVentasMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonDetalleVentasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonDetalleVentasMouseExited(evt);
+            }
         });
 
         ButtonClientes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -138,6 +182,12 @@ public class Main extends javax.swing.JFrame {
         ButtonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonClientesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonClientesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ButtonClientesMouseExited(evt);
             }
         });
 
@@ -348,19 +398,19 @@ public class Main extends javax.swing.JFrame {
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         /*
         *   Desactivar modo Nibus por Windows
-        */
+         */
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        
-        String[] opciones = {"Si","No"};
+
+        String[] opciones = {"Si", "No"};
         ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
-             System.exit(0);
-        } 
+            System.exit(0);
+        }
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
@@ -392,7 +442,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnMinimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseEntered
         btnMinimize.setBackground(new Color(220, 220, 220));
-        
+
     }//GEN-LAST:event_btnMinimizeMouseEntered
 
     private void btnMinimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseExited
@@ -407,80 +457,127 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonReporteVentasMouseClicked
 
     private void ButtonProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseClicked
-       cambiarIconoColor(ButtonProductos);
-       
-       // updatePanelMinMax(2);        
-       Maximize.isForm = false;
-       resizeFormsPanels();
-       indexPanel = 2;
-       updatePanelMinMax();
-       // addConatiner(new PanelProducts(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
+        cambiarIconoColor(ButtonProductos);
+        Maximize.isForm = false;
+        resizeFormsPanels();
+        indexPanel = 2;
+        updatePanelMinMax();
     }//GEN-LAST:event_ButtonProductosMouseClicked
 
     private void ButtonProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseClicked
-       Maximize.isForm = false;
-       resizeFormsPanels();
-       cambiarIconoColor(ButtonProveedores);
-       indexPanel = 3;
-       updatePanelMinMax();
-       
+        Maximize.isForm = false;
+        resizeFormsPanels();
+        cambiarIconoColor(ButtonProveedores);
+        indexPanel = 3;
+        updatePanelMinMax();
+
     }//GEN-LAST:event_ButtonProveedoresMouseClicked
 
     private void ButtonVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseClicked
-       Maximize.isForm = false;
-       resizeFormsPanels();
-       cambiarIconoColor(ButtonVentas);
-       indexPanel = 4;
-       updatePanelMinMax();
-       
+        Maximize.isForm = false;
+        resizeFormsPanels();
+        cambiarIconoColor(ButtonVentas);
+        indexPanel = 4;
+        updatePanelMinMax();
+
     }//GEN-LAST:event_ButtonVentasMouseClicked
 
     private void ButtonDetalleVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseClicked
-            cambiarIconoColor(ButtonDetalleVentas);
-            indexPanel = 5;
-            Maximize.isForm = false;
-            
-            resizeFormsPanels();
-            //updatePanelMinMax();
+        cambiarIconoColor(ButtonDetalleVentas);
+        indexPanel = 5;
+        Maximize.isForm = false;
+        resizeFormsPanels();
     }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     private void ButtonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseClicked
-       Maximize.mainSet = true;
-       cambiarIconoColor(ButtonExit);
-       LoginInit log = new LoginInit();
-       log.setVisible(true);
-       dispose();
+        Maximize.mainSet = true;
+        cambiarIconoColor(ButtonExit);
+        LoginInit log = new LoginInit();
+        log.setVisible(true);
+        dispose();
     }//GEN-LAST:event_ButtonExitMouseClicked
 
     private void ButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseClicked
-       Maximize.isForm = false;
-       resizeFormsPanels();
-       cambiarIconoColor(ButtonClientes);
-       indexPanel = 1;
-       updatePanelMinMax();
+        Maximize.isForm = false;
+        resizeFormsPanels();
+        cambiarIconoColor(ButtonClientes);
+        indexPanel = 1;
+        updatePanelMinMax();
     }//GEN-LAST:event_ButtonClientesMouseClicked
 
     private void labelUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelUsuariosMouseClicked
-        Users user =  new Users();
+        Users user = new Users();
         user.setMainEnter(true);
         user.setVisible(true);
         dispose();
     }//GEN-LAST:event_labelUsuariosMouseClicked
-  
-    public void resizeFormsPanels(){
-       if(Maximize.isForm){
+
+    private void ButtonReporteVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseEntered
+    }//GEN-LAST:event_ButtonReporteVentasMouseEntered
+
+    private void ButtonReporteVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseExited
+    }//GEN-LAST:event_ButtonReporteVentasMouseExited
+
+    private void ButtonClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseEntered
+    }//GEN-LAST:event_ButtonClientesMouseEntered
+
+    private void ButtonClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseExited
+    }//GEN-LAST:event_ButtonClientesMouseExited
+
+    private void ButtonProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseEntered
+
+    }//GEN-LAST:event_ButtonProductosMouseEntered
+
+    private void ButtonProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseExited
+
+    }//GEN-LAST:event_ButtonProductosMouseExited
+
+    private void ButtonProveedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonProveedoresMouseEntered
+
+    private void ButtonProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonProveedoresMouseExited
+
+    private void ButtonVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonVentasMouseEntered
+
+    private void ButtonVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonVentasMouseExited
+
+    private void ButtonDetalleVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonDetalleVentasMouseEntered
+
+    private void ButtonDetalleVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonDetalleVentasMouseExited
+
+    private void ButtonExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonExitMouseEntered
+
+    private void ButtonExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonExitMouseExited
+
+    public void resizeFormsPanels() {
+        if (Maximize.isForm) {
             setUpdateDetalleProduct();
-        }else {
+        } else {
             updatePanelMinMax();
         }
     }
-    
+
     private void maximizeResize() {
         if (maximize) {
             setSize(1220, 760);
-            MenuPanel.setPreferredSize(new Dimension(342, getHeight()));            
+            MenuPanel.setPreferredSize(new Dimension(342, getHeight()));
             pack();
-            setLocationRelativeTo(null);         
+            setLocationRelativeTo(null);
             LogoLabel.setIcon(new ImageIcon("src/img/LogoIsrael.png"));
             autoLabelsResize();
             maximize = false;
@@ -488,59 +585,57 @@ public class Main extends javax.swing.JFrame {
             MenuPanel.setPreferredSize(new Dimension(442, getHeight()));
             pack();
             setExtendedState(MAXIMIZED_BOTH);
-            autoLabelsResize();    
+            autoLabelsResize();
             LogoLabel.setIcon(new ImageIcon("src/img/LogoIsraelFull.png"));
             maximize = true;
         }
     }
-    
-    
-    
-    private void autoLabelsResize(){
-            for (int i = 0; i < listaLabels.size(); i++) {
-                    Icon icono = listaLabels.get(i).getIcon();
-                    ImageIcon miImagen = (ImageIcon) icono;
-                    String rutaArchivo = miImagen.getDescription();
-                    File archivo = new File(rutaArchivo);
-                    rutaArchivo = archivo.getAbsolutePath(); 
-                    if(!maximize){
-                        if(rutaArchivo.contains("White")){
-                            rute = rutas[i] + "FullWhite.png";
-                        }else{
-                            rute = rutas[i] + "Full.png";
-                        }
-                    }else {
-                        if(rutaArchivo.contains("White")){
-                            rute = rutas[i] + "White.png";
-                        }else{
-                            rute = rutas[i] + ".png";
-                        }
-                    }
-                    listaLabels.get(i).setIcon(new ImageIcon(rute));
-            }      
+
+    private void autoLabelsResize() {
+        for (int i = 0; i < listaLabels.size(); i++) {
+            Icon icono = listaLabels.get(i).getIcon();
+            ImageIcon miImagen = (ImageIcon) icono;
+            String rutaArchivo = miImagen.getDescription();
+            File archivo = new File(rutaArchivo);
+            rutaArchivo = archivo.getAbsolutePath();
+            if (!maximize) {
+                if (rutaArchivo.contains("White")) {
+                    rute = rutas[i] + "FullWhite.png";
+                } else {
+                    rute = rutas[i] + "Full.png";
+                }
+            } else {
+                if (rutaArchivo.contains("White")) {
+                    rute = rutas[i] + "White.png";
+                } else {
+                    rute = rutas[i] + ".png";
+                }
+            }
+            listaLabels.get(i).setIcon(new ImageIcon(rute));
+        }
     }
 
     public void cambiarIconoColor(JLabel labelWhite) {
-        
+
         for (int i = 0; i < listaLabels.size(); i++) {
-            if(maximize){               
+            if (maximize) {
                 if (!listaLabels.get(i).equals(labelWhite)) {
                     rute = rutas[i] + "Full.png";
                     listaLabels.get(i).setIcon(new ImageIcon(rute));
-                }else {
+                } else {
                     rute = rutas[i] + "FullWhite.png";
                     listaLabels.get(i).setIcon(new ImageIcon(rute));
                 }
-            }else {
+            } else {
                 if (!listaLabels.get(i).equals(labelWhite)) {
                     rute = rutas[i] + ".png";
                     listaLabels.get(i).setIcon(new ImageIcon(rute));
-                }else {
+                } else {
                     rute = rutas[i] + "White.png";
                     listaLabels.get(i).setIcon(new ImageIcon(rute));
                 }
             }
-            
+
         }
     }
 
@@ -549,25 +644,26 @@ public class Main extends javax.swing.JFrame {
         int heigth_min = 760;
         int heigth_max = getHeight() - HeadPanel.getHeight();
         System.out.println("WID:" + width + "Heigth:" + heigth_max);
-        if(!maximize){
-            addConatiner(listaJpanel.get(indexPanel), width, heigth_min, ContentPanel);  
-        }else {
-            addConatiner(listaJpanel.get(indexPanel), width, heigth_max, ContentPanel); 
+        if (!maximize) {
+            addConatiner(listaJpanel.get(indexPanel), width, heigth_min, ContentPanel);
+        } else {
+            addConatiner(listaJpanel.get(indexPanel), width, heigth_max, ContentPanel);
         }
     }
-  
-    public void  setUpdateDetalleProduct(){
+
+    public void setUpdateDetalleProduct() {
         int width = getWidth() - MenuPanel.getWidth();
         int heigth_min = 760;
         int heigth_max = getHeight() - HeadPanel.getHeight();
         System.out.println("LLEGUE A EJECUTAR");
-        if(maximize){
-            addConatiner(listaForms.get(Maximize.indexForms), width, heigth_max, ContentPanel);  
-        }else {
-            addConatiner(listaForms.get(Maximize.indexForms), width, heigth_min, ContentPanel); 
+        if (maximize) {
+            addConatiner(listaForms.get(Maximize.indexForms), width, heigth_max, ContentPanel);
+        } else {
+            addConatiner(listaForms.get(Maximize.indexForms), width, heigth_min, ContentPanel);
         }
     }
-     /**
+
+    /**
      *
      * @param p Panel de Ingreso
      * @param width Ancho
@@ -583,9 +679,8 @@ public class Main extends javax.swing.JFrame {
         c.repaint();
     }
 
-    
-    private void autoList(){
-       
+    private void autoList() {
+
         ButtonReporteVentas.setIcon(new ImageIcon("src/img/btn_ReporteVentasWhite.png"));
         /*JLABEL*/
         listaLabels.add(ButtonReporteVentas);
@@ -594,8 +689,8 @@ public class Main extends javax.swing.JFrame {
         listaLabels.add(ButtonProveedores);
         listaLabels.add(ButtonVentas);
         listaLabels.add(ButtonDetalleVentas);
-        listaLabels.add(ButtonExit);  
-        
+        listaLabels.add(ButtonExit);
+
         /*JPANEL*/
         listaJpanel.add(new PanelReporteVentas());
         listaJpanel.add(new PanelCliente());
@@ -603,14 +698,13 @@ public class Main extends javax.swing.JFrame {
         listaJpanel.add(new PanelProveedores());
         listaJpanel.add(new PanelVentas());
         listaJpanel.add(new PanelDetalleVentas());
-        
-        
+
         listaForms.add(new FormDetalleProductos());
-        
+
         //addConatiner(new PanelReporteVentas(), getWidth()-442, getHeight(), ContentPanel);
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ButtonClientes;
     private javax.swing.JLabel ButtonDetalleVentas;
@@ -632,20 +726,18 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel maximizeLabel;
     private javax.swing.JLabel minimizeLabel;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     /*
     * BACKGROOUND MENU
-    */
-    class FondoPanel extends JPanel
-    {
+     */
+    class FondoPanel extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/BackgroundMenu.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }

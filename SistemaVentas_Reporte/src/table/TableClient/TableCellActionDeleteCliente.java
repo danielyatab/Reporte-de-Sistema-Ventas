@@ -5,14 +5,7 @@
 package table.TableClient;
 
 import Buttons.ModelActionClientes;
-import table.TableProveedores.*;
-import table.TableProduct.*;
-import Buttons.ModelActionProductos;
-import Buttons.ModelActionProveedores;
 import Buttons.PanelActionDeleteClientes;
-import Buttons.PanelActionDeleteProduct;
-import Buttons.PanelActionEditClientes;
-import Buttons.PanelActionEditProveedores;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;

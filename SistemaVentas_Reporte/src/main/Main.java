@@ -51,7 +51,6 @@ public class Main extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-
         Maximize.width_maximize = getWidth();
         Maximize.heigth_maximize = getHeight();
         Maximize.mainSet = true;
@@ -396,15 +395,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        /*
-        *   Desactivar modo Nibus por Windows
-         */
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-
+       
         String[] opciones = {"Si", "No"};
         ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
@@ -616,7 +607,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void cambiarIconoColor(JLabel labelWhite) {
-
         for (int i = 0; i < listaLabels.size(); i++) {
             if (maximize) {
                 if (!listaLabels.get(i).equals(labelWhite)) {
@@ -635,7 +625,6 @@ public class Main extends javax.swing.JFrame {
                     listaLabels.get(i).setIcon(new ImageIcon(rute));
                 }
             }
-
         }
     }
 

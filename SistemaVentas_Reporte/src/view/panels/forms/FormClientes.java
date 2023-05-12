@@ -2,7 +2,6 @@ package view.panels.forms;
 
 import Model.ModelCellClientes;
 import Model.conexion.CrudMysql;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import controller.JsonClienteCRUD;
 import controller.ValidateRegular;
 import design.Maximize;
@@ -413,7 +412,7 @@ public class FormClientes extends javax.swing.JPanel {
                     } catch (Exception e) {
                         System.out.println("Sin conexion a internet Cliente");
                     }
-                    setDisignNimbus();
+                   // setDisignNimbus();
                     addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
                 }
             } else {
@@ -428,7 +427,7 @@ public class FormClientes extends javax.swing.JPanel {
                     } catch (Exception e) {
                         System.out.println("Sin conexion a internet HISTORIALCliente");
                     }
-                    setDisignNimbus();
+                    //setDisignNimbus();
                     addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
                 }
             }
@@ -438,12 +437,12 @@ public class FormClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        setDesignWindows();
+        //setDesignWindows();
         String[] opciones = {"Si", "No"};
         ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
-            setDisignNimbus();
+            //setDisignNimbus();
             addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
@@ -493,7 +492,6 @@ public class FormClientes extends javax.swing.JPanel {
             add = true;
             title.setText("AGREGAR CLIENTE");
         }
-        
     }
 
     /**

@@ -31,14 +31,13 @@ public class Conexion {
         Conexion.conectado = conectado;
     }
 
-
     
     
     public static void conectar_db(){
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistemaventasreporte", "root", "12@danielYting*3");
         } catch (SQLException e) {
-            System.out.println("ERROR al conectar:" + e.getMessage());
+            e.getMessage();
         }
     }
     

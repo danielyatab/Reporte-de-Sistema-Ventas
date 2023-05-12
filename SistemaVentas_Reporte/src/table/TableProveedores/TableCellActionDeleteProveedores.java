@@ -4,11 +4,8 @@
  */
 package table.TableProveedores;
 
-import table.TableProduct.*;
-import Buttons.ModelActionProductos;
 import Buttons.ModelActionProveedores;
-import Buttons.PanelActionDeleteProduct;
-import Buttons.PanelActionEditProveedores;
+import Buttons.PanelActionDeleteProveedores;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
@@ -30,7 +27,7 @@ public class TableCellActionDeleteProveedores extends DefaultCellEditor{
     @Override
     public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int i, int i1) {
         data = (ModelActionProveedores) o;        
-        PanelActionEditProveedores cell = new PanelActionEditProveedores(data);
+        PanelActionDeleteProveedores cell = new PanelActionDeleteProveedores(data);
         cell.setBackground(new Color(30, 30, 30, 50));
         return cell;
     }

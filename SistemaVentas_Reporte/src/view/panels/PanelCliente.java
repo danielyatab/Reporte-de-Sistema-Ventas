@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view.panels;
 
 import Model.ModelCellClientes;
@@ -19,10 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import table.TableClient.TableActionEventCliente;
 import view.panels.forms.FormClientes;
 
-/**
- *
- * @author yatac
- */
+
 public class PanelCliente extends javax.swing.JPanel {
 
     private static List<ModelCellClientes> listClient;
@@ -311,7 +304,6 @@ public class PanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchClienteKeyReleased
 
     private void typeNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNameMouseClicked
-
         try {
             if (searchSelect.equals(listClient.get(0).toString())) {
                 listarClientes();

@@ -8,25 +8,36 @@ import table.TableProveedores.TableActionEventProveedores;
  * @author yatac
  */
 public class ModelCellProveedores {
-   private String ruc;
-   private String nombre;
-   private String tipo;
-   private String telefono;
-   private String correo;
+    private String idProveedor;
+    private String ruc;
+    private String nombres;
+    private String tipo;
+    private String productos;
+    private String telefono;
+    private String correo;
 
     public ModelCellProveedores() {
     }
 
-    public ModelCellProveedores(String ruc, String nombre, String tipo, String telefono, String correo) {
+    public ModelCellProveedores(String idProveedor, String ruc, String nombres, String tipo, String productos, String telefono, String correo) {
+        this.idProveedor = idProveedor;
         this.ruc = ruc;
-        this.nombre = nombre;
+        this.nombres = nombres;
         this.tipo = tipo;
         this.telefono = telefono;
         this.correo = correo;
+        this.productos = productos;
     }
 
-   
-   
+    public ModelCellProveedores(String ruc, String nombres, String tipo, String productos, String telefono, String correo) {
+        this.ruc = ruc;
+        this.nombres = nombres;
+        this.tipo = tipo;
+        this.telefono = telefono;
+        this.productos = productos;
+        this.correo = correo;
+    }
+
     public String getRuc() {
         return ruc;
     }
@@ -35,12 +46,12 @@ public class ModelCellProveedores {
         this.ruc = ruc;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombres(String nombre) {
+        this.nombres = nombre;
     }
 
     public String getTipo() {
@@ -67,8 +78,24 @@ public class ModelCellProveedores {
         this.correo = correo;
     }
 
-    public Object[] toRowTable(TableActionEventProveedores event){
-        return new Object[]{ruc, nombre, tipo, telefono, correo, new ModelActionProveedores(this, event), new ModelActionProveedores(this, event)};
+    public String getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(String idProveedor) {
+        this.idProveedor = idProveedor;
+    }
+
+    public String getProductos() {
+        return productos;
+    }
+
+    public void setProductos(String productos) {
+        this.productos = productos;
+    }
+
+    public Object[] toRowTable(TableActionEventProveedores event) {
+        return new Object[]{ruc, nombres, tipo, productos, telefono, correo, new ModelActionProveedores(this, event), new ModelActionProveedores(this, event)};
     }
     
 }

@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
  */
 public class PanelActionDeleteProveedores extends javax.swing.JPanel {
 
-   
     public PanelActionDeleteProveedores(ModelActionProveedores data) {
         initComponents();
         setOpaque(false);

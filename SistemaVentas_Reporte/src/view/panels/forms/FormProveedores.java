@@ -4,19 +4,18 @@
  */
 package view.panels.forms;
 
-import Model.ModelCellVenta;
+import Model.ModelCellProveedores;
+import Model.conexion.CrudMysql;
+import controller.JsonProveedoresCRUD;
+import controller.ValidateRegular;
 import design.Maximize;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import main.Main;
-import table.Venta.TableActionEventVenta;
-import view.panels.PanelDetalleVentas;
-import view.panels.PanelProducts;
+import view.panels.PanelCliente;
 import view.panels.PanelProveedores;
 
 /**
@@ -25,12 +24,17 @@ import view.panels.PanelProveedores;
  */
 public class FormProveedores extends javax.swing.JPanel {
 
+    public int cifDoc;
+    ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+    public boolean add = true;
+
     /**
      * Creates new form FromDetalleProductos
      */
     public FormProveedores() {
         initComponents();
         setOpaque(false);
+        cifDoc = 8;
         initData();
     }
 
@@ -49,21 +53,24 @@ public class FormProveedores extends javax.swing.JPanel {
         btnAceptar = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
         TextName = new FondoPanelTotal();
-        txtName = new javax.swing.JTextField();
+        txtRuc = new javax.swing.JTextField();
         TextLastName = new FondoPanelTotal();
-        jTextField3 = new javax.swing.JTextField();
+        txtNombres = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         TextLastName1 = new FondoPanelTotal();
-        jTextField5 = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         TextPhone1 = new FondoPanelTotal();
-        jTextField6 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboTipo = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        TextPhone2 = new FondoPanelTotal();
+        txtProductos = new javax.swing.JTextField();
 
         setOpaque(false);
 
@@ -84,14 +91,19 @@ public class FormProveedores extends javax.swing.JPanel {
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_Cancelar.png"))); // NOI18N
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         TextName.setOpaque(false);
 
-        txtName.setBackground(new java.awt.Color(245, 244, 244));
-        txtName.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        txtName.setForeground(new java.awt.Color(0, 0, 102));
-        txtName.setBorder(null);
-        txtName.setOpaque(false);
+        txtRuc.setBackground(new java.awt.Color(245, 244, 244));
+        txtRuc.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtRuc.setForeground(new java.awt.Color(0, 0, 102));
+        txtRuc.setBorder(null);
+        txtRuc.setOpaque(false);
 
         javax.swing.GroupLayout TextNameLayout = new javax.swing.GroupLayout(TextName);
         TextName.setLayout(TextNameLayout);
@@ -99,24 +111,24 @@ public class FormProveedores extends javax.swing.JPanel {
             TextNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtRuc, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextNameLayout.setVerticalGroup(
             TextNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtName)
+                .addComponent(txtRuc)
                 .addContainerGap())
         );
 
         TextLastName.setOpaque(false);
 
-        jTextField3.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField3.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 0, 102));
-        jTextField3.setBorder(null);
-        jTextField3.setOpaque(false);
+        txtNombres.setBackground(new java.awt.Color(245, 244, 244));
+        txtNombres.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtNombres.setForeground(new java.awt.Color(0, 0, 102));
+        txtNombres.setBorder(null);
+        txtNombres.setOpaque(false);
 
         javax.swing.GroupLayout TextLastNameLayout = new javax.swing.GroupLayout(TextLastName);
         TextLastName.setLayout(TextLastNameLayout);
@@ -124,14 +136,14 @@ public class FormProveedores extends javax.swing.JPanel {
             TextLastNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextLastNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextLastNameLayout.setVerticalGroup(
             TextLastNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextLastNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3)
+                .addComponent(txtNombres)
                 .addContainerGap())
         );
 
@@ -153,11 +165,11 @@ public class FormProveedores extends javax.swing.JPanel {
 
         TextLastName1.setOpaque(false);
 
-        jTextField5.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField5.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(0, 0, 102));
-        jTextField5.setBorder(null);
-        jTextField5.setOpaque(false);
+        txtCorreo.setBackground(new java.awt.Color(245, 244, 244));
+        txtCorreo.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtCorreo.setForeground(new java.awt.Color(0, 0, 102));
+        txtCorreo.setBorder(null);
+        txtCorreo.setOpaque(false);
 
         javax.swing.GroupLayout TextLastName1Layout = new javax.swing.GroupLayout(TextLastName1);
         TextLastName1.setLayout(TextLastName1Layout);
@@ -165,14 +177,14 @@ public class FormProveedores extends javax.swing.JPanel {
             TextLastName1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextLastName1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextLastName1Layout.setVerticalGroup(
             TextLastName1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextLastName1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField5)
+                .addComponent(txtCorreo)
                 .addContainerGap())
         );
 
@@ -182,11 +194,11 @@ public class FormProveedores extends javax.swing.JPanel {
 
         TextPhone1.setOpaque(false);
 
-        jTextField6.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField6.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(0, 0, 102));
-        jTextField6.setBorder(null);
-        jTextField6.setOpaque(false);
+        txtTelefono.setBackground(new java.awt.Color(245, 244, 244));
+        txtTelefono.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtTelefono.setForeground(new java.awt.Color(0, 0, 102));
+        txtTelefono.setBorder(null);
+        txtTelefono.setOpaque(false);
 
         javax.swing.GroupLayout TextPhone1Layout = new javax.swing.GroupLayout(TextPhone1);
         TextPhone1.setLayout(TextPhone1Layout);
@@ -194,14 +206,14 @@ public class FormProveedores extends javax.swing.JPanel {
             TextPhone1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextPhone1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextPhone1Layout.setVerticalGroup(
             TextPhone1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextPhone1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField6)
+                .addComponent(txtTelefono)
                 .addContainerGap())
         );
 
@@ -212,12 +224,41 @@ public class FormProveedores extends javax.swing.JPanel {
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("AGREGAR PROVEEDOR");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(16, 21, 64));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Consumibles", "Libros" }));
-        jComboBox1.setBorder(null);
-        jComboBox1.setFocusable(false);
+        comboTipo.setBackground(new java.awt.Color(255, 255, 255));
+        comboTipo.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
+        comboTipo.setForeground(new java.awt.Color(16, 21, 64));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Natural", "Juridica" }));
+        comboTipo.setBorder(null);
+        comboTipo.setFocusable(false);
+
+        jLabel12.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setText("Productos");
+
+        TextPhone2.setOpaque(false);
+
+        txtProductos.setBackground(new java.awt.Color(245, 244, 244));
+        txtProductos.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtProductos.setForeground(new java.awt.Color(0, 0, 102));
+        txtProductos.setBorder(null);
+        txtProductos.setOpaque(false);
+
+        javax.swing.GroupLayout TextPhone2Layout = new javax.swing.GroupLayout(TextPhone2);
+        TextPhone2.setLayout(TextPhone2Layout);
+        TextPhone2Layout.setHorizontalGroup(
+            TextPhone2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TextPhone2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        TextPhone2Layout.setVerticalGroup(
+            TextPhone2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TextPhone2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtProductos)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout PanelWhiteLayout = new javax.swing.GroupLayout(PanelWhite);
         PanelWhite.setLayout(PanelWhiteLayout);
@@ -247,10 +288,12 @@ public class FormProveedores extends javax.swing.JPanel {
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelWhiteLayout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11))
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel12)
+                            .addComponent(TextPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
             .addGroup(PanelWhiteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -281,8 +324,12 @@ public class FormProveedores extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                            .addComponent(jComboBox1))
+                            .addComponent(comboTipo))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TextPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TextPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -340,27 +387,57 @@ public class FormProveedores extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);
+        if (nullTxt()) {
+            ModelCellProveedores newCl = new ModelCellProveedores();
+            if (add) {
+                newCl = newProveedor();
+                /*LLENADO JSON*/
+                JsonProveedoresCRUD.addProveedor(newCl);
+                if (ValidateRegular.setCreateCliente) {
+                    /*LLENADO MYSQL*/
+                    pushMysql();
+                }
+            } else {
+                newCl = newProveedor();
+                newCl.setIdProveedor(ValidateRegular.updateProveedor.getIdProveedor());
+                JsonProveedoresCRUD.updateProveedor(newCl);
+                if (ValidateRegular.setUpdateProveedor) {
+                    /*LLENADO MYSQL*/
+                    pushMysql();
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Termina de llenar los campos", "", 0, icono);
+        }
     }//GEN-LAST:event_btnAceptarMouseClicked
 
-
-    
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        //setDesignWindows();
+        String[] opciones = {"Si", "No"};
+        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+        if (opcion == JOptionPane.YES_OPTION) {
+            //setDisignNimbus();
+            addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);
+        }
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
     /*INIT DATA*/
-    private void initData(){
-        if(Maximize.updateCrud){
+    private void initData() {
+        if (Maximize.updateCrud) {
             btnAceptar.setIcon(new ImageIcon("src/img/btn_Actualizar.png"));
+            add = false;
             title.setText("ACTUALIZAR PROVEEDOR");
             Maximize.updateCrud = false;
-        }else {
+            getElements();
+        } else {
             btnAceptar.setIcon(new ImageIcon("src/img/btn_Agregar.png"));
+            add = true;
             title.setText("AGREGAR PROVEEDOR");
         }
     }
-    
-    
-    
-   /**
+
+    /**
      *
      * @param p Panel de Ingreso
      * @param width Ancho
@@ -375,9 +452,46 @@ public class FormProveedores extends javax.swing.JPanel {
         c.revalidate();
         c.repaint();
     }
-    
-    
-    
+
+    public ModelCellProveedores newProveedor() {
+        ModelCellProveedores newPv = new ModelCellProveedores();
+        newPv.setRuc(txtRuc.getText());
+        newPv.setNombres(txtNombres.getText());
+        newPv.setTipo(comboTipo.getSelectedItem().toString());
+        newPv.setProductos(txtProductos.getText());
+        newPv.setCorreo(txtCorreo.getText());
+        newPv.setTelefono(txtTelefono.getText());
+        System.out.println("Nre opv: + " + newPv.getNombres());
+        return newPv;
+    }
+
+    private void getElements() {
+        txtRuc.setText(ValidateRegular.updateProveedor.getRuc());
+        txtNombres.setText(ValidateRegular.updateProveedor.getNombres());
+        txtProductos.setText(ValidateRegular.updateProveedor.getProductos());
+        txtTelefono.setText(ValidateRegular.updateProveedor.getTelefono());
+        txtCorreo.setText(ValidateRegular.updateProveedor.getCorreo());
+        comboTipo.setSelectedItem(ValidateRegular.updateProveedor.getTipo());
+    }
+
+    public boolean nullTxt() {
+        if (txtRuc.getText().equals("") || txtNombres.getText().equals("") || txtProductos.equals("") || txtCorreo.equals("") || txtTelefono.equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void pushMysql() {
+        try {
+            CrudMysql.crudMysqlProveedores();
+            CrudMysql.crudMysqlProveedoresHistorial();
+        } catch (Exception e) {
+            System.out.println("Sin conexion a internet HISTORIALCliente");
+        }
+        addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelColor;
     private javax.swing.JPanel PanelContent;
@@ -386,74 +500,72 @@ public class FormProveedores extends javax.swing.JPanel {
     private javax.swing.JPanel TextLastName1;
     private javax.swing.JPanel TextName;
     private javax.swing.JPanel TextPhone1;
+    private javax.swing.JPanel TextPhone2;
     private javax.swing.JLabel btnAceptar;
     private javax.swing.JLabel btnCancelar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel title;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtProductos;
+    private javax.swing.JTextField txtRuc;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
-    
-    class FondoPanel extends JPanel
-    {
+    class FondoPanel extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/transparentPanel.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
-    
-    class FondoPanelWhite extends JPanel
-    {
+
+    class FondoPanelWhite extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelFormColorWhite.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
-    
-    class FondoPanelColor extends JPanel
-    {
+
+    class FondoPanelColor extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelFormColor.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
- 
-    class FondoPanelTotal extends JPanel
-    {
+
+    class FondoPanelTotal extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelTotal.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }

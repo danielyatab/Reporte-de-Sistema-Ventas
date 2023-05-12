@@ -1,8 +1,10 @@
 package Model.conexion;
 
 import Model.ModelCellClientes;
+import Model.ModelCellProveedores;
 import Model.ModelUser;
 import controller.JsonClienteCRUD;
+import controller.JsonProveedoresCRUD;
 import controller.JsonUserValidation;
 import java.util.List;
 import java.sql.Connection;
@@ -140,4 +142,69 @@ public class CrudMysql {
         }
     }
 
+    
+    
+    /**
+     * *******************PROVEEDOR********************
+     */
+    
+    public static void crudMysqlProveedores() {
+        List<ModelCellProveedores> listProveedor = JsonProveedoresCRUD.returnProveedores();
+        try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM proveedor");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellProveedores proveedor : listProveedor) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO proveedor (idProveedor,ruc,nombres,tipo,productos,telefono, correo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps.setString(1, proveedor.getIdProveedor());
+                ps.setString(2, proveedor.getRuc());
+                ps.setString(3, proveedor.getNombres());
+                ps.setString(4, proveedor.getTipo());
+                ps.setString(5, proveedor.getProductos());
+                ps.setString(6, proveedor.getTelefono());
+                ps.setString(7, proveedor.getCorreo());
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException e) {
+            System.err.println("Ha ocurrido un error al actualizar la tabla cliente: " + e.getMessage());
+        }
+    }
+    
+    public static void crudMysqlProveedoresHistorial() {
+        List<ModelCellProveedores> listProveedor = JsonProveedoresCRUD.returnProveedores();
+        try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM historialproveedor");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellProveedores proveedor : listProveedor) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO historialproveedor (idproveedor,ruc,nombres,tipo,productos,telefono, correo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps.setString(1, proveedor.getIdProveedor());
+                ps.setString(2, proveedor.getRuc());
+                ps.setString(3, proveedor.getNombres());
+                ps.setString(4, proveedor.getTipo());
+                ps.setString(5, proveedor.getProductos());
+                ps.setString(6, proveedor.getTelefono());
+                ps.setString(7, proveedor.getCorreo());
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException e) {
+            System.err.println("Ha ocurrido un error al actualizar la tabla cliente: " + e.getMessage());
+        }
+    }
 }

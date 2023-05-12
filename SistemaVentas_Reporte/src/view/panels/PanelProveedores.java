@@ -1,35 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view.panels;
 
 import Model.ModelCellProveedores;
+import Model.conexion.CrudMysql;
+import controller.JsonClienteCRUD;
+import controller.JsonProveedoresCRUD;
+import controller.ValidateRegular;
 import design.Maximize;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableProveedores.TableActionEventProveedores;
 import view.panels.forms.FormProveedores;
 
-
-
-/**
- *
- * @author yatac
- */
 public class PanelProveedores extends javax.swing.JPanel {
 
+    private static List<ModelCellProveedores> listProveedor;
+    private ArrayList<String> busquedaLista = new ArrayList<>();
+    private static String searchSelect = "";
+
     public PanelProveedores() {
+        try {
+            listProveedor = JsonProveedoresCRUD.returnProveedores();
+        } catch (Exception e) {
+            e.getMessage();
+            System.out.println("Error de documento PROVEEDORES");
+        }
         initComponents();
-        TableProveedores.fixTable(jScrollPane1);
-        TableProveedores.setIconsColumns(6, 5,6);
-        initData();
+        TableProveedores.fixTable(jScrollPane2);
+        TableProveedores.setIconsColumns(9, 6, 7);
+        listarProveedores();
     }
 
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +44,8 @@ public class PanelProveedores extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
         ContentPanel = new javax.swing.JPanel();
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
@@ -47,13 +54,17 @@ public class PanelProveedores extends javax.swing.JPanel {
         btn_AgregarProveedores = new javax.swing.JLabel();
         ContextSearch = new javax.swing.JPanel();
         TextSearch = new javax.swing.JPanel();
-        txtSearchProveedores = new javax.swing.JTextField();
+        txtSearchProveedor = new javax.swing.JTextField();
         IconSearch = new javax.swing.JLabel();
+        typeName = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        ContentTable = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         TableProveedores = new table.TableProveedores.TableProveedores();
 
         ContentButtonsSearch.setBackground(new java.awt.Color(250, 250, 250));
@@ -79,12 +90,17 @@ public class PanelProveedores extends javax.swing.JPanel {
         TextSearch.setBackground(new java.awt.Color(255, 255, 255));
         TextSearch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtSearchProveedores.setBackground(new java.awt.Color(255, 255, 255));
-        txtSearchProveedores.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
-        txtSearchProveedores.setForeground(new java.awt.Color(16, 21, 64));
-        txtSearchProveedores.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtSearchProveedores.setText(" ");
-        txtSearchProveedores.setBorder(null);
+        txtSearchProveedor.setBackground(new java.awt.Color(255, 255, 255));
+        txtSearchProveedor.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 17)); // NOI18N
+        txtSearchProveedor.setForeground(new java.awt.Color(16, 21, 64));
+        txtSearchProveedor.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtSearchProveedor.setText(" ");
+        txtSearchProveedor.setBorder(null);
+        txtSearchProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchProveedorKeyReleased(evt);
+            }
+        });
 
         IconSearch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         IconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Search.png"))); // NOI18N
@@ -96,16 +112,29 @@ public class PanelProveedores extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TextSearchLayout.createSequentialGroup()
                 .addComponent(IconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(txtSearchProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addComponent(txtSearchProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
         );
         TextSearchLayout.setVerticalGroup(
             TextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextSearchLayout.createSequentialGroup()
                 .addGroup(TextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(IconSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(txtSearchProveedores))
+                    .addComponent(txtSearchProveedor))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        typeName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeNombre.png"))); // NOI18N
+        typeName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                typeNameMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeRuc.png"))); // NOI18N
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeTelefono.png"))); // NOI18N
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeProductos.png"))); // NOI18N
 
         jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
@@ -119,19 +148,34 @@ public class PanelProveedores extends javax.swing.JPanel {
         ContextSearchLayout.setHorizontalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContextSearchLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(TextSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
+                .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(typeName)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(60, 60, 60))
         );
         ContextSearchLayout.setVerticalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ContextSearchLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typeName)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -151,9 +195,9 @@ public class PanelProveedores extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(20, 20, 20)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(btn_AgregarProveedores)
@@ -169,12 +213,16 @@ public class PanelProveedores extends javax.swing.JPanel {
         ContentButtonsSearchLayout.setVerticalGroup(
             ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_ExportarExcel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_AgregarProveedores, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TitleProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentButtonsSearchLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(TitleProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_ExportarExcel)
+                            .addComponent(jLabel1)
+                            .addComponent(btn_AgregarProveedores))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,7 +232,7 @@ public class PanelProveedores extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        ContentTable.setBackground(new java.awt.Color(255, 255, 255));
 
         TableProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,23 +242,23 @@ public class PanelProveedores extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TableProveedores);
+        jScrollPane2.setViewportView(TableProveedores);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1)
-                .addGap(23, 23, 23))
+        javax.swing.GroupLayout ContentTableLayout = new javax.swing.GroupLayout(ContentTable);
+        ContentTable.setLayout(ContentTableLayout);
+        ContentTableLayout.setHorizontalGroup(
+            ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentTableLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2)
+                .addGap(62, 62, 62))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                .addGap(69, 69, 69))
+        ContentTableLayout.setVerticalGroup(
+            ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentTableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
@@ -218,71 +266,118 @@ public class PanelProveedores extends javax.swing.JPanel {
         ContentPanelLayout.setHorizontalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(ContentTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         ContentPanelLayout.setVerticalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentPanelLayout.createSequentialGroup()
                 .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(ContentTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 913, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 672, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
+            .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_AgregarProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProveedoresMouseClicked
+        //JsonClienteCRUD.addCliente(ModelCellClientes);
         addContainer(new FormProveedores(), getWidth(), getHeight(), ContentPanel);
-        
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
-/*EVENTO DE BOTONES*/
+
+    private void txtSearchProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchProveedorKeyReleased
+        System.out.println("ESCRIBE XD");
+        if (txtSearchProveedor.getText().trim().isEmpty()) {
+            listarProveedores();
+        }
+        if (searchSelect.equals("nombre")) {
+            System.out.println("NOMBREEEEEE SOY NOMBREEE");
+            List<ModelCellProveedores> newCellProveedoreses = JsonProveedoresCRUD.searchProveedorNombre(txtSearchProveedor.getText());
+            listarProveedorType(newCellProveedoreses);
+        }
+    }//GEN-LAST:event_txtSearchProveedorKeyReleased
+
+    private void typeNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNameMouseClicked
+        try {
+            if (searchSelect.equals(listProveedor.get(0).toString())) {
+                listarProveedores();
+                searchSelect = listProveedor.get(5).toString();
+            } else {
+                searchSelect = listProveedor.get(0).toString();
+                List<ModelCellProveedores> newCellProveedor = JsonProveedoresCRUD.searchProveedorNombre(txtSearchProveedor.getText());
+                listarProveedorType(newCellProveedor);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al buscar");
+        }
+    }//GEN-LAST:event_typeNameMouseClicked
+
+    /*EVENTO DE BOTONES*/
     TableActionEventProveedores event = new TableActionEventProveedores() {
+
         @Override
         public void onEdit(ModelCellProveedores proveedores) {
-            addContainer(new FormProveedores(), getWidth(), getHeight(), ContentPanel);
-            Maximize.updateCrud = false;
+            Maximize.updateCrud = true;
+            ModelCellProveedores updateProveedor = listProveedor.get(TableProveedores.getSelectedRow());
+            ValidateRegular.updateProveedor = updateProveedor;
+            FormProveedores fCl = new FormProveedores();
+            addContainer(fCl, getWidth(), getHeight(), ContentPanel);
         }
 
         @Override
         public void onDelete(ModelCellProveedores proveedores) {
-            System.out.println("Proveedores  eliminar" + TableProveedores.getSelectedRow());
+            System.out.println("DELETE PROVEEDORES");
+            ModelCellProveedores deleteProveedores = listProveedor.get(TableProveedores.getSelectedRow());
+            String[] opciones = {"Si", "No"};
+            ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+            int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al proveedor " + deleteProveedores.getNombres() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+            if (opcion == JOptionPane.YES_OPTION) {
+                JsonProveedoresCRUD.deleteProveedor(deleteProveedores.getIdProveedor());
+                try {
+                    CrudMysql.crudMysqlProveedores();
+                } catch (Exception e) {
+                    System.out.println("Sin conexion a internet proveedor no eliminado en base de datos");
+                }
+            }
+            listarProveedores();
         }
-       
     };
-    
-    
 
     /*INIT DATA*/
-    private void initData(){
+    private void listarProveedores() {
+        listProveedor = JsonProveedoresCRUD.returnProveedores();
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Ruc", "Nombre", "Tipo", "Telefono","Correo","Editar", "Eliminar"};
+        String columns[] = {"RUC", "Nombres", "Tipo", "Productos", "Telefono", "Correo", "Editar", "Eliminar"};
         TableProveedores.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
-          for(int i=0; i<30; i++){
-            //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
-            // 12, 12.5f,"Abierto").toRowTable(event));
-            TableProveedores.addRow(new ModelCellProveedores("102323212341", "Editorial ramirez", "persona natural", "829232412", "correo@email").toRowTable(event));
-        }   
+        if (listProveedor != null) {
+            for (ModelCellProveedores cl : listProveedor) {
+                //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
+                TableProveedores.addRow(new ModelCellProveedores(cl.getRuc(), cl.getNombres(), cl.getTipo(), cl.getProductos(), cl.getTelefono(),
+                        cl.getCorreo()).toRowTable(event));
+            }
+        }
     }
-    
-    
+
+    private void listarProveedorType(List<ModelCellProveedores> typeProveedoreses) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        String columns[] = {"Nombres", "Apellidos", "Tipo", "Documento", "Telefono", "Correo", "Editar", "Eliminar"};
+        TableProveedores.setModel(modelo);
+        modelo.setColumnIdentifiers(columns);
+        for (int i = 0; i < typeProveedoreses.size(); i++) {
+            TableProveedores.addRow(new ModelCellProveedores(typeProveedoreses.get(i).getRuc(), typeProveedoreses.get(i).getNombres(), typeProveedoreses.get(i).getTipo(), typeProveedoreses.get(i).getProductos(), typeProveedoreses.get(i).getTelefono(),
+                    typeProveedoreses.get(i).getCorreo()).toRowTable(event));
+        }
+    }
+
     /**
      *
      * @param p Panel de Ingreso
@@ -298,11 +393,20 @@ public class PanelProveedores extends javax.swing.JPanel {
         c.revalidate();
         c.repaint();
     }
-    
-    
+
+    public void llenadoBusqueda() {
+        busquedaLista.add("nombre");
+        busquedaLista.add("ruc");
+        busquedaLista.add("telefono");
+        busquedaLista.add("productos");
+        busquedaLista.add("tipo");
+        busquedaLista.add("ultimo");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;
     private javax.swing.JPanel ContentPanel;
+    private javax.swing.JPanel ContentTable;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
     private table.TableProveedores.TableProveedores TableProveedores;
@@ -312,11 +416,16 @@ public class PanelProveedores extends javax.swing.JPanel {
     private javax.swing.JLabel btn_ExportarExcel;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField txtSearchProveedores;
+    private javax.swing.JTextField txtSearchProveedor;
+    private javax.swing.JLabel typeName;
     // End of variables declaration//GEN-END:variables
 
 }

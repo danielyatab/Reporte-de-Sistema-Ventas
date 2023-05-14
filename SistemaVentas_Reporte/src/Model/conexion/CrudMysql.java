@@ -250,7 +250,7 @@ public class CrudMysql {
             deleteStmt.executeUpdate();
             // Insertar los nuevos registros en la tabla
             for (ModelCellProductos producto : listProductosHistorial) {
-                PreparedStatement ps = con.prepareStatement("REPLACE INTO historialproducto (codproducto,producto,tipo,descripcion,marca,stock,precioU) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO historialproducto(codproducto,producto,tipo,descripcion,marca,stock,precioU) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 ps.setString(1, producto.getCodigo());
                 ps.setString(2, producto.getProducto());
                 ps.setString(3, producto.getTipo());

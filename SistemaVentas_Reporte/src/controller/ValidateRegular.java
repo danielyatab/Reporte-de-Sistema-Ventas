@@ -21,11 +21,12 @@ public class ValidateRegular {
     public static boolean setUpdateProveedor = true;
     public static boolean setCreateProducto = false;
     public static boolean setUpdateProducto = true;
+   // public static boolean productOld = true;
     public static int testValidate = 0;
 
     public static ModelCellClientes updateCliente;
     public static ModelCellProveedores updateProveedor;
     public static ModelCellProductos updateProducto;
-    public static ModelCellProductos updateOldProducto;
+    public static ModelCellProductos oldProducto;
 
 }

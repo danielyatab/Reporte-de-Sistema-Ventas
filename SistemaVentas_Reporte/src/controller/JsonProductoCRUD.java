@@ -174,23 +174,19 @@ public class JsonProductoCRUD {
      */
     //Verificacion no repetitiva de id
     //Escanear codigo
-    public static ModelCellProductos searchCodeExistente(String code) {
-        productoGlobal = returnProductoHistorial();
+    public static boolean searchCodeExistente(String code) {
         for (ModelCellProductos p : returnProductoHistorial()) {
-            if (p.getCodigo() == code) {
+            if (p.getCodigo().trim().equals(code.trim())) {
                 String[] opciones = {"Si", "No"};
                 int opcion = JOptionPane.showOptionDialog(null, "¿El producto ya se registro anteriormente desea traerlo?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                 if (opcion == JOptionPane.YES_OPTION) {
                     //OldProduct return
-                    return p;
-                } else {
-                    //Borramos para que no interfiera con lo que se va crear
-                    deleteProducto(code);
-                    break;
-                }
+                    ValidateRegular.oldProducto = p;
+                    return true;
+                } 
             }
         }
-        return null;
+        return false;
     }
 
     public static ModelCellProductos returnProductoOld(ModelCellProductos newProducto) {

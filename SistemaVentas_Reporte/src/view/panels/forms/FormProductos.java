@@ -5,8 +5,8 @@
 package view.panels.forms;
 
 import Model.ModelCellProductos;
-import Model.ModelCellProveedores;
 import Model.conexion.CrudMysql;
+import controller.JsonProductoCRUD;
 import controller.ValidateRegular;
 import design.Maximize;
 import java.awt.BorderLayout;
@@ -17,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import view.panels.PanelProducto;
-import view.panels.PanelProveedores;
 
 /**
  *
@@ -25,12 +24,13 @@ import view.panels.PanelProveedores;
  */
 public class FormProductos extends javax.swing.JPanel {
 
+    public boolean passCode = true;
     ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
     public boolean add = true;
 
-    
     public FormProductos() {
         initComponents();
+        txtCodigo.requestFocus();
         setOpaque(false);
         initData();
     }
@@ -93,6 +93,11 @@ public class FormProductos extends javax.swing.JPanel {
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_Cancelar.png"))); // NOI18N
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         TextName.setOpaque(false);
 
@@ -101,6 +106,11 @@ public class FormProductos extends javax.swing.JPanel {
         txtCodigo.setForeground(new java.awt.Color(0, 0, 102));
         txtCodigo.setBorder(null);
         txtCodigo.setOpaque(false);
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextNameLayout = new javax.swing.GroupLayout(TextName);
         TextName.setLayout(TextNameLayout);
@@ -217,6 +227,11 @@ public class FormProductos extends javax.swing.JPanel {
         btnAddTipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddTipo.png"))); // NOI18N
 
         btnGeneraCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_GenerarCodigo.png"))); // NOI18N
+        btnGeneraCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGeneraCodigoMouseClicked(evt);
+            }
+        });
 
         title.setFont(new java.awt.Font("Dubai", 1, 36)); // NOI18N
         title.setForeground(new java.awt.Color(51, 51, 51));
@@ -441,18 +456,60 @@ public class FormProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
+        if (nullTxt()) {
+            ModelCellProductos newPd = new ModelCellProductos();
+            if (add) {
+                newPd = newProducto();
+                /*LLENADO JSON*/
+                JsonProductoCRUD.addProducto(newPd);
+                /*LLENADO MYSQL*/
+                pushMysql();
+            } else {
+                newPd = newProducto();
+                JsonProductoCRUD.updateProducto(newPd);
+                /*LLENADO MYSQL*/
+                pushMysql();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Termina de llenar los campos", "", 0, icono);
+        }
     }//GEN-LAST:event_btnAceptarMouseClicked
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        if (JsonProductoCRUD.searchCodeExistente(txtCodigo.getText())) {
+            getElements(ValidateRegular.oldProducto);
+        }
+        if (evt.getKeyCode() == evt.VK_SPACE) {
+            txtCodigo.setEditable(false); // Establecer editable en false cuando se suelta la tecla de espacio
+            txtProducto.requestFocus();
+        }
+    }//GEN-LAST:event_txtCodigoKeyReleased
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        String[] opciones = {"Si", "No"};
+        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al producto?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+        if (opcion == JOptionPane.YES_OPTION) {
+            addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
+        }
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnGeneraCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGeneraCodigoMouseClicked
+        txtCodigo.setText(JsonProductoCRUD.returnCodeGenerate());
+        txtCodigo.setEditable(false);
+    }//GEN-LAST:event_btnGeneraCodigoMouseClicked
 
 
     /*INIT DATA*/
     private void initData() {
+        System.out.print("INIT DATA sssssXD");
+        //txtCodigo.setSelectionStart(0);
         if (Maximize.updateCrud) {
             add = false;
             btnAceptar.setIcon(new ImageIcon("src/img/btn_Actualizar.png"));
             title.setText("ACTUALIZAR PRODUCTO");
             Maximize.updateCrud = false;
-            getElements();
+            getElements(ValidateRegular.updateProducto);
         } else {
             btnAceptar.setIcon(new ImageIcon("src/img/btn_Agregar.png"));
             add = true;
@@ -475,19 +532,17 @@ public class FormProductos extends javax.swing.JPanel {
         c.revalidate();
         c.repaint();
     }
-    
-    
-    private void getElements() {
-        txtCodigo.setText(ValidateRegular.updateProducto.getCodigo());
-        txtProducto.setText(ValidateRegular.updateProducto.getProducto());
-        txtMarca.setText(ValidateRegular.updateProducto.getMarca());
-        txtDescripcion.setText(ValidateRegular.updateProducto.getDescripcion());
-        txtCantidad.setText(valueOf(ValidateRegular.updateProducto.getCantidad()));
-        comboTipo.setSelectedItem(ValidateRegular.updateProducto.getTipo());
-        txtPrecioU.setText(valueOf(ValidateRegular.updateProducto.getPrecioU()));
+
+    private void getElements(ModelCellProductos updateP) {
+        txtCodigo.setText(updateP.getCodigo());
+        txtProducto.setText(updateP.getProducto());
+        txtMarca.setText(updateP.getMarca());
+        txtDescripcion.setText(updateP.getDescripcion());
+        txtCantidad.setText(valueOf(updateP.getCantidad()));
+        comboTipo.setSelectedItem(updateP.getTipo());
+        txtPrecioU.setText(valueOf(updateP.getPrecioU()));
     }
 
-    
     public boolean nullTxt() {
         if (txtCodigo.getText().equals("") || txtProducto.getText().equals("") || txtPrecioU.equals("") || txtCantidad.equals("") || txtMarca.equals("")) {
             return false;
@@ -495,21 +550,20 @@ public class FormProductos extends javax.swing.JPanel {
             return true;
         }
     }
-    /*
+
     public ModelCellProductos newProducto() {
         ModelCellProductos newPd = new ModelCellProductos();
-
-        newPd.setRuc(txtRuc.getText());
-        newPd.setNombres(txtNombres.getText());
+        newPd.setCodigo(txtCodigo.getText());
+        newPd.setProducto(txtProducto.getText());
         newPd.setTipo(comboTipo.getSelectedItem().toString());
-        newPd.setProductos(txtProductos.getText());
-        newPd.setCorreo(txtCorreo.getText());
-        newPd.setTelefono(txtTelefono.getText());
-        System.out.println("Nre opv: + " + newPd.getNombres());
+        newPd.setMarca(txtMarca.getText());
+        newPd.setDescripcion(txtDescripcion.getText());
+        newPd.setCantidad(Integer.parseInt(txtCantidad.getText()));
+        newPd.setPrecioU(Double.parseDouble(txtPrecioU.getText()));
+        System.out.println("New opv: + " + newPd.getProducto());
         return newPd;
-    }*/
-    
-    
+    }
+
     public void pushMysql() {
         ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
         JOptionPane.showMessageDialog(null, "Regitro exitoso del Producto", "", 0, icononew);
@@ -521,7 +575,7 @@ public class FormProductos extends javax.swing.JPanel {
                 System.out.println("Sin conexion a internet HISTORIALproducto");
             }
         }
-        addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);
+        addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

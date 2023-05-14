@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import view.panels.PanelCliente;
 import view.panels.PanelDetalleVentas;
-import view.panels.PanelProducts;
+import view.panels.PanelProducto;
 import view.panels.PanelProveedores;
 import view.panels.PanelReporteVentas;
 import view.panels.PanelVentas;
@@ -95,12 +95,6 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonReporteVentasMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonReporteVentasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonReporteVentasMouseExited(evt);
-            }
         });
 
         LogoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,12 +106,6 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonExitMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonExitMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonExitMouseExited(evt);
-            }
         });
 
         ButtonProveedores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -125,12 +113,6 @@ public class Main extends javax.swing.JFrame {
         ButtonProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonProveedoresMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonProveedoresMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonProveedoresMouseExited(evt);
             }
         });
 
@@ -140,12 +122,6 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonProductosMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonProductosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonProductosMouseExited(evt);
-            }
         });
 
         ButtonVentas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -153,12 +129,6 @@ public class Main extends javax.swing.JFrame {
         ButtonVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonVentasMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonVentasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonVentasMouseExited(evt);
             }
         });
 
@@ -168,12 +138,6 @@ public class Main extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonDetalleVentasMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonDetalleVentasMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonDetalleVentasMouseExited(evt);
-            }
         });
 
         ButtonClientes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -181,12 +145,6 @@ public class Main extends javax.swing.JFrame {
         ButtonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ButtonClientesMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ButtonClientesMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ButtonClientesMouseExited(evt);
             }
         });
 
@@ -503,58 +461,6 @@ public class Main extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_labelUsuariosMouseClicked
 
-    private void ButtonReporteVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseEntered
-    }//GEN-LAST:event_ButtonReporteVentasMouseEntered
-
-    private void ButtonReporteVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseExited
-    }//GEN-LAST:event_ButtonReporteVentasMouseExited
-
-    private void ButtonClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseEntered
-    }//GEN-LAST:event_ButtonClientesMouseEntered
-
-    private void ButtonClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseExited
-    }//GEN-LAST:event_ButtonClientesMouseExited
-
-    private void ButtonProductosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseEntered
-
-    }//GEN-LAST:event_ButtonProductosMouseEntered
-
-    private void ButtonProductosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseExited
-
-    }//GEN-LAST:event_ButtonProductosMouseExited
-
-    private void ButtonProveedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonProveedoresMouseEntered
-
-    private void ButtonProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonProveedoresMouseExited
-
-    private void ButtonVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonVentasMouseEntered
-
-    private void ButtonVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonVentasMouseExited
-
-    private void ButtonDetalleVentasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDetalleVentasMouseEntered
-
-    private void ButtonDetalleVentasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDetalleVentasMouseExited
-
-    private void ButtonExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonExitMouseEntered
-
-    private void ButtonExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonExitMouseExited
-
     public void resizeFormsPanels() {
         if (Maximize.isForm) {
             setUpdateDetalleProduct();
@@ -683,14 +589,13 @@ public class Main extends javax.swing.JFrame {
         /*JPANEL*/
         listaJpanel.add(new PanelReporteVentas());
         listaJpanel.add(new PanelCliente());
-        listaJpanel.add(new PanelProducts());
+        listaJpanel.add(new PanelProducto());
         listaJpanel.add(new PanelProveedores());
         listaJpanel.add(new PanelVentas());
         listaJpanel.add(new PanelDetalleVentas());
 
         listaForms.add(new FormDetalleProductos());
 
-        //addConatiner(new PanelReporteVentas(), getWidth()-442, getHeight(), ContentPanel);
     }
 
 

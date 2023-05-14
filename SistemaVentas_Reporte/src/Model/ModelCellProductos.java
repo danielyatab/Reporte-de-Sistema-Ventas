@@ -7,26 +7,48 @@ import Table.TableProduct.TableActionEventProduct;
  *
  * @author yatac
  */
-public class ModelCellProduct {
+public class ModelCellProductos {
     private String codigo;
     private String producto;
     private String tipo;
+    private String descripcion;
+    private String marca;
     private int cantidad;
-    private float precioU;
+    private double precioU;
     
    
-    public static void ModelCellProduct(){
+    public ModelCellProductos(){
         /*Constructor por defecto*/
     }
-    
-    public ModelCellProduct(String codigo, String producto,String tipo, int cantidad, float precioU) {
+   
+
+    public ModelCellProductos(String codigo, String producto, String tipo, String descripcion, String marca, int cantidad, double precioU) {
         this.codigo = codigo;
         this.producto = producto;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+        this.marca = marca;
         this.cantidad = cantidad;
         this.precioU = precioU;
-        this.tipo = tipo;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+    
+    
     public String getCodigo() {
         return codigo;
     }
@@ -51,11 +73,11 @@ public class ModelCellProduct {
         this.cantidad = cantidad;
     }
 
-    public float getPrecioU() {
+    public double getPrecioU() {
         return precioU;
     }
 
-    public void setPrecioU(float precioU) {
+    public void setPrecioU(double precioU) {
         this.precioU = precioU;
     }
 
@@ -70,7 +92,7 @@ public class ModelCellProduct {
     
     
     public Object[] toRowTable(TableActionEventProduct event){
-        return new Object[]{codigo, producto, tipo,cantidad, precioU, new ModelActionProductos(this, event), new ModelActionProductos(this, event)};
+        return new Object[]{codigo, producto, tipo, descripcion, marca, cantidad, precioU, new ModelActionProductos(this, event), new ModelActionProductos(this, event)};
     }
     
 }

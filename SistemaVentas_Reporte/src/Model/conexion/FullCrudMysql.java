@@ -16,5 +16,7 @@ public class FullCrudMysql {
         CrudMysql.crudMysqlHistorialClientes();
         CrudMysql.crudMysqlProveedores();
         CrudMysql.crudMysqlProveedoresHistorial();
+        CrudMysql.crudMysqlProductos();
+        CrudMysql.crudMysqlProductosHistorial();
     }
 }

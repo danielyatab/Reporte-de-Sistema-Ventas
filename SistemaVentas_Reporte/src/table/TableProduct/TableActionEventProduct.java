@@ -4,7 +4,7 @@
  */
 package Table.TableProduct;
 
-import Model.ModelCellProduct;
+import Model.ModelCellProductos;
 
 
 /**
@@ -13,6 +13,6 @@ import Model.ModelCellProduct;
  */
 
 public interface TableActionEventProduct {
-    public void onEdit(ModelCellProduct producto);
-    public void onDelete(ModelCellProduct producto);
+    public void onEdit(ModelCellProductos producto);
+    public void onDelete(ModelCellProductos producto);
 }

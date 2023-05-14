@@ -158,7 +158,6 @@ public class Users extends javax.swing.JFrame {
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
         if (checkSetUser) {
             txtUsuario.setText("");
-
             if (checkSetPassword) {
                 txtContraseña.setText("");
                 checkSetPassword = false;
@@ -209,14 +208,20 @@ public class Users extends javax.swing.JFrame {
                     crudUser.addUser(user);
 
                     //MYSQL => Actualizado de base de datos de ambos contenidos
-                    try {
-                        CrudMysql.crudMysqlUsuarios();
-                        CrudMysql.crudMysqlHistorialUsuarios();
-                    } catch (Exception e) {
-                        System.out.println("Sin conexion a internet Mysql");
+                    if (ValidateRegular.conexion) {
+                        try {
+                            CrudMysql.crudMysqlUsuarios();
+                            CrudMysql.crudMysqlHistorialUsuarios();
+                        } catch (Exception e) {
+                            System.out.println("Sin conexion a internet Mysql");
+                        }
+                    } else {
+                        System.out.println("Sin conexion xd");
                     }
 
                     if (ValidateRegular.setCreateUser) {
+                        ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+                        JOptionPane.showMessageDialog(null, "Regitro exitoso del Nuevo Usuario " + txtUsuario.getText(), "", 0, icononew);
                         LoginInit login = new LoginInit();
                         setMainEnter(false);
                         login.setVisible(true);

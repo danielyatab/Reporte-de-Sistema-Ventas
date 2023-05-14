@@ -46,6 +46,7 @@ public class JsonClienteCRUD {
             comprobarCliente(newCliente);
         } else {
             List<ModelCellClientes> clList = new ArrayList<ModelCellClientes>();
+            newCliente.setIdCliente(idRandom());
             clList.add(newCliente);
             modificarClientes(clList);
             modificarClienteHistorial(clList);

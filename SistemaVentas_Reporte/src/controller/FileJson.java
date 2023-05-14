@@ -1,6 +1,8 @@
 package controller;
 
+import Model.conexion.Conexion;
 import Model.conexion.UpdateMysqlCliente;
+import Model.conexion.UpdateMysqlProducto;
 import Model.conexion.UpdateMysqlProveedor;
 import Model.conexion.UpdateMysqlUser;
 import java.io.File;
@@ -15,24 +17,23 @@ public class FileJson {
 
     public static String rutaUser;
     public static String rutaIdUser;
-    
+
     public static String rutaCliente;
     public static String rutaIdCliente;
-    
+
     public static String rutaProducto;
     public static String rutaIdProducto;
-    
+
     public static String rutaProveedores;
     public static String rutaIdProveedores;
 
     public static String rutaDetalleVentas;
     public static String rutaHistorialDetalleVentas;
-    
-    
+
     public static void verifRuteUser(String archivo, String archivoId) {
         File file = new File(archivo);
         File file2 = new File(archivoId);
-        if (!file.exists() && !file2.exists() ) {
+        if (!file.exists() && !file2.exists()) {
             try {
                 file.createNewFile();
                 file2.createNewFile();
@@ -42,12 +43,14 @@ public class FileJson {
                     try (FileWriter writer2 = new FileWriter(archivoId)) {
                         writer2.write("[ ]");
                     } catch (IOException e) {
-                         e.printStackTrace();
+                        e.printStackTrace();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                new UpdateMysqlUser().start();
+                if (Conexion.testConecion()) {
+                    new UpdateMysqlUser().start();
+                }
             } catch (IOException e) {
                 e.getMessage();
             }
@@ -59,7 +62,7 @@ public class FileJson {
     public static void verifRuteCliente(String archivo, String archivoId) {
         File file = new File(archivo);
         File file2 = new File(archivoId);
-        if (!file.exists() && !file2.exists() ) {
+        if (!file.exists() && !file2.exists()) {
             try {
                 file.createNewFile();
                 file2.createNewFile();
@@ -69,12 +72,14 @@ public class FileJson {
                     try (FileWriter writer2 = new FileWriter(archivoId)) {
                         writer2.write("[ ]");
                     } catch (IOException e) {
-                         e.printStackTrace();
+                        e.printStackTrace();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                new UpdateMysqlCliente().start();
+                if (Conexion.testConecion()) {
+                    new UpdateMysqlCliente().start();
+                }
             } catch (IOException e) {
                 e.getMessage();
             }
@@ -86,8 +91,8 @@ public class FileJson {
     public static void verifRuteProveedor(String archivo, String archivoId) {
         File file = new File(archivo);
         File file2 = new File(archivoId);
-        
-        if (!file.exists() && !file2.exists() ) {
+
+        if (!file.exists() && !file2.exists()) {
             try {
                 file.createNewFile();
                 file2.createNewFile();
@@ -97,12 +102,14 @@ public class FileJson {
                     try (FileWriter writer2 = new FileWriter(archivoId)) {
                         writer2.write("[ ]");
                     } catch (IOException e) {
-                         e.printStackTrace();
+                        e.printStackTrace();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                new UpdateMysqlProveedor().start();
+                if (Conexion.testConecion()) {
+                    new UpdateMysqlProveedor().start();
+                }
             } catch (IOException e) {
                 e.getMessage();
             }
@@ -110,24 +117,34 @@ public class FileJson {
         rutaProveedores = archivo;
         rutaIdProveedores = archivoId;
     }
-    
-    public static void verifRuteProducto(String archivo) {
+
+    public static void verifRuteProducto(String archivo, String archivoId) {
         File file = new File(archivo);
-        if (!file.exists()) {
+        File file2 = new File(archivoId);
+
+        if (!file.exists() && !file2.exists()) {
             try {
                 file.createNewFile();
+                file2.createNewFile();
                 /*Sobreescribir en Arreglo de objetos json*/
                 try (FileWriter writer = new FileWriter(archivo)) {
                     writer.write("[ ]");
-                    /* Agregado de datos de base de datos si es que se encuentran datos */
-                    
+                    try (FileWriter writer2 = new FileWriter(archivoId)) {
+                        writer2.write("[ ]");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+                if (Conexion.testConecion()) {
+                    new UpdateMysqlProducto().start();
                 }
             } catch (IOException e) {
                 e.getMessage();
             }
         }
         rutaProducto = archivo;
+        rutaIdProducto = archivoId;
     }
 }

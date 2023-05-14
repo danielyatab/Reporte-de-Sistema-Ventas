@@ -15,7 +15,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import view.panels.PanelCliente;
 import view.panels.PanelProveedores;
 
 /**
@@ -483,11 +482,15 @@ public class FormProveedores extends javax.swing.JPanel {
     }
 
     public void pushMysql() {
-        try {
-            CrudMysql.crudMysqlProveedores();
-            CrudMysql.crudMysqlProveedoresHistorial();
-        } catch (Exception e) {
-            System.out.println("Sin conexion a internet HISTORIALCliente");
+        ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+        JOptionPane.showMessageDialog(null, "Regitro exitoso del Proveedor", "", 0, icononew);
+        if (ValidateRegular.conexion) {
+            try {
+                CrudMysql.crudMysqlProveedores();
+                CrudMysql.crudMysqlProveedoresHistorial();
+            } catch (Exception e) {
+                System.out.println("Sin conexion a internet HISTORIALCliente");
+            }
         }
         addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);
     }

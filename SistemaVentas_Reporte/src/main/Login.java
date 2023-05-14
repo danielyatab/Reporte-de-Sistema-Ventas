@@ -4,6 +4,7 @@
  */
 package main;
 
+import Model.conexion.Conexion;
 import Model.conexion.FullCrudMysql;
 import controller.Threads;
 import java.awt.BorderLayout;
@@ -23,10 +24,12 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         hilo.start();
-        try {
-            new FullCrudMysql();
-        } catch (Exception e) {
-            System.out.println("Error de conexion");
+        if (Conexion.testConecion()) {
+            try {
+                new FullCrudMysql();
+            } catch (Exception e) {
+                System.out.println("Error de conexion");
+            }
         }
         initComponents();
         setLocationRelativeTo(null);

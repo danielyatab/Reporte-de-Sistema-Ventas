@@ -1,9 +1,11 @@
 package Model.conexion;
 
 import Model.ModelCellClientes;
+import Model.ModelCellProductos;
 import Model.ModelCellProveedores;
 import Model.ModelUser;
 import controller.JsonClienteCRUD;
+import controller.JsonProductoCRUD;
 import controller.JsonProveedoresCRUD;
 import controller.JsonUserValidation;
 import java.util.List;
@@ -47,8 +49,6 @@ public class CrudMysql {
         }
     }
 
-    
-    
     public static void crudMysqlHistorialUsuarios() {
         List<ModelUser> listUsersHistorial = JsonUserValidation.returnUserHistorial();
         try {
@@ -111,7 +111,6 @@ public class CrudMysql {
         }
     }
 
-
     public static void crudMysqlHistorialClientes() {
         List<ModelCellClientes> listClienteHistorial = JsonClienteCRUD.returnClientesHistorial();
         try {
@@ -142,12 +141,9 @@ public class CrudMysql {
         }
     }
 
-    
-    
     /**
      * *******************PROVEEDOR********************
      */
-    
     public static void crudMysqlProveedores() {
         List<ModelCellProveedores> listProveedor = JsonProveedoresCRUD.returnProveedores();
         try {
@@ -177,7 +173,7 @@ public class CrudMysql {
             System.err.println("Ha ocurrido un error al actualizar la tabla cliente: " + e.getMessage());
         }
     }
-    
+
     public static void crudMysqlProveedoresHistorial() {
         List<ModelCellProveedores> listProveedor = JsonProveedoresCRUD.returnProveedores();
         try {
@@ -205,6 +201,69 @@ public class CrudMysql {
             stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
         } catch (SQLException e) {
             System.err.println("Ha ocurrido un error al actualizar la tabla cliente: " + e.getMessage());
+        }
+    }
+
+    /**
+     * *******************PRODUCTOS********************
+     */
+    public static void crudMysqlProductos() {
+        List<ModelCellProductos> listProductos = JsonProductoCRUD.returnProductos();
+        try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM producto");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellProductos producto : listProductos) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO producto (codProducto,producto,tipo,descripcion,marca,stock,precioU) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps.setString(1, producto.getCodigo());
+                ps.setString(2, producto.getProducto());
+                ps.setString(3, producto.getTipo());
+                ps.setString(4, producto.getDescripcion());
+                ps.setString(5, producto.getMarca());
+                ps.setInt(6, producto.getCantidad());
+                ps.setDouble(7, producto.getPrecioU());
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException e) {
+            System.err.println("Ha ocurrido un error al actualizar la tabla producto: " + e.getMessage());
+        }
+    }
+
+    public static void crudMysqlProductosHistorial() {
+        List<ModelCellProductos> listProductosHistorial = JsonProductoCRUD.returnProductoHistorial();
+        try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM historialproducto");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellProductos producto : listProductosHistorial) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO historialproducto (codproducto,producto,tipo,descripcion,marca,stock,precioU) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps.setString(1, producto.getCodigo());
+                ps.setString(2, producto.getProducto());
+                ps.setString(3, producto.getTipo());
+                ps.setString(4, producto.getDescripcion());
+                ps.setString(5, producto.getMarca());
+                ps.setInt(6, producto.getCantidad());
+                ps.setDouble(7, producto.getPrecioU());
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException e) {
+            System.out.println("Ha ocurrido un error al actualizar la tabla producto: " + e.getMessage());
         }
     }
 }

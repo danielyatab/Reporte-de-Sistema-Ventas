@@ -53,6 +53,7 @@ public class JsonProveedoresCRUD {
             comprobarProveedor(newProveedor);
         } else {
             List<ModelCellProveedores> pvList = new ArrayList<ModelCellProveedores>();
+            newProveedor.setIdProveedor(idRandom());
             pvList.add(newProveedor);
             modificarProveedor(pvList);
             modificarProveedorHistorial(pvList);

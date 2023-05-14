@@ -11,8 +11,6 @@ import java.awt.Color;
 import static java.lang.String.valueOf;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -32,7 +30,6 @@ public class LoginInit extends javax.swing.JFrame {
         setFocusable(true);
         setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
-
     }
 
     @SuppressWarnings("unchecked")
@@ -187,12 +184,7 @@ public class LoginInit extends javax.swing.JFrame {
             ValidateRegular.testValidate++;
         } else {
             ValidateRegular.testValidate++;
-            //Reset Diseño
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                e.printStackTrace();
-            }
+
             if (ValidateRegular.SYMBOLS_PATTERN.matcher(userName).matches()) {
                 if (jsonUser.validarUsuario(user)) {
                     

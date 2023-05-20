@@ -49,7 +49,7 @@ public class TableVenta extends JTable{
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                TableHeader h =  new TableHeader(value+"");
+                TableHeaderVentas h =  new TableHeaderVentas(value+"");
                 /*Alineacion centrada para cada texto*/
                 h.setHorizontalAlignment(JLabel.CENTER);
                 if(row == 0 || column == columns){
@@ -113,7 +113,7 @@ public class TableVenta extends JTable{
             if(getValueAt(row,column) != null){
                 value = getValueAt(row, column).toString();
             }
-            TableCell cell = new TableCell(value);
+            TableCellVentas cell = new TableCellVentas(value);
             cell.setHorizontalAlignment(JLabel.CENTER); 
             return cell;
         }

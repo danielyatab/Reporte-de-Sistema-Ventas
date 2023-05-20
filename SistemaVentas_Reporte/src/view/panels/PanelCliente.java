@@ -298,7 +298,7 @@ public class PanelCliente extends javax.swing.JPanel {
         }
         if (searchSelect.equals("nombre")) {
             System.out.println("NOMBREEEEEE SOY NOMBREEE");
-            List<ModelCellClientes> newCellCliente = JsonClienteCRUD.searchClienteNombre(txtSearchCliente.getText());
+            List<ModelCellClientes> newCellCliente = JsonClienteCRUD.searchListClienteNombre(txtSearchCliente.getText());
             listarClientesType(newCellCliente);
         }
     }//GEN-LAST:event_txtSearchClienteKeyReleased
@@ -310,7 +310,7 @@ public class PanelCliente extends javax.swing.JPanel {
                 searchSelect = listClient.get(5).toString();
             } else {
                 searchSelect = listClient.get(0).toString();
-                List<ModelCellClientes> newCellCliente = JsonClienteCRUD.searchClienteNombre(txtSearchCliente.getText());
+                List<ModelCellClientes> newCellCliente = JsonClienteCRUD.searchListClienteNombre(txtSearchCliente.getText());
                 listarClientesType(newCellCliente);
             }
         } catch (Exception e) {

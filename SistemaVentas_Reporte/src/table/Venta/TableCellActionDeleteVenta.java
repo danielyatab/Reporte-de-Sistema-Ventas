@@ -4,12 +4,7 @@
  */
 package table.Venta;
 
-import table.TableClient.*;
-import Buttons.ModelActionClientes;
-import table.TableProveedores.*;
-import table.TableProduct.*;
-import Buttons.ModelActionProductos;
-import Buttons.ModelActionProveedores;
+
 import Buttons.ModelActionVenta;
 import Buttons.PanelActionDeleteVenta;
 import java.awt.Color;

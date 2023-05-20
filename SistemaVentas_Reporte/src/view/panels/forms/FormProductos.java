@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import view.panels.PanelProducto;
+import view.panels.PanelVentas;
 
 /**
  *
@@ -490,7 +491,12 @@ public class FormProductos extends javax.swing.JPanel {
         ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al producto?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
-            addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
+            if (ValidateRegular.passProducto) {
+                ValidateRegular.passProducto = false;
+                addContainer(new PanelVentas(), getWidth(), getHeight(), PanelContent);
+            } else {
+                addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
+            }
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
 
@@ -575,7 +581,12 @@ public class FormProductos extends javax.swing.JPanel {
                 System.out.println("Sin conexion a internet HISTORIALproducto");
             }
         }
-        addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
+        if (ValidateRegular.passProducto) {
+            ValidateRegular.passProducto = false;
+            addContainer(new PanelVentas(), getWidth(), getHeight(), PanelContent);
+        } else {
+            addContainer(new PanelProducto(), getWidth(), getHeight(), PanelContent);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

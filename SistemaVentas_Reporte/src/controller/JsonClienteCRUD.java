@@ -101,7 +101,7 @@ public class JsonClienteCRUD {
     /**
      * ****************************TIPOS DE BUSCADORES*******************
      */
-    public static List<ModelCellClientes> searchClienteNombre(String nombre) {
+    public static List<ModelCellClientes> searchListClienteNombre(String nombre) {
         List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
         for (ModelCellClientes p : returnClientes()) {
             System.out.println("Listando : " + p.getNombre() +" = " + nombre);
@@ -113,6 +113,18 @@ public class JsonClienteCRUD {
         return searchClienteList;
     }
 
+    public static ModelCellClientes searchClienteNombre(String nombre) {
+        for (ModelCellClientes p : returnClientes()) {
+            System.out.println("Listando : " + p.getNombre() +" = " + nombre);
+            if (p.getNombre().trim().equals(nombre.trim())) {
+                System.out.println("Encontre:" + p.getNombre());
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    
     public static List<ModelCellClientes> searchClienteApellido(String apellido) {
         List<ModelCellClientes> searchClienteList = null;
         for (ModelCellClientes p : returnClientes()) {

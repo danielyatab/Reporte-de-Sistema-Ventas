@@ -21,9 +21,9 @@ public class LoginInit extends javax.swing.JFrame {
     JsonUserValidation jsonUser = new JsonUserValidation();
 
     /*Reseteo de campos de texto*/
-    private static boolean check = true;
-    private static boolean checkSetUser = true;
-    private static boolean checkSetPassword = true;
+    private boolean check = true;
+    private boolean checkSetUser = true;
+    private boolean checkSetPassword = true;
 
     public LoginInit() {
         initComponents();
@@ -91,9 +91,9 @@ public class LoginInit extends javax.swing.JFrame {
         txtUsuario.setForeground(new java.awt.Color(0, 0, 103));
         txtUsuario.setText("Ingrese el Usuario");
         txtUsuario.setBorder(null);
-        txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtUsuarioMouseClicked(evt);
+        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusGained(evt);
             }
         });
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 280, 50));
@@ -107,9 +107,9 @@ public class LoginInit extends javax.swing.JFrame {
         txtContraseña.setForeground(new java.awt.Color(0, 0, 103));
         txtContraseña.setText("Ingrese Contraseña");
         txtContraseña.setBorder(null);
-        txtContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtContraseñaMouseClicked(evt);
+        txtContraseña.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtContraseñaFocusGained(evt);
             }
         });
         getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 290, 50));
@@ -148,29 +148,6 @@ public class LoginInit extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnVolverMouseClicked
 
-    private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
-        if (checkSetUser) {
-            txtUsuario.setText("");
-            if (checkSetPassword) {
-                txtContraseña.setText("");
-                checkSetPassword = false;
-            }
-            checkSetUser = false;
-        }
-    }//GEN-LAST:event_txtUsuarioMouseClicked
-
-    private void txtContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraseñaMouseClicked
-        if (checkSetPassword) {
-            txtUsuario.setText("");
-            if (checkSetUser) {
-                txtContraseña.setText("");
-                checkSetUser = false;
-            }
-            checkSetPassword = false;
-        }
-
-    }//GEN-LAST:event_txtContraseñaMouseClicked
-
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
         char[] contraseña = txtContraseña.getPassword();
         String passwordStr = valueOf(contraseña);
@@ -187,14 +164,13 @@ public class LoginInit extends javax.swing.JFrame {
 
             if (ValidateRegular.SYMBOLS_PATTERN.matcher(userName).matches()) {
                 if (jsonUser.validarUsuario(user)) {
-                    
+
                     //Reset Intentos
                     ValidateRegular.testValidate = 0;
                     //Aparicion de nueva pantalla
                     Main main = new Main();
                     main.setVisible(true);
                     dispose();
-                    ValidateRegular.testValidate = 0;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El nombre de usuario no puede contener espacios o simbolos, ejemplo: admin123", "", 0, icono);
@@ -244,6 +220,28 @@ public class LoginInit extends javax.swing.JFrame {
             txtContraseña.setEchoChar('*');
         }
     }//GEN-LAST:event_CheckBoxPasswordMouseClicked
+
+    private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
+        if (checkSetUser) {
+            txtUsuario.setText("");
+            if (checkSetPassword) {
+                txtContraseña.setText("");
+                checkSetPassword = false;
+            }
+            checkSetUser = false;
+        }
+    }//GEN-LAST:event_txtUsuarioFocusGained
+
+    private void txtContraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaFocusGained
+        if (checkSetPassword) {
+            txtUsuario.setText("");
+            if (checkSetUser) {
+                txtContraseña.setText("");
+                checkSetUser = false;
+            }
+            checkSetPassword = false;
+        }
+    }//GEN-LAST:event_txtContraseñaFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

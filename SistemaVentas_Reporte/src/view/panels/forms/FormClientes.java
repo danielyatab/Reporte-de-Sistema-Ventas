@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import view.panels.PanelCliente;
+import view.panels.PanelProducto;
+import view.panels.PanelVentas;
 
 /**
  *
@@ -402,7 +404,6 @@ public class FormClientes extends javax.swing.JPanel {
                     /*LLENADO MYSQL*/
                     setMysql();
                     // setDisignNimbus();
-                    addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
                 }
             } else {
                 newCl = newClient();
@@ -412,7 +413,6 @@ public class FormClientes extends javax.swing.JPanel {
                 if (ValidateRegular.setUpdateCliente) {
                     setMysql();
                     //setDisignNimbus();
-                    addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
                 }
             }
         } else {
@@ -427,7 +427,12 @@ public class FormClientes extends javax.swing.JPanel {
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             //setDisignNimbus();
-            addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
+            if (ValidateRegular.passCliente) {
+                ValidateRegular.passCliente = false;
+                addContainer(new PanelVentas(), getWidth(), getHeight(), PanelContent);
+            } else {
+                addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
+            }
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
 
@@ -489,6 +494,13 @@ public class FormClientes extends javax.swing.JPanel {
             } catch (Exception e) {
                 System.out.println("Sin conexion a internet HISTORIALCliente");
             }
+        }
+
+        if (ValidateRegular.passCliente) {
+            ValidateRegular.passCliente = false;
+            addContainer(new PanelVentas(), getWidth(), getHeight(), PanelContent);
+        } else {
+            addContainer(new PanelCliente(), getWidth(), getHeight(), PanelContent);
         }
     }
 

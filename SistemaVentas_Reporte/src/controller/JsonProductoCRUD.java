@@ -113,15 +113,15 @@ public class JsonProductoCRUD {
     /**
      * ****************************TIPOS DE BUSCADORES*******************
      */
-    /*public static List<ModelCellProductos> searchProductoNombre(String nombre) {
-        List<ModelCellProductos> searchProductoList = new ArrayList<ModelCellProductos>();;
-        for (ModelCellProductos p : returnProductoes()) {
-            if (p.getNombres().trim().equals(nombre.trim())) {
-                searchProductoList.add(p);
+    public static ModelCellProductos buscarProductoCodigo(String codigo) {
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getCodigo().trim().equals(codigo.trim())) {
+                System.out.println("Encontre al producto xd");
+                return p;
             }
         }
-        return searchProductoList;
-    }*/
+        return null;
+    }
 
  /*
     public static List<ModelCellProductos> searchProductoApellido(String apellido) {

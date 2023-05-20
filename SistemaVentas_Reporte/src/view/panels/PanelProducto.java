@@ -365,7 +365,7 @@ public class PanelProducto extends javax.swing.JPanel {
 
     /**
      *
-     * @param p Panel de Ingreso
+     * @param p Panel de Ingresogit
      * @param width Ancho
      * @param height Alto
      * @param c contenedor

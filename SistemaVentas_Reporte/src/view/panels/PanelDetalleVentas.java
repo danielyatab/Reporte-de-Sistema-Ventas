@@ -4,16 +4,18 @@
  */
 package view.panels;
 
+import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
+import controller.JsonClienteCRUD;
+import controller.JsonVentaCRUD;
 import design.Maximize;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableDetalles.TableActionEventDetalles;
-//import view.panels.forms.FormDetalle;
 import view.panels.forms.FormDetalleProductos;
 
 /**
@@ -22,12 +24,12 @@ import view.panels.forms.FormDetalleProductos;
  */
 public class PanelDetalleVentas extends javax.swing.JPanel {
 
-    
+    public static List<ModelCellDetalles> listaVentas = new ArrayList<ModelCellDetalles>();
     
     public PanelDetalleVentas() {
        initComponents();
        TableDetalles.fixTable(jScrollPane2);
-       TableDetalles.setIconsColumns(7, -1,6,5);
+       TableDetalles.setIconsColumns(7, 10,5,4);
        initData();
     }
 
@@ -275,22 +277,15 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
 
     /*INIT DATA*/
     private void initData() {
+        listaVentas = JsonVentaCRUD.returnVentas();
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Nº Venta", "Cliente", "Telefono", "Total Venta","Fecha","Productos","Eliminar"};
-        TableDetalles.setModel(modelo);
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-        String cadenaFecha = "01/05/2023";
-        Date fecha = null;
-        try {
-          fecha = formatoFecha.parse(cadenaFecha);      
-        } catch (Exception e) {
-            System.out.println("Error Fecha: " + e.getMessage());
-        }
-        
+        String columns[] = {"Nº Venta", "Cliente", "Total Venta","Fecha","Productos","Eliminar"};
         modelo.setColumnIdentifiers(columns);
-          for(int i=0; i<30; i++){
-           TableDetalles.addRow(new ModelCellDetalles("000002", "Crishtopher Ramirez", "89382323", 123.01f, "2023-02-01").toRowTable(event));
-        }   
+        TableDetalles.setModel(modelo);
+        for(ModelCellDetalles m : listaVentas){
+            ModelCellClientes cl = JsonClienteCRUD.searchClienteCodigo(m.getCliente());
+            TableDetalles.addRow(new ModelCellDetalles(m.getnVenta(), cl.getNombre(), m.getTotalVenta(), m.getFecha()).toRowTable(event));
+        }
     }
     
     

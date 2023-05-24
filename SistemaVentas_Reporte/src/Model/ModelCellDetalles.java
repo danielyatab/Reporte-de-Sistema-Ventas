@@ -10,23 +10,40 @@ import table.TableDetalles.TableActionEventDetalles;
  */
 public class ModelCellDetalles {
     
+    private String codVenta;
     private String nVenta;
     private String cliente;
-    private String telefono;
-    private Float totalVenta;
+    private Double totalVenta;
+    private String rutaBoleta;
     private String fecha;
     
     
-    public static void ModelCellDetalles(){
+    public ModelCellDetalles(){
         /*Constructor por defecto*/
     }
 
-    public ModelCellDetalles(String nVenta, String cliente, String telefono, Float totalVenta, String fecha) {
+    public ModelCellDetalles(String codVenta, String nVenta, String cliente,String fecha, String rutaBoleta , double totalVenta ) {
+        this.codVenta = codVenta;
         this.nVenta = nVenta;
         this.cliente = cliente;
-        this.telefono = telefono;
+        this.totalVenta = totalVenta;
+        this.rutaBoleta = rutaBoleta;
+        this.fecha = fecha;
+    }
+    
+    public ModelCellDetalles(String nVenta, String cliente, Double totalVenta, String fecha) {
+        this.nVenta = nVenta;
+        this.cliente = cliente;
         this.totalVenta = totalVenta;
         this.fecha = fecha;
+    }
+
+    public String getCodVenta() {
+        return codVenta;
+    }
+
+    public void setCodVenta(String codVenta) {
+        this.codVenta = codVenta;
     }
 
     public String getnVenta() {
@@ -45,20 +62,20 @@ public class ModelCellDetalles {
         this.cliente = cliente;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public Float getTotalVenta() {
+    public Double getTotalVenta() {
         return totalVenta;
     }
 
-    public void setTotalVenta(Float totalVenta) {
+    public void setTotalVenta(Double totalVenta) {
         this.totalVenta = totalVenta;
+    }
+
+    public String getRutaBoleta() {
+        return rutaBoleta;
+    }
+
+    public void setRutaBoleta(String rutaBoleta) {
+        this.rutaBoleta = rutaBoleta;
     }
 
     public String getFecha() {
@@ -68,9 +85,11 @@ public class ModelCellDetalles {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
     
+   
     public Object[] toRowTable(TableActionEventDetalles event){
-        return new Object[]{nVenta, cliente, telefono, totalVenta,fecha, new ModelActionDetalles(this, event), new ModelActionDetalles(this,  event),new ModelActionDetalles(this, event)};
+        return new Object[]{nVenta, cliente, totalVenta, fecha, new ModelActionDetalles(this, event), new ModelActionDetalles(this,  event),new ModelActionDetalles(this, event)};
     }
     
 }

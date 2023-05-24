@@ -4,18 +4,37 @@
  */
 package view.panels;
 
+import java.awt.Image;
+import com.itextpdf.text.Document;
 import Model.ModelCellClientes;
+import Model.ModelCellDetalles;
 import Model.ModelCellProductos;
 import Model.ModelCellVenta;
+import Model.conexion.CrudMysql;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import controller.GeneratePdf;
 import controller.JsonClienteCRUD;
 import controller.JsonProductoCRUD;
+import controller.JsonVentaCRUD;
 import controller.ValidateRegular;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
+import java.io.File;
+import java.io.FileOutputStream;
 import static java.lang.String.valueOf;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -32,6 +51,8 @@ import view.panels.forms.FormProductos;
 public class PanelVentas extends javax.swing.JPanel {
 
     public List<ModelCellVenta> listProductos = new ArrayList<ModelCellVenta>();
+    public ModelCellClientes clienteVenta = new ModelCellClientes();
+
     public boolean cantidadSearch = true;
     public double total = 0, subTotal = 0;
 
@@ -262,7 +283,7 @@ public class PanelVentas extends javax.swing.JPanel {
                 .addComponent(ContextSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(2, 2, 2))
         );
 
         ContentTableProduct.setBackground(new java.awt.Color(255, 255, 255));
@@ -365,7 +386,7 @@ public class PanelVentas extends javax.swing.JPanel {
         );
         TxtApellidosLayout.setVerticalGroup(
             TxtApellidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtNumberPhone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addComponent(txtNumberPhone, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         txtLastName.setEditable(false);
@@ -405,7 +426,7 @@ public class PanelVentas extends javax.swing.JPanel {
         );
         TxtCorreoLayout.setVerticalGroup(
             TxtCorreoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         BtnAgregarCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -531,7 +552,7 @@ public class PanelVentas extends javax.swing.JPanel {
                         .addGap(15, 15, 15)
                         .addComponent(BtnAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel11))
-                .addGap(13, 13, 13))
+                .addGap(14, 14, 14))
         );
 
         PanelFormBoleta.setBackground(new java.awt.Color(204, 255, 204));
@@ -696,8 +717,8 @@ public class PanelVentas extends javax.swing.JPanel {
         ContentClienteBoletaLayout.setVerticalGroup(
             ContentClienteBoletaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentClienteBoletaLayout.createSequentialGroup()
-                .addComponent(PanelFormCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
+                .addComponent(PanelFormCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addComponent(PanelFormBoleta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -721,7 +742,7 @@ public class PanelVentas extends javax.swing.JPanel {
         );
         ContentPanelLayout.setVerticalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 772, Short.MAX_VALUE)
+            .addGap(0, 781, Short.MAX_VALUE)
             .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ContentPanelLayout.createSequentialGroup()
                     .addContainerGap()
@@ -821,6 +842,9 @@ public class PanelVentas extends javax.swing.JPanel {
             txtNumberPhone.setText(cliente.getTelefono());
             txtLastName.setText(cliente.getApellido());
             txtEmail.setText(cliente.getCorreo());
+
+            //LLenado de cliente encontrado
+            clienteVenta = cliente;
         } else {
             System.out.println("No encontre XD");
         }
@@ -928,14 +952,51 @@ public class PanelVentas extends javax.swing.JPanel {
 
     public void generateVenta() {
         ImageIcon icononew = new ImageIcon("src/img/message/advertencia.png");
-        if (listProductos != null) {
+        System.out.println("CANTIDAD CDE VENTAS: " + listProductos.size());
+        if (listProductos.size() > 0) {
             if (!txtName.getText().equals("")) {
                 if (Double.parseDouble(valueOf(valueOf(txtMoney.getText()))) > 0) {
                     String[] opciones = {"Si", "No"};
                     ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
                     int opcion = JOptionPane.showOptionDialog(null, "¿Desea generar la venta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                     if (opcion == JOptionPane.YES_OPTION) {
+
+                        //Obtener Fecha Actual
+                        LocalDate fechaActual = LocalDate.now();
+                        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        String fechaFormateada = fechaActual.format(formato);
+
+                        //LLenado de datos de la venta en general
+                        ModelCellDetalles ventaDetalle = new ModelCellDetalles();
+                        ventaDetalle.setCodVenta(generateNumVenta()); //PR CORREGIR
+
+                        ventaDetalle.setnVenta(generateNumVenta());
+                        ventaDetalle.setCliente(clienteVenta.getIdCliente());
+                        ventaDetalle.setTotalVenta(Double.valueOf(txtTotal.getText()));
+                        ventaDetalle.setFecha(fechaFormateada);
+                        ventaDetalle.setRutaBoleta(generateNumVenta() + ".pdf");
+
+                        try {
+                            GeneratePdf.pdf(listProductos, clienteVenta, ventaDetalle, Double.parseDouble(txtEfective.getText()), Double.valueOf(txtMoney.getText()));
+                        } catch (DocumentException e) {
+                            System.out.println("Error al generar PDf" + e.getMessage());
+                        }
+
+                        /*
+                        * Josn almacenaje
+                        */
                         
+                        JsonVentaCRUD.addVenta(ventaDetalle);
+                        
+                        
+                        if (ValidateRegular.conexion) {
+                            CrudMysql.crudMysqlVentas();
+                            CrudMysql.crudMysqlVentaHistorial();
+                        } else {
+                            System.out.println("Sin conexiona  internet");
+                        }
+
+                        resetContentVenta();
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "El vuelto es menor al Total establecido", "", 0, icononew);
@@ -948,20 +1009,22 @@ public class PanelVentas extends javax.swing.JPanel {
         }
     }
 
-    public void addDetalleProducto(){
-    
+    public void addDetalleProducto() {
+
     }
-    
-    public void addVenta(){
-        
+
+    public void addVenta() {
+
     }
-    
-    
+
     public void resetContentVenta() {
         resetCliente();
         resetContent();
         listProductos = new ArrayList<ModelCellVenta>();
         listarProductos();
+        txtMoney.setText("");
+        txtTotal.setText("");
+        txtEfective.setText("");
     }
 
     public void calcularVuelto() {
@@ -977,6 +1040,75 @@ public class PanelVentas extends javax.swing.JPanel {
             txtMoney.setText(valueOf(efectivo - total));
         }
     }
+
+    /*
+    * Generador de numero de 11 digitos de venta
+     */
+    public String generateNumVenta() {
+        String num = valueOf(ValidateRegular.numVenta);
+        String newNum = "";
+        long suma = 0;
+        for (int i = num.trim().length(); i <= 11; i++) {
+            if (i == num.trim().length()) {
+                suma = Long.parseLong(num) + 1;
+            }
+            newNum += "0";
+        }
+        newNum += valueOf(suma);
+        ValidateRegular.numVenta = suma;
+        return newNum;
+    }
+
+    /**
+     * *********PDF************
+     */
+    private void pdf() {
+        try {
+            FileOutputStream archivo;
+            File file = new File("pdf/venta" + generateNumVenta() + ".pdf");
+            archivo = new FileOutputStream(file);
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+            /*Para que no coliciones con la clase IMG de java*/
+            com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance("src/img/LogoIsrael.png");
+
+            Paragraph fecha = new Paragraph();
+
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Factura: " + generateNumVenta() + "Fecha: " + new SimpleDateFormat("dd-mm-yyyy").format(date) + "\n\n");
+
+            PdfPTable Encabezado = new PdfPTable(5);
+            Encabezado.setWidthPercentage(100);
+            Encabezado.getDefaultCell().setBorder(0);
+            float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
+            Encabezado.setWidths(ColumnaEncabezado);
+            Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+            Encabezado.addCell(img);
+
+            String ruc = "313123";
+            String nom = "Liobreria y Bazar Israel";
+            String tel = "47930780478";
+            String dir = "Lma";
+            String ra = " Vida vida cvida";
+
+            Encabezado.addCell("");
+            Encabezado.addCell("Ruc: " + ruc + "\nNombre: " + nom + "\nTelefono: " + tel + "\nDireccion: " + dir + "\nRazon" + ra);
+            Encabezado.addCell(fecha);
+            doc.add(Encabezado);
+
+            doc.close();
+            archivo.close();
+
+        } catch (Exception e) {
+            System.out.println("Error al crear pdf " + e.getMessage());
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BtnAgregarCliente;

@@ -24,15 +24,20 @@ public class ValidateRegular {
     public static boolean setUpdateProveedor = true;
     public static boolean setCreateProducto = false;
     public static boolean setUpdateProducto = true;
+    
+     public static boolean setCreateVenta = false;
+     public static boolean setUpdateVenta = true;
+     
    // public static boolean productOld = true;
     public static int testValidate = 0;
     public static double vuelto =0;
-    
+    public static long numVenta = 1;
 
     public static ModelCellClientes updateCliente;
     public static ModelCellProveedores updateProveedor;
     public static ModelCellProductos updateProducto;
     public static ModelCellProductos oldProducto;
+    
     
     //Content VENTAS
     public static List<ModelCellVenta> listVentas = new ArrayList<ModelCellVenta>();

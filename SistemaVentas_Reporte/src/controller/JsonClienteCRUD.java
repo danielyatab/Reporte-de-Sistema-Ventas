@@ -124,6 +124,15 @@ public class JsonClienteCRUD {
         return null;
     }
     
+    public static ModelCellClientes searchClienteCodigo(String codigo) {
+        for (ModelCellClientes p : returnClientes()) {
+            if (p.getIdCliente().trim().equals(codigo)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
     
     public static List<ModelCellClientes> searchClienteApellido(String apellido) {
         List<ModelCellClientes> searchClienteList = null;

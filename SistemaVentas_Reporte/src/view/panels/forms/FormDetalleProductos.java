@@ -5,15 +5,12 @@
 package view.panels.forms;
 
 import Model.ModelCellVenta;
-import design.Maximize;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import main.Main;
 import table.Venta.TableActionEventVenta;
 import view.panels.PanelDetalleVentas;
 
@@ -31,7 +28,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         setOpaque(false);
         //Maximize.test = true;
         TableVenta.fixTable(jScrollPane2);
-        TableVenta.setIconsColumns(5, 4,3);
+        TableVenta.setIconsColumns(8, 7,10);
         initData();
     }
 
@@ -454,13 +451,13 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData(){
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Producto","Cantidad","Importe", "Editar", "Eliminar"};
+        String columns[] = {"Codigo", "Producto", "Marca", "Descrp.", "Cantidad", "Precio U. ", "Importe", "Eliminar"};
         TableVenta.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
           for(int i=0; i<30; i++){
             //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
             // 12, 12.5f,"Abierto").toRowTable(event));
-            TableVenta.addRow(new ModelCellVenta("Galleta", 12, 192.02f).toRowTable(event));
+            TableVenta.addRow(new ModelCellVenta("312312","Galleta","Soda","Pequeña",2, 12, 192.02f).toRowTable(event));
         }   
     }
     

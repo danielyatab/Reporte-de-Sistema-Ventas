@@ -1,6 +1,7 @@
 package Model.conexion;
 
 import Model.ModelCellClientes;
+import Model.ModelCellDetalles;
 import Model.ModelCellProductos;
 import Model.ModelCellProveedores;
 import Model.ModelUser;
@@ -8,6 +9,12 @@ import controller.JsonClienteCRUD;
 import controller.JsonProductoCRUD;
 import controller.JsonProveedoresCRUD;
 import controller.JsonUserValidation;
+import controller.JsonVentaCRUD;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -266,4 +273,86 @@ public class CrudMysql {
             System.out.println("Ha ocurrido un error al actualizar la tabla producto: " + e.getMessage());
         }
     }
+
+    /**
+     * *******************VENTAS********************
+     */
+    public static void crudMysqlVentas() {
+        List<ModelCellDetalles> listProductos = JsonVentaCRUD.returnVentas();
+        try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM detalleventas");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellDetalles venta : listProductos) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO detalleventas (codVenta,numVenta,codCliente, fecha ,boleta,totalVenta) VALUES (?, ?, ?, ?, ?, ?)");
+
+                // Leer el archivo en un array de bytes
+                File archivo = new File(venta.getRutaBoleta());
+                InputStream inputStream = new FileInputStream(archivo);
+                byte[] bytesArchivo = new byte[(int) archivo.length()];
+                inputStream.read(bytesArchivo);
+
+                ps.setString(1, venta.getCodVenta());
+                ps.setString(2, venta.getnVenta());
+                ps.setString(3, venta.getCliente());
+                ps.setString(4, venta.getFecha());
+                ps.setBytes(5, bytesArchivo);
+                ps.setDouble(6, venta.getTotalVenta());
+                
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException | FileNotFoundException  e) {
+            System.err.println("Ha ocurrido un error al actualizar la tabla ventas: " + e.getMessage());
+        } catch (IOException ex){
+            ex.getMessage();
+        }
+    }
+
+    public static void crudMysqlVentaHistorial() {
+        List<ModelCellDetalles> listVentaHistorial = JsonVentaCRUD.returnVentasHistorial();
+         try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM historialdetalleventa");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellDetalles venta : listVentaHistorial) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO historialdetalleventa (codventa,numventa,codCliente, fecha ,boleta,totalventa) VALUES (?, ?, ?, ?, ?, ?)");
+
+                // Leer el archivo en un array de bytes
+                File archivo = new File(venta.getRutaBoleta());
+                InputStream inputStream = new FileInputStream(archivo);
+                byte[] bytesArchivo = new byte[(int) archivo.length()];
+                inputStream.read(bytesArchivo);
+
+                ps.setString(1, venta.getCodVenta());
+                ps.setString(2, venta.getnVenta());
+                ps.setString(3, venta.getCliente());
+                ps.setString(4, venta.getFecha());
+                ps.setBytes(5, bytesArchivo);
+                ps.setDouble(6, venta.getTotalVenta());
+                
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException | FileNotFoundException  e) {
+            System.err.println("Ha ocurrido un error al actualizar la tabla historail ventas: " + e.getMessage());
+        } catch (IOException ex){
+            ex.getMessage();
+        }
+    }
+
 }

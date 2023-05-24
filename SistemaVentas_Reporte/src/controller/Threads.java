@@ -12,6 +12,7 @@ public class Threads implements Runnable{
                 FileJson.verifRuteCliente("json/Cliente.json","json/Cliente_Historial.json");
                 FileJson.verifRuteProveedor("json/Proveedor.json","json/Proveedor_Historial.json");
                 FileJson.verifRuteProducto("json/Producto.json","json/Producto_Historial.json" );
+                FileJson.verifRuteVenta("json/Ventas.json","json/Ventas_Historial.json" );
                 // Llamamos a otro método en esta misma clase
                 
                 //CrudMysql.crudMysqlUsuarios();

@@ -28,10 +28,12 @@ public class ValidateRegular {
      public static boolean setCreateVenta = false;
      public static boolean setUpdateVenta = true;
      
+    public static boolean setNumBoleta = false; 
+     
    // public static boolean productOld = true;
     public static int testValidate = 0;
     public static double vuelto =0;
-    public static long numVenta = 1;
+    public static long numVenta = 0;
 
     public static ModelCellClientes updateCliente;
     public static ModelCellProveedores updateProveedor;

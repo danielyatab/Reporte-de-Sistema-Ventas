@@ -1,14 +1,20 @@
 package controller;
 
 import Model.conexion.Conexion;
+import Model.conexion.UpdateMysqlBoleta;
 import Model.conexion.UpdateMysqlCliente;
 import Model.conexion.UpdateMysqlProducto;
 import Model.conexion.UpdateMysqlProveedor;
 import Model.conexion.UpdateMysqlUser;
 import Model.conexion.UpdateMysqlVenta;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,9 +36,11 @@ public class FileJson {
 
     public static String rutaVentas;
     public static String rutaHistorialVentas;
-    
+
     public static String rutaDetalleProductos;
     public static String rutaHistorialDetalleProductos;
+
+    public static String rutaNumeroBoleta;
 
     public static void verifRuteUser(String archivo, String archivoId) {
         File file = new File(archivo);
@@ -151,8 +159,7 @@ public class FileJson {
         rutaProducto = archivo;
         rutaIdProducto = archivoId;
     }
-    
-    
+
     public static void verifRuteVenta(String archivo, String archivoId) {
         File file = new File(archivo);
         File file2 = new File(archivoId);
@@ -182,8 +189,7 @@ public class FileJson {
         rutaVentas = archivo;
         rutaHistorialVentas = archivoId;
     }
-    
-    
+
     public static void verifRuteDetalleProductos(String archivo, String archivoId) {
         File file = new File(archivo);
         File file2 = new File(archivoId);
@@ -210,7 +216,39 @@ public class FileJson {
                 e.getMessage();
             }
         }
-        rutaDetalleProductos= archivo;
+        rutaDetalleProductos = archivo;
         rutaHistorialDetalleProductos = archivoId;
     }
+
+    public static void verifRuteNumeroBoleto(String archivo) {
+        File file = new File(archivo);
+        if (!file.exists()) {
+
+            int numeroboleta = 0;
+
+            // Crear objeto JSON
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("numeroboleta", numeroboleta);
+
+            try (FileWriter writer = new FileWriter(archivo)) {
+                // Crear objeto Gson para formatear el JSON
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                // Escribir el objeto JSON en el archivo
+                gson.toJson(jsonObject, writer);
+                rutaNumeroBoleta = archivo;
+                if(Conexion.testConecion()){
+                    new UpdateMysqlBoleta().start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*Llenado*/
+            if(ValidateRegular.setNumBoleta == false){
+                 JsonNumBoleta.modificarNumBoleta(JsonNumBoleta.generarNumBoleta());
+            }
+        } 
+        rutaNumeroBoleta = archivo;
+        ValidateRegular.numVenta = JsonNumBoleta.obtenerNumero() ;
+    }
+
 }

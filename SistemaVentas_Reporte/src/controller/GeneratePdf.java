@@ -38,7 +38,7 @@ public class GeneratePdf {
             FileOutputStream archivo;
             FileOutputStream archivo2;
              
-            File file = new File("src/pdf/"+detalleVenta.getRutaBoleta());
+            File file = new File("src/boleta/"+detalleVenta.getRutaBoleta());
             File file2 = new File("src/boleta-historial/"+detalleVenta.getRutaBoleta());
             
             archivo = new FileOutputStream(file);

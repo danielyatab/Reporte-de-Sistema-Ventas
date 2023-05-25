@@ -10,6 +10,7 @@ package Model.conexion;
  */
 public class FullCrudMysql {
     public FullCrudMysql(){
+        
         CrudMysql.crudMysqlUsuarios();
         CrudMysql.crudMysqlHistorialUsuarios();
         CrudMysql.crudMysqlClientes();

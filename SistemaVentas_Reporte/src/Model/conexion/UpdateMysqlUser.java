@@ -35,9 +35,7 @@ public class UpdateMysqlUser extends Thread{
                
                 ModelUser p = new ModelUser(codigo, nombre, cargo, password);
                 listUser.add(p);
-                System.out.println(p.getId());
-            }         
-            System.out.println("List user CUANDO CREO EL ARCHIVO Y LISTO:"+ listUser.get(0).getUser());
+            }        
             JsonUserValidation.modificarUsuario(listUser);
         } catch (SQLException e) {
             System.out.println("Error al traer los usuarios: "+ e.getMessage());
@@ -47,7 +45,7 @@ public class UpdateMysqlUser extends Thread{
             ps = Conexion.getCon().prepareStatement("SELECT * FROM usuariohistorial");
             rs = ps.executeQuery();
             
-            List<ModelUser> listUser =  new ArrayList<ModelUser>();
+            List<ModelUser> listUserHistorial =  new ArrayList<ModelUser>();
             while(rs.next()){
                 String codigo = rs.getString("idusuario");
                 String nombre = rs.getString("nameUser");
@@ -55,13 +53,11 @@ public class UpdateMysqlUser extends Thread{
                 String password = rs.getString("password");
                
                 ModelUser p = new ModelUser(codigo, nombre, cargo, password);
-                listUser.add(p);
-                System.out.println(p.getId());
+                listUserHistorial.add(p);
             }         
-            System.out.println("List HISTORIAL user CUANDO CREO EL ARCHIVO Y LISTO:"+ listUser.get(0).getUser());
-            JsonUserValidation.modificarUserHistorial(listUser);
+            JsonUserValidation.modificarUserHistorial(listUserHistorial);
         } catch (SQLException e) {
-            System.out.println("Error al traer los usuarios: "+ e.getMessage());
+            System.out.println("Error al traer el historial de los usuarios: "+ e.getMessage());
         }   
         
         

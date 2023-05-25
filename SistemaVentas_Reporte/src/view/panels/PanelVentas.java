@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import controller.GeneratePdf;
 import controller.JsonClienteCRUD;
+import controller.JsonNumBoleta;
 import controller.JsonProductoCRUD;
 import controller.JsonVentaCRUD;
 import controller.ValidateRegular;
@@ -952,7 +953,6 @@ public class PanelVentas extends javax.swing.JPanel {
 
     public void generateVenta() {
         ImageIcon icononew = new ImageIcon("src/img/message/advertencia.png");
-        System.out.println("CANTIDAD CDE VENTAS: " + listProductos.size());
         if (listProductos.size() > 0) {
             if (!txtName.getText().equals("")) {
                 if (Double.parseDouble(valueOf(valueOf(txtMoney.getText()))) > 0) {
@@ -960,6 +960,9 @@ public class PanelVentas extends javax.swing.JPanel {
                     ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
                     int opcion = JOptionPane.showOptionDialog(null, "¿Desea generar la venta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                     if (opcion == JOptionPane.YES_OPTION) {
+                        System.out.println("Num boleta: " + ValidateRegular.numVenta);
+                        String newNumVenta = JsonNumBoleta.generateNumVenta(ValidateRegular.numVenta);
+                        JsonNumBoleta.modificarNumBoleta(Long.parseLong(newNumVenta));
 
                         //Obtener Fecha Actual
                         LocalDate fechaActual = LocalDate.now();
@@ -968,13 +971,13 @@ public class PanelVentas extends javax.swing.JPanel {
 
                         //LLenado de datos de la venta en general
                         ModelCellDetalles ventaDetalle = new ModelCellDetalles();
-                        ventaDetalle.setCodVenta(generateNumVenta()); //PR CORREGIR
+                        ventaDetalle.setCodVenta(newNumVenta); //PR CORREGIR
 
-                        ventaDetalle.setnVenta(generateNumVenta());
+                        ventaDetalle.setnVenta(newNumVenta);
                         ventaDetalle.setCliente(clienteVenta.getIdCliente());
                         ventaDetalle.setTotalVenta(Double.valueOf(txtTotal.getText()));
                         ventaDetalle.setFecha(fechaFormateada);
-                        ventaDetalle.setRutaBoleta(generateNumVenta() + ".pdf");
+                        ventaDetalle.setRutaBoleta(newNumVenta + ".pdf");
 
                         try {
                             GeneratePdf.pdf(listProductos, clienteVenta, ventaDetalle, Double.parseDouble(txtEfective.getText()), Double.valueOf(txtMoney.getText()));
@@ -984,11 +987,9 @@ public class PanelVentas extends javax.swing.JPanel {
 
                         /*
                         * Josn almacenaje
-                        */
-                        
+                         */
                         JsonVentaCRUD.addVenta(ventaDetalle);
-                        
-                        
+
                         if (ValidateRegular.conexion) {
                             CrudMysql.crudMysqlVentas();
                             CrudMysql.crudMysqlVentaHistorial();
@@ -1038,74 +1039,6 @@ public class PanelVentas extends javax.swing.JPanel {
         } else {
             txtMoney.setForeground(new Color(0, 0, 103));
             txtMoney.setText(valueOf(efectivo - total));
-        }
-    }
-
-    /*
-    * Generador de numero de 11 digitos de venta
-     */
-    public String generateNumVenta() {
-        String num = valueOf(ValidateRegular.numVenta);
-        String newNum = "";
-        long suma = 0;
-        for (int i = num.trim().length(); i <= 11; i++) {
-            if (i == num.trim().length()) {
-                suma = Long.parseLong(num) + 1;
-            }
-            newNum += "0";
-        }
-        newNum += valueOf(suma);
-        ValidateRegular.numVenta = suma;
-        return newNum;
-    }
-
-    /**
-     * *********PDF************
-     */
-    private void pdf() {
-        try {
-            FileOutputStream archivo;
-            File file = new File("pdf/venta" + generateNumVenta() + ".pdf");
-            archivo = new FileOutputStream(file);
-            Document doc = new Document();
-            PdfWriter.getInstance(doc, archivo);
-            doc.open();
-
-            /*Para que no coliciones con la clase IMG de java*/
-            com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance("src/img/LogoIsrael.png");
-
-            Paragraph fecha = new Paragraph();
-
-            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
-            fecha.add(Chunk.NEWLINE);
-            Date date = new Date();
-            fecha.add("Factura: " + generateNumVenta() + "Fecha: " + new SimpleDateFormat("dd-mm-yyyy").format(date) + "\n\n");
-
-            PdfPTable Encabezado = new PdfPTable(5);
-            Encabezado.setWidthPercentage(100);
-            Encabezado.getDefaultCell().setBorder(0);
-            float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
-            Encabezado.setWidths(ColumnaEncabezado);
-            Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-            Encabezado.addCell(img);
-
-            String ruc = "313123";
-            String nom = "Liobreria y Bazar Israel";
-            String tel = "47930780478";
-            String dir = "Lma";
-            String ra = " Vida vida cvida";
-
-            Encabezado.addCell("");
-            Encabezado.addCell("Ruc: " + ruc + "\nNombre: " + nom + "\nTelefono: " + tel + "\nDireccion: " + dir + "\nRazon" + ra);
-            Encabezado.addCell(fecha);
-            doc.add(Encabezado);
-
-            doc.close();
-            archivo.close();
-
-        } catch (Exception e) {
-            System.out.println("Error al crear pdf " + e.getMessage());
         }
     }
 

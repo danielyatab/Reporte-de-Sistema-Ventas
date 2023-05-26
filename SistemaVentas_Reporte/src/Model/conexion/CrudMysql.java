@@ -4,8 +4,10 @@ import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
 import Model.ModelCellProductos;
 import Model.ModelCellProveedores;
+import Model.ModelCellVenta;
 import Model.ModelUser;
 import controller.JsonClienteCRUD;
+import controller.JsonDetalleProducto;
 import controller.JsonProductoCRUD;
 import controller.JsonProveedoresCRUD;
 import controller.JsonUserValidation;
@@ -304,21 +306,21 @@ public class CrudMysql {
                 ps.setString(4, venta.getFecha());
                 ps.setBytes(5, bytesArchivo);
                 ps.setDouble(6, venta.getTotalVenta());
-                
+
                 ps.executeUpdate();
             }
             // Volver a habilitar las comprobaciones de clave externa
             stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
-        } catch (SQLException | FileNotFoundException  e) {
+        } catch (SQLException | FileNotFoundException e) {
             System.err.println("Ha ocurrido un error al actualizar la tabla ventas: " + e.getMessage());
-        } catch (IOException ex){
+        } catch (IOException ex) {
             ex.getMessage();
         }
     }
 
     public static void crudMysqlVentaHistorial() {
         List<ModelCellDetalles> listVentaHistorial = JsonVentaCRUD.returnVentasHistorial();
-         try {
+        try {
             // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
             Conexion.conectar_db();
             Connection con = Conexion.getCon();
@@ -343,16 +345,47 @@ public class CrudMysql {
                 ps.setString(4, venta.getFecha());
                 ps.setBytes(5, bytesArchivo);
                 ps.setDouble(6, venta.getTotalVenta());
-                
+
                 ps.executeUpdate();
             }
             // Volver a habilitar las comprobaciones de clave externa
             stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
-        } catch (SQLException | FileNotFoundException  e) {
+        } catch (SQLException | FileNotFoundException e) {
             System.err.println("Ha ocurrido un error al actualizar la tabla historail ventas: " + e.getMessage());
-        } catch (IOException ex){
+        } catch (IOException ex) {
             ex.getMessage();
         }
     }
 
+    public static void crudMysqlDetalleProducto() {
+        List<ModelCellVenta> listDetalleProductos = JsonDetalleProducto.returnListDetalleProducto();
+        try {
+            // Deshabilitar las comprobaciones de clave externa para evitar problemas con la eliminación de registros
+            Conexion.conectar_db();
+            Connection con = Conexion.getCon();
+            java.sql.Statement stmt = con.createStatement();
+            stmt.execute("SET FOREIGN_KEY_CHECKS=0;");
+            // Vaciar la tabla existente
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM detalleproducto");
+            deleteStmt.executeUpdate();
+            // Insertar los nuevos registros en la tabla
+            for (ModelCellVenta venta : listDetalleProductos) {
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO detalleproducto (numVenta, producto, marca, descripcion,cantidad, precio, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+                ps.setString(1, venta.getCodigo());
+                ps.setString(2, venta.getProducto());
+                ps.setString(3, venta.getMarca());
+                ps.setString(4, venta.getDescripcion());
+                ps.setInt(5, venta.getCantidad());
+                ps.setDouble(6, venta.getPrecioU());
+                ps.setDouble(7, venta.getTotal());
+
+                ps.executeUpdate();
+            }
+            // Volver a habilitar las comprobaciones de clave externa
+            stmt.execute("SET FOREIGN_KEY_CHECKS=1;");
+        } catch (SQLException e) {
+            System.err.println("Ha ocurrido un error al actualizar la tabla  de detalle Productos: " + e.getMessage());
+        } 
+    }
 }

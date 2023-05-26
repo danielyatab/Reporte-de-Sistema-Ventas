@@ -59,7 +59,6 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -353,7 +352,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-       
+
         String[] opciones = {"Si", "No"};
         ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
@@ -432,10 +431,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonVentasMouseClicked
 
     private void ButtonDetalleVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseClicked
+        //Maximize.isForm = false;
+        //resizeFormsPanels();
         cambiarIconoColor(ButtonDetalleVentas);
         indexPanel = 5;
-        Maximize.isForm = false;
-        resizeFormsPanels();
+        addConatiner(new PanelDetalleVentas(), ContentPanel.getWidth(),ContentPanel.getHeight(), ContentPanel);
+        //updatePanelMinMax();
     }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     private void ButtonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseClicked
@@ -462,11 +463,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_labelUsuariosMouseClicked
 
     public void resizeFormsPanels() {
-        if (Maximize.isForm) {
-            setUpdateDetalleProduct();
-        } else {
-            updatePanelMinMax();
-        }
+        updatePanelMinMax();
     }
 
     private void maximizeResize() {
@@ -538,19 +535,15 @@ public class Main extends javax.swing.JFrame {
         int width = getWidth() - MenuPanel.getWidth();
         int heigth_min = 760;
         int heigth_max = getHeight() - HeadPanel.getHeight();
-        System.out.println("WID:" + width + "Heigth:" + heigth_max);
-        if (!maximize) {
-            addConatiner(listaJpanel.get(indexPanel), width, heigth_min, ContentPanel);
-        } else {
-            addConatiner(listaJpanel.get(indexPanel), width, heigth_max, ContentPanel);
-        }
+        System.out.println("ES HORA DE APRCER VENTANA: PANEL DETALLE VENTA");
+        addConatiner(listaJpanel.get(indexPanel), ContentPanel.getWidth(),ContentPanel.getHeight() , ContentPanel);
     }
 
     public void setUpdateDetalleProduct() {
         int width = getWidth() - MenuPanel.getWidth();
         int heigth_min = 760;
         int heigth_max = getHeight() - HeadPanel.getHeight();
-        System.out.println("LLEGUE A EJECUTAR");
+
         if (maximize) {
             addConatiner(listaForms.get(Maximize.indexForms), width, heigth_max, ContentPanel);
         } else {
@@ -593,9 +586,7 @@ public class Main extends javax.swing.JFrame {
         listaJpanel.add(new PanelProveedores());
         listaJpanel.add(new PanelVentas());
         listaJpanel.add(new PanelDetalleVentas());
-
-        listaForms.add(new FormDetalleProductos());
-
+        
     }
 
 

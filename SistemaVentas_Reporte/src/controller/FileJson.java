@@ -3,6 +3,7 @@ package controller;
 import Model.conexion.Conexion;
 import Model.conexion.UpdateMysqlBoleta;
 import Model.conexion.UpdateMysqlCliente;
+import Model.conexion.UpdateMysqlDetalleProducto;
 import Model.conexion.UpdateMysqlProducto;
 import Model.conexion.UpdateMysqlProveedor;
 import Model.conexion.UpdateMysqlUser;
@@ -13,8 +14,6 @@ import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +37,6 @@ public class FileJson {
     public static String rutaHistorialVentas;
 
     public static String rutaDetalleProductos;
-    public static String rutaHistorialDetalleProductos;
 
     public static String rutaNumeroBoleta;
 
@@ -190,34 +188,26 @@ public class FileJson {
         rutaHistorialVentas = archivoId;
     }
 
-    public static void verifRuteDetalleProductos(String archivo, String archivoId) {
+    public static void verifRuteDetalleProductos(String archivo) {
         File file = new File(archivo);
-        File file2 = new File(archivoId);
 
-        if (!file.exists() && !file2.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
-                file2.createNewFile();
                 /*Sobreescribir en Arreglo de objetos json*/
                 try (FileWriter writer = new FileWriter(archivo)) {
                     writer.write("[ ]");
-                    try (FileWriter writer2 = new FileWriter(archivoId)) {
-                        writer2.write("[ ]");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 if (Conexion.testConecion()) {
-                    //new UpdateMysqlDetalleProducto().start();
+                    new UpdateMysqlDetalleProducto().start();
                 }
             } catch (IOException e) {
                 e.getMessage();
             }
         }
         rutaDetalleProductos = archivo;
-        rutaHistorialDetalleProductos = archivoId;
     }
 
     public static void verifRuteNumeroBoleto(String archivo) {

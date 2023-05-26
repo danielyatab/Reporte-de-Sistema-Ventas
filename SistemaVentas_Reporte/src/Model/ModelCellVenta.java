@@ -9,6 +9,7 @@ import table.Venta.TableActionEventVenta;
  */
 public class ModelCellVenta {
    
+    private String numVenta;
     private String codigo;
     private String producto;
     private String marca;
@@ -39,6 +40,15 @@ public class ModelCellVenta {
         this.total = total;
     }
 
+    public String getNumVenta() {
+        return numVenta;
+    }
+
+    public void setNumVenta(String numVenta) {
+        this.numVenta = numVenta;
+    }
+
+    
     public String getCodigo() {
         return codigo;
     }

@@ -1,6 +1,7 @@
 package controller;
 
 import Model.ModelCellClientes;
+import Model.ModelCellDetalles;
 import Model.ModelCellProductos;
 import Model.ModelCellProveedores;
 import Model.ModelCellVenta;
@@ -25,8 +26,8 @@ public class ValidateRegular {
     public static boolean setCreateProducto = false;
     public static boolean setUpdateProducto = true;
     
-     public static boolean setCreateVenta = false;
-     public static boolean setUpdateVenta = true;
+    public static boolean setCreateVenta = false;
+    public static boolean setUpdateVenta = true;
      
     public static boolean setNumBoleta = false; 
      
@@ -44,10 +45,16 @@ public class ValidateRegular {
     //Content VENTAS
     public static List<ModelCellVenta> listVentas = new ArrayList<ModelCellVenta>();
     
+    //Content DetalleVentasForm
+    public static List<ModelCellVenta> listDetalleSelect = new ArrayList<ModelCellVenta>();
+    public static ModelCellDetalles ventaSelect = new ModelCellDetalles();
+    public static ModelCellClientes clienteSelect = new ModelCellClientes();
+    
     
     //BANDERAS INTERFACES
     public static boolean passProducto = false;
     public static boolean passCliente = false;
 
 
+    public static boolean formDetalleProducto = false;
 }

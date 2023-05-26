@@ -1,7 +1,6 @@
 package view.panels.forms;
 
 import Model.ModelCellClientes;
-import Model.conexion.Conexion;
 import Model.conexion.CrudMysql;
 import controller.JsonClienteCRUD;
 import controller.ValidateRegular;
@@ -15,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import view.panels.PanelCliente;
-import view.panels.PanelProducto;
 import view.panels.PanelVentas;
 
 /**

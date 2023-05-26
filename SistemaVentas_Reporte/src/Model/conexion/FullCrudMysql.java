@@ -19,7 +19,7 @@ public class FullCrudMysql {
         CrudMysql.crudMysqlProveedoresHistorial();
         CrudMysql.crudMysqlProductos();
         CrudMysql.crudMysqlProductosHistorial();
-        
+        CrudMysql.crudMysqlDetalleProducto();
         
         
     }

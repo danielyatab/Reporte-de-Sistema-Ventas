@@ -4,10 +4,19 @@
  */
 package view.panels.forms;
 
+import Model.ModelCellClientes;
+import Model.ModelCellDetalles;
 import Model.ModelCellVenta;
+import controller.ValidateRegular;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import static java.lang.String.valueOf;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +29,10 @@ import view.panels.PanelDetalleVentas;
  */
 public class FormDetalleProductos extends javax.swing.JPanel {
 
+    public static List<ModelCellVenta> listProducts = new ArrayList<ModelCellVenta>();
+    public static ModelCellClientes cliente = new ModelCellClientes();
+    public static ModelCellDetalles venta = new ModelCellDetalles();
+
     /**
      * Creates new form FromDetalleProductos
      */
@@ -28,7 +41,10 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         setOpaque(false);
         //Maximize.test = true;
         TableVenta.fixTable(jScrollPane2);
-        TableVenta.setIconsColumns(8, 7,10);
+        TableVenta.setIconsColumns(8, 7, 10);
+        listProducts = ValidateRegular.listDetalleSelect;
+        venta = ValidateRegular.ventaSelect;
+        cliente = ValidateRegular.clienteSelect;
         initData();
     }
 
@@ -47,28 +63,28 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         btnAceptar = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
         PanelTotal = new FondoPanelTotal();
-        jTextField1 = new javax.swing.JTextField();
+        txtTotalVenta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableVenta = new table.Venta.TableVenta();
         TextName = new FondoPanelTotal();
-        txtName = new javax.swing.JTextField();
+        txtNameCliente = new javax.swing.JTextField();
         TextLastName = new FondoPanelTotal();
-        jTextField3 = new javax.swing.JTextField();
+        txtLastNameCliente = new javax.swing.JTextField();
         TextPhone = new FondoPanelTotal();
-        jTextField4 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         PanelNVenta = new FondoPanelTotal();
-        jTextField2 = new javax.swing.JTextField();
+        TxtNumVenta = new javax.swing.JTextField();
         btnNewProduct = new javax.swing.JLabel();
         btnBoleta = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jDateFecha = new com.toedter.calendar.JDateChooser();
 
         setOpaque(false);
 
@@ -92,14 +108,14 @@ public class FormDetalleProductos extends javax.swing.JPanel {
 
         PanelTotal.setOpaque(false);
 
-        jTextField1.setEditable(false);
-        jTextField1.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField1.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("123.45");
-        jTextField1.setBorder(null);
-        jTextField1.setFocusable(false);
-        jTextField1.setOpaque(false);
+        txtTotalVenta.setEditable(false);
+        txtTotalVenta.setBackground(new java.awt.Color(245, 244, 244));
+        txtTotalVenta.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtTotalVenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalVenta.setText("123.45");
+        txtTotalVenta.setBorder(null);
+        txtTotalVenta.setFocusable(false);
+        txtTotalVenta.setOpaque(false);
 
         jLabel2.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -113,7 +129,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(0, 0, 0)
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                .addComponent(txtTotalVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelTotalLayout.setVerticalGroup(
@@ -121,7 +137,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
             .addGroup(PanelTotalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1)
+                    .addComponent(txtTotalVenta)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -146,11 +162,11 @@ public class FormDetalleProductos extends javax.swing.JPanel {
 
         TextName.setOpaque(false);
 
-        txtName.setBackground(new java.awt.Color(245, 244, 244));
-        txtName.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        txtName.setForeground(new java.awt.Color(0, 0, 102));
-        txtName.setBorder(null);
-        txtName.setOpaque(false);
+        txtNameCliente.setBackground(new java.awt.Color(245, 244, 244));
+        txtNameCliente.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtNameCliente.setForeground(new java.awt.Color(0, 0, 102));
+        txtNameCliente.setBorder(null);
+        txtNameCliente.setOpaque(false);
 
         javax.swing.GroupLayout TextNameLayout = new javax.swing.GroupLayout(TextName);
         TextName.setLayout(TextNameLayout);
@@ -158,24 +174,24 @@ public class FormDetalleProductos extends javax.swing.JPanel {
             TextNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtNameCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextNameLayout.setVerticalGroup(
             TextNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtName)
+                .addComponent(txtNameCliente)
                 .addContainerGap())
         );
 
         TextLastName.setOpaque(false);
 
-        jTextField3.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField3.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 0, 102));
-        jTextField3.setBorder(null);
-        jTextField3.setOpaque(false);
+        txtLastNameCliente.setBackground(new java.awt.Color(245, 244, 244));
+        txtLastNameCliente.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtLastNameCliente.setForeground(new java.awt.Color(0, 0, 102));
+        txtLastNameCliente.setBorder(null);
+        txtLastNameCliente.setOpaque(false);
 
         javax.swing.GroupLayout TextLastNameLayout = new javax.swing.GroupLayout(TextLastName);
         TextLastName.setLayout(TextLastNameLayout);
@@ -183,24 +199,24 @@ public class FormDetalleProductos extends javax.swing.JPanel {
             TextLastNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextLastNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtLastNameCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextLastNameLayout.setVerticalGroup(
             TextLastNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextLastNameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3)
+                .addComponent(txtLastNameCliente)
                 .addContainerGap())
         );
 
         TextPhone.setOpaque(false);
 
-        jTextField4.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField4.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(0, 0, 102));
-        jTextField4.setBorder(null);
-        jTextField4.setOpaque(false);
+        txtTelefono.setBackground(new java.awt.Color(245, 244, 244));
+        txtTelefono.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtTelefono.setForeground(new java.awt.Color(0, 0, 102));
+        txtTelefono.setBorder(null);
+        txtTelefono.setOpaque(false);
 
         javax.swing.GroupLayout TextPhoneLayout = new javax.swing.GroupLayout(TextPhone);
         TextPhone.setLayout(TextPhoneLayout);
@@ -208,14 +224,14 @@ public class FormDetalleProductos extends javax.swing.JPanel {
             TextPhoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextPhoneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TextPhoneLayout.setVerticalGroup(
             TextPhoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TextPhoneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField4)
+                .addComponent(txtTelefono)
                 .addContainerGap())
         );
 
@@ -237,29 +253,29 @@ public class FormDetalleProductos extends javax.swing.JPanel {
 
         PanelNVenta.setOpaque(false);
 
-        jTextField2.setEditable(false);
-        jTextField2.setBackground(new java.awt.Color(245, 244, 244));
-        jTextField2.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField2.setText("000011");
-        jTextField2.setBorder(null);
-        jTextField2.setFocusable(false);
-        jTextField2.setOpaque(false);
+        TxtNumVenta.setEditable(false);
+        TxtNumVenta.setBackground(new java.awt.Color(245, 244, 244));
+        TxtNumVenta.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        TxtNumVenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TxtNumVenta.setText("000011");
+        TxtNumVenta.setBorder(null);
+        TxtNumVenta.setFocusable(false);
+        TxtNumVenta.setOpaque(false);
 
         javax.swing.GroupLayout PanelNVentaLayout = new javax.swing.GroupLayout(PanelNVenta);
         PanelNVenta.setLayout(PanelNVentaLayout);
         PanelNVentaLayout.setHorizontalGroup(
             PanelNVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNVentaLayout.createSequentialGroup()
+            .addGroup(PanelNVentaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addComponent(TxtNumVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addContainerGap())
         );
         PanelNVentaLayout.setVerticalGroup(
             PanelNVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNVentaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField2)
+                .addComponent(TxtNumVenta)
                 .addContainerGap())
         );
 
@@ -302,7 +318,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelWhiteLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(0, 0, 0)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PanelNVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(PanelWhiteLayout.createSequentialGroup()
@@ -322,10 +338,8 @@ public class FormDetalleProductos extends javax.swing.JPanel {
                                         .addComponent(TextPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)))
                                 .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PanelWhiteLayout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))))))
+                                    .addComponent(jLabel10)
+                                    .addComponent(jDateFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))))))
                 .addGap(26, 26, 26))
             .addGroup(PanelWhiteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -360,7 +374,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
                     .addComponent(TextName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TextLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(TextPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDateFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,9 +418,9 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         PanelContentLayout.setHorizontalGroup(
             PanelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelContentLayout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
+                .addContainerGap(86, Short.MAX_VALUE)
                 .addComponent(PanelColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         PanelContentLayout.setVerticalGroup(
             PanelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,6 +443,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
+        ValidateRegular.formDetalleProducto = false;
         addContainer(new PanelDetalleVentas(), getWidth(), getHeight(), PanelContent);
     }//GEN-LAST:event_btnAceptarMouseClicked
 
@@ -443,27 +458,52 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         public void onEdit(ModelCellVenta venta) {
             System.out.println("Editar venta producto");
         }
-        
+
     };
-    
-    
+
 
     /*INIT DATA*/
-    private void initData(){
+    private void initData() {
+        if (ValidateRegular.formDetalleProducto) {
+            listTable();
+            llenadoCliente(cliente);
+            llenadoVenta(venta);
+        }
+    }
+
+    private void listTable() {
         DefaultTableModel modelo = new DefaultTableModel();
         String columns[] = {"Codigo", "Producto", "Marca", "Descrp.", "Cantidad", "Precio U. ", "Importe", "Eliminar"};
         TableVenta.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
-          for(int i=0; i<30; i++){
-            //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
-            // 12, 12.5f,"Abierto").toRowTable(event));
-            TableVenta.addRow(new ModelCellVenta("312312","Galleta","Soda","Pequeña",2, 12, 192.02f).toRowTable(event));
-        }   
+        for (ModelCellVenta v : listProducts) {
+            TableVenta.addRow(new ModelCellVenta(v.getCodigo(), v.getProducto(), v.getMarca(), v.getDescripcion(), v.getCantidad(), v.getPrecioU(), v.getTotal()).toRowTable(event));
+        }
     }
-    
-    
-    
-   /**
+
+    private void llenadoCliente(ModelCellClientes cl) {
+        txtNameCliente.setText(cl.getNombre());
+        txtLastNameCliente.setText(cl.getApellido());
+        txtTelefono.setText(cl.getTelefono());
+    }
+
+    private void llenadoVenta(ModelCellDetalles v) {
+        TxtNumVenta.setText(v.getnVenta());
+        txtTotalVenta.setText(valueOf(v.getTotalVenta()));
+        String fecha = v.getFecha();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date newFecha = new Date();
+        try {
+            newFecha = formato.parse(fecha);
+        } catch (ParseException e) {
+            System.out.println("Error al convertir la fecha: " + e.getMessage());
+        }
+
+        jDateFecha.setDate(newFecha);
+    }
+
+    /**
      *
      * @param p Panel de Ingreso
      * @param width Ancho
@@ -478,9 +518,8 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         c.revalidate();
         c.repaint();
     }
-    
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelColor;
     private javax.swing.JPanel PanelContent;
@@ -491,11 +530,12 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     private javax.swing.JPanel TextLastName;
     private javax.swing.JPanel TextName;
     private javax.swing.JPanel TextPhone;
+    private javax.swing.JTextField TxtNumVenta;
     private javax.swing.JLabel btnAceptar;
     private javax.swing.JLabel btnBoleta;
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnNewProduct;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -505,65 +545,59 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtLastNameCliente;
+    private javax.swing.JTextField txtNameCliente;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTotalVenta;
     // End of variables declaration//GEN-END:variables
 
-    
-    class FondoPanel extends JPanel
-    {
+    class FondoPanel extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/transparentPanel.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
-    
-    class FondoPanelWhite extends JPanel
-    {
+
+    class FondoPanelWhite extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelFormColorWhite.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
-    
-    class FondoPanelColor extends JPanel
-    {
+
+    class FondoPanelColor extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelFormColor.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
- 
-    class FondoPanelTotal extends JPanel
-    {
+
+    class FondoPanelTotal extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelTotal.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }

@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import controller.GeneratePdf;
 import controller.JsonClienteCRUD;
+import controller.JsonDetalleProducto;
 import controller.JsonNumBoleta;
 import controller.JsonProductoCRUD;
 import controller.JsonVentaCRUD;
@@ -960,44 +961,7 @@ public class PanelVentas extends javax.swing.JPanel {
                     ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
                     int opcion = JOptionPane.showOptionDialog(null, "¿Desea generar la venta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                     if (opcion == JOptionPane.YES_OPTION) {
-                        System.out.println("Num boleta: " + ValidateRegular.numVenta);
-                        String newNumVenta = JsonNumBoleta.generateNumVenta(ValidateRegular.numVenta);
-                        JsonNumBoleta.modificarNumBoleta(Long.parseLong(newNumVenta));
-
-                        //Obtener Fecha Actual
-                        LocalDate fechaActual = LocalDate.now();
-                        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        String fechaFormateada = fechaActual.format(formato);
-
-                        //LLenado de datos de la venta en general
-                        ModelCellDetalles ventaDetalle = new ModelCellDetalles();
-                        ventaDetalle.setCodVenta(newNumVenta); //PR CORREGIR
-
-                        ventaDetalle.setnVenta(newNumVenta);
-                        ventaDetalle.setCliente(clienteVenta.getIdCliente());
-                        ventaDetalle.setTotalVenta(Double.valueOf(txtTotal.getText()));
-                        ventaDetalle.setFecha(fechaFormateada);
-                        ventaDetalle.setRutaBoleta(newNumVenta + ".pdf");
-
-                        try {
-                            GeneratePdf.pdf(listProductos, clienteVenta, ventaDetalle, Double.parseDouble(txtEfective.getText()), Double.valueOf(txtMoney.getText()));
-                        } catch (DocumentException e) {
-                            System.out.println("Error al generar PDf" + e.getMessage());
-                        }
-
-                        /*
-                        * Josn almacenaje
-                         */
-                        JsonVentaCRUD.addVenta(ventaDetalle);
-
-                        if (ValidateRegular.conexion) {
-                            CrudMysql.crudMysqlVentas();
-                            CrudMysql.crudMysqlVentaHistorial();
-                        } else {
-                            System.out.println("Sin conexiona  internet");
-                        }
-
-                        resetContentVenta();
+                        addVenta();
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "El vuelto es menor al Total establecido", "", 0, icononew);
@@ -1010,12 +974,58 @@ public class PanelVentas extends javax.swing.JPanel {
         }
     }
 
-    public void addDetalleProducto() {
-
+    public void addDetalleProducto(String newnumventa) {
+        List<ModelCellVenta> lisnewventa = new ArrayList<ModelCellVenta>();
+        for(ModelCellVenta v : listProductos){
+            v.setNumVenta(newnumventa);
+            lisnewventa.add(v);
+        }
     }
 
     public void addVenta() {
+        //Obtencion de venta
+        String newNumVenta = JsonNumBoleta.generateNumVenta(ValidateRegular.numVenta);
+        JsonNumBoleta.modificarNumBoleta(Long.parseLong(newNumVenta));
 
+        //Obtener Fecha Actual
+        LocalDate fechaActual = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String fechaFormateada = fechaActual.format(formato);
+
+        //LLenado de datos de la venta en general
+        ModelCellDetalles ventaDetalle = new ModelCellDetalles();
+        ventaDetalle.setCodVenta(newNumVenta); //PR CORREGIR
+
+        ventaDetalle.setnVenta(newNumVenta);
+        ventaDetalle.setCliente(clienteVenta.getIdCliente());
+        ventaDetalle.setTotalVenta(Double.valueOf(txtTotal.getText()));
+        ventaDetalle.setFecha(fechaFormateada);
+        ventaDetalle.setRutaBoleta(newNumVenta + ".pdf");
+
+        try {
+            GeneratePdf.pdf(listProductos, clienteVenta, ventaDetalle, Double.parseDouble(txtEfective.getText()), Double.valueOf(txtMoney.getText()));
+        } catch (DocumentException e) {
+            System.out.println("Error al generar PDf" + e.getMessage());
+        }
+
+        /*
+         * Json almacenaje
+         */
+        
+        addDetalleProducto(newNumVenta);
+        
+        JsonDetalleProducto.addListDetalleProducto(listProductos);
+        JsonVentaCRUD.addVenta(ventaDetalle);
+
+        if (ValidateRegular.conexion) {
+            CrudMysql.crudMysqlVentas();
+            CrudMysql.crudMysqlVentaHistorial();
+            CrudMysql.crudMysqlDetalleProducto();
+        } else {
+            System.out.println("Sin conexiona  internet");
+        }
+
+        resetContentVenta();
     }
 
     public void resetContentVenta() {
@@ -1026,6 +1036,7 @@ public class PanelVentas extends javax.swing.JPanel {
         txtMoney.setText("");
         txtTotal.setText("");
         txtEfective.setText("");
+        ValidateRegular.listVentas = new ArrayList<ModelCellVenta>();
     }
 
     public void calcularVuelto() {

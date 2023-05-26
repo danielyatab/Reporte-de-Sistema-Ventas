@@ -26,7 +26,6 @@ public class JsonNumBoleta {
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObject = parser.parse(new FileReader(FileJson.rutaNumeroBoleta)).getAsJsonObject();
-            
             JsonElement jsonElement = jsonObject.get("numeroboleta");
             if (jsonElement != null && jsonElement.isJsonPrimitive()) {
                 return jsonElement.getAsInt();
@@ -36,7 +35,6 @@ public class JsonNumBoleta {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
         System.out.println("RETORNE 0 NO SE COMO PERO LO HIZE Xsd");
         return 0; // Valor por defecto si no se encuentra la propiedad o hay un error
     }

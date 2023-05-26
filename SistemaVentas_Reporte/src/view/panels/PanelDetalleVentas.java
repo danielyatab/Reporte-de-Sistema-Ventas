@@ -7,10 +7,10 @@ package view.panels;
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
 import controller.JsonClienteCRUD;
+import controller.JsonDetalleProducto;
 import controller.JsonVentaCRUD;
-import design.Maximize;
+import controller.ValidateRegular;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -33,22 +33,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
        initData();
     }
 
-    
-    public void setContentPanel(){
-
-        Component[] componentes = getComponents(); // Obtener todos los componentes del panel padre
-        for (Component componente : componentes) {
-            System.out.println("NAME COMPONENTE;"+componente.getName());
-            if (componente instanceof JPanel && componente.getName().equals("FormDetalleProductos")) {
-                System.out.println("Enmcontreel componente XDDDDDDD");
-                // Verificar si el componente es un JPanel y si su nombre es "panelSuperpuesto"
-                ContentPanel.remove(componente); // Eliminar el panel superpuesto del panel padre
-                ContentPanel.revalidate(); // Actualizar la interfaz de usuario
-                ContentPanel.repaint(); // Repintar el panel padre
-                break; // Salir del ciclo for
-            }
-        }
-    }
+  
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -265,9 +250,21 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
 
         @Override
         public void onView(ModelCellDetalles detalles) {
-            Maximize.isForm = true;
-            Maximize.test =true;
-            System.out.println("On view");
+            /*Designacion de codigos de busqueda*/
+            String codVenta = listaVentas.get(TableDetalles.getSelectedRow()).getCodVenta();
+            String numVenta = listaVentas.get(TableDetalles.getSelectedRow()).getnVenta();
+            String codCliente = listaVentas.get(TableDetalles.getSelectedRow()).getCliente();
+            
+            
+            /*Lleando de datos para detalle de ventas*/
+            ValidateRegular.ventaSelect = JsonVentaCRUD.searchVentaCode(codVenta);
+            
+            ValidateRegular.listDetalleSelect = JsonDetalleProducto.returnListProducts(numVenta);
+            ValidateRegular.clienteSelect = JsonClienteCRUD.searchClienteCodigo(codCliente);
+            
+            ValidateRegular.formDetalleProducto = true;
+            /*View*/
+            
             addContainer(new FormDetalleProductos(), getWidth(), getHeight(), PanelContent);
         }
        
@@ -278,6 +275,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData() {
         listaVentas = JsonVentaCRUD.returnVentas();
+        
         DefaultTableModel modelo = new DefaultTableModel();
         String columns[] = {"Nº Venta", "Cliente", "Total Venta","Fecha","Productos","Eliminar"};
         modelo.setColumnIdentifiers(columns);

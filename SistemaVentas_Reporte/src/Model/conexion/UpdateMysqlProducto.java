@@ -47,7 +47,7 @@ public class UpdateMysqlProducto extends Thread{
         }     
         
         try {
-           ps = Conexion.getCon().prepareStatement("SELECT * FROM producto");
+           ps = Conexion.getCon().prepareStatement("SELECT * FROM historialproducto");
             rs = ps.executeQuery();
             List<ModelCellProductos> listProductohistorial =  new ArrayList<ModelCellProductos>();
             while(rs.next()){

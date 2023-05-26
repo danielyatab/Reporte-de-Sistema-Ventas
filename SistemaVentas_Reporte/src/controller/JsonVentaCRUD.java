@@ -23,12 +23,13 @@ import java.util.Random;
  */
 public class JsonVentaCRUD {
 
-    private static List<ModelCellDetalles> ventaGlobal = null;
+    private static List<ModelCellDetalles> ventaGlobal = new ArrayList<ModelCellDetalles>();
 
     public static List<ModelCellDetalles> returnVentas() {
         Gson gson = new Gson();
+        System.out.println("RETORNE DETALLE VENTAS ::::: " + FileJson.rutaVentas);
         try (Reader reader = new FileReader(FileJson.rutaVentas)) { // Asegura que se cerrara de manera segura el archivo
-            ventaGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellDetalles>>() {
+                ventaGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellDetalles>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,12 +59,23 @@ public class JsonVentaCRUD {
 
         newDetalle.setRutaBoleta("src/boleta-historial/" + rutaIncial);
         historial.add(newDetalle);
-
+        System.out.println("NUEVA VENTA INGRSADA: JIJIJIJ ;;;;; " + ventaGlobal.get(ventaGlobal.size()-1).getTotalVenta());
+       
         modificarVentas(ventaGlobal);
         modificarVentaHistorial(historial);
     }
 
    
+    
+    public static ModelCellDetalles searchVentaCode(String codVenta){
+        ventaGlobal  = returnVentas(); 
+        for(ModelCellDetalles m : ventaGlobal){
+            if(m.getCodVenta().equals(codVenta.trim())){
+                return m;
+            }
+        }
+        return null;
+    }
 
     public static void modificarVentas(List<ModelCellDetalles> ventas) {
         Gson gson = new Gson();

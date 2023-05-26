@@ -5,6 +5,8 @@
 package Model.conexion;
 
 import Model.ModelCellProductos;
+import Model.ModelCellVenta;
+import controller.JsonDetalleProducto;
 import controller.JsonProductoCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,45 +28,25 @@ public class UpdateMysqlDetalleProducto extends Thread{
         Conexion.conectar_db();
         //Creacion de un modelo que almacenara todo la lista de la base de datos
         try {
-            ps = Conexion.getCon().prepareStatement("SELECT * FROM producto");
+            ps = Conexion.getCon().prepareStatement("SELECT * FROM detalleproducto");
             rs = ps.executeQuery();
-            List<ModelCellProductos> listProducto =  new ArrayList<ModelCellProductos>();
+            List<ModelCellVenta> listProductoVenta =  new ArrayList<ModelCellVenta>();
             while(rs.next()){
-                String codigo = rs.getString("codProducto");
+                String codigo = rs.getString("numVenta");
                 String producto = rs.getString("producto");
-                String tipo = rs.getString("tipo");
+                String tipo = rs.getString("marca");
                 String  descripcion = rs.getString("descripcion");
-                String marca = rs.getString("marca");
-                int cantidad = rs.getInt("stock");
-                double precio = rs.getDouble("precioU");
+                int cantidad = rs.getInt("cantidad");
+                double precio = rs.getDouble("precio");
+                double total = rs.getDouble("total");
                 
-                ModelCellProductos pd = new ModelCellProductos(codigo, producto, tipo, descripcion, marca, cantidad, precio);
-                listProducto.add(pd);
+                ModelCellVenta pd = new ModelCellVenta(codigo, producto, tipo, descripcion, cantidad, precio, total);
+                listProductoVenta.add(pd);
             }         
-            JsonProductoCRUD.modificarProducto(listProducto);
+            JsonDetalleProducto.modificarListDetalleProducto(listProductoVenta);
         } catch (SQLException e) {
-            System.out.println("Error al traer los productos: "+ e.getMessage());
+            System.out.println("Error al traer los detalles de los productos: "+ e.getMessage());
         }     
-        
-        try {
-           ps = Conexion.getCon().prepareStatement("SELECT * FROM producto");
-            rs = ps.executeQuery();
-            List<ModelCellProductos> listProductohistorial =  new ArrayList<ModelCellProductos>();
-            while(rs.next()){
-                 String codigo = rs.getString("codproducto");
-                String producto = rs.getString("producto");
-                String tipo = rs.getString("tipo");
-                String  descripcion = rs.getString("descripcion");
-                String marca = rs.getString("marca");
-                int cantidad = rs.getInt("stock");
-                double precio = rs.getDouble("precioU");
-                
-                ModelCellProductos pd = new ModelCellProductos(codigo, producto, tipo, descripcion, marca, cantidad, precio);
-                listProductohistorial.add(pd);
-            }         
-            JsonProductoCRUD.modificarProductoHistorial(listProductohistorial);
-        } catch (SQLException e) {
-            System.out.println("Error al traer los historial de productos: "+ e.getMessage());
-        }
+       
     }
 }

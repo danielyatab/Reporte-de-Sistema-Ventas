@@ -282,6 +282,11 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         btnNewProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddProductDetalle.png"))); // NOI18N
 
         btnBoleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnBoleta.png"))); // NOI18N
+        btnBoleta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBoletaMouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
@@ -446,6 +451,12 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         ValidateRegular.formDetalleProducto = false;
         addContainer(new PanelDetalleVentas(), getWidth(), getHeight(), PanelContent);
     }//GEN-LAST:event_btnAceptarMouseClicked
+
+    private void btnBoletaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBoletaMouseClicked
+        ValidateRegular.rutaStatic = venta.getRutaBoleta();
+        FormBoleta boleta = new FormBoleta();
+        addContainer(boleta, PanelContent.getWidth(), PanelContent.getHeight(), PanelContent);
+    }//GEN-LAST:event_btnBoletaMouseClicked
 
     /*EVENTO DE BOTONES*/
     TableActionEventVenta event = new TableActionEventVenta() {

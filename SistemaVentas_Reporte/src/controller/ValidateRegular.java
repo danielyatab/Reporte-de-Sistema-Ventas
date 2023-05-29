@@ -57,4 +57,6 @@ public class ValidateRegular {
 
 
     public static boolean formDetalleProducto = false;
+    
+    public static String rutaStatic="";
 }

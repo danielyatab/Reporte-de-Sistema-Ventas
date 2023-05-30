@@ -20,7 +20,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -28,88 +32,42 @@ import javax.swing.JOptionPane;
  */
 public class main {
 
-    public static void main(String[] args) {
-        main m = new main();
-        int i = m.generarNumBoleta();
-        System.out.println("NUMERO:" + i);
-    }
+    public static void mostrarDialogo() {
+        JPanel panel = new JPanel();
+        JLabel etiquetaDato = new JLabel("Producto:");
+        JLabel etiquetaCantidad = new JLabel("Cantidad:");
+        JTextField campoTextoDato = new JTextField(10);
+        JTextField campoTextoCantidad = new JTextField(5);
+        campoTextoCantidad.setText("1");
+        JComboBox<String> comboBox = new JComboBox<>(new String[]{"Codigo", "Nombre", "Marca"});
 
-    public int generarNumBoleta() {
-        String[] opciones = {"Crear nuevo numero de boletario", "Crear desde la boleta nº 1"};
-        ImageIcon icono = new ImageIcon("src/img/message/lapiz.png"); // Ruta al archivo de imagen del ícono
+        panel.add(etiquetaDato);
+        panel.add(campoTextoDato);
+        panel.add(etiquetaCantidad);
+        panel.add(campoTextoCantidad);
+        panel.add(comboBox);
 
-        int opcion = JOptionPane.showOptionDialog(null, "¿Desea registrar un nuevo incio de boletas?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
-        String numero = "";
-        if (opcion == JOptionPane.YES_OPTION) {
-            boolean isInteger = true;
-            while (isInteger) {
-                numero = JOptionPane.showInputDialog(null, "Ingresa desde que numero iniciar");
-                if (esEntero(numero)) {
-                    isInteger = false;
-                } else {
-                    isInteger = true;
-                }
+        int opcion = JOptionPane.showConfirmDialog(null, panel, "Agregar Producto:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (opcion == JOptionPane.OK_OPTION) {
+            if(!campoTextoDato.getText().equals("") || !campoTextoCantidad.getText().equals("")){
+                /*Verificar si el producto a sido encontrado realmente*/
+                
+                /*Agregar el producto a la lista estatico de detalle ventas*/
+            }else {
+                JOptionPane.showMessageDialog(null, "No termino de llenar los campos","Error",JOptionPane.ERROR_MESSAGE);
             }
-            return Integer.parseInt(numero);
-        } else if (opcion == JOptionPane.NO_OPTION) {
-            return 1;
-        }
+            String dato = campoTextoDato.getText();
+            String cantidad = campoTextoCantidad.getText();
+            String tipoDato = comboBox.getSelectedItem().toString();
 
-        return 1;
-    }
-
-    public static boolean esEntero(String valor) {
-        try {
-            Integer.parseInt(valor);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+            System.out.println("Dato ingresado: " + dato);
+            System.out.println("Cantidad: " + cantidad);
+            System.out.println("Tipo de dato seleccionado: " + tipoDato);
         }
     }
 
-    private void pdf() {
-        try {
-            FileOutputStream archivo;
-            File file = new File("src/pdf/venta1.pdf");
-            archivo = new FileOutputStream(file);
-            Document doc = new Document();
-            PdfWriter.getInstance(doc, archivo);
-            doc.open();
-
-            /*Para que no coliciones con la clase IMG de java*/
-            com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance("src/img/LogoIsrael.png");
-
-            Paragraph fecha = new Paragraph();
-
-            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, BaseColor.BLUE);
-            fecha.add(Chunk.NEWLINE);
-            Date date = new Date();
-            fecha.add("Factura: 1" + "\nFecha: " + new SimpleDateFormat("dd-mm-yyyy").format(date) + "\n\n");
-
-            PdfPTable Encabezado = new PdfPTable(5);
-            Encabezado.setWidthPercentage(100);
-            Encabezado.getDefaultCell().setBorder(0);
-            float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f, 40f};
-            Encabezado.setWidths(ColumnaEncabezado);
-            Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-            Encabezado.addCell(img);
-
-            String ruc = "313123";
-            String nom = "Liobreria y Bazar Israel";
-            String tel = "47930780478";
-            String dir = "Lma";
-            String ra = " Vida vida cvida";
-
-            Encabezado.addCell("");
-            Encabezado.addCell("Ruc: " + ruc + "\nNombre: " + nom + "\nTelefono: " + tel + "\nDireccion: " + dir + "\nRazon" + ra);
-            Encabezado.addCell(fecha);
-            doc.add(Encabezado);
-
-            doc.close();
-            archivo.close();
-        } catch (Exception e) {
-            System.out.println("Error al crear pdf " + e.getMessage());
-        }
+    public static void main(String[] args) {
+        mostrarDialogo();
     }
 }

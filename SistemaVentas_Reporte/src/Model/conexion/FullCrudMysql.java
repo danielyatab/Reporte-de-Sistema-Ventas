@@ -13,14 +13,20 @@ public class FullCrudMysql {
         
         CrudMysql.crudMysqlUsuarios();
         CrudMysql.crudMysqlHistorialUsuarios();
+        
         CrudMysql.crudMysqlClientes();
         CrudMysql.crudMysqlHistorialClientes();
+        
         CrudMysql.crudMysqlProveedores();
         CrudMysql.crudMysqlProveedoresHistorial();
+        
         CrudMysql.crudMysqlProductos();
         CrudMysql.crudMysqlProductosHistorial();
+        
         CrudMysql.crudMysqlDetalleProducto();
-        
-        
+       
+        //Ventas
+        CrudMysql.crudMysqlVentas();
+        CrudMysql.crudMysqlVentaHistorial();
     }
 }

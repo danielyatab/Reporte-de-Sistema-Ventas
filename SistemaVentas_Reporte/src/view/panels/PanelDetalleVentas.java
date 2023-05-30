@@ -6,6 +6,7 @@ package view.panels;
 
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
+import Model.conexion.CrudMysql;
 import controller.JsonClienteCRUD;
 import controller.JsonDetalleProducto;
 import controller.JsonVentaCRUD;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableDetalles.TableActionEventDetalles;
 import view.panels.forms.FormDetalleProductos;
+import static view.panels.forms.FormDetalleProductos.venta;
 
 /**
  *
@@ -25,16 +27,14 @@ import view.panels.forms.FormDetalleProductos;
 public class PanelDetalleVentas extends javax.swing.JPanel {
 
     public static List<ModelCellDetalles> listaVentas = new ArrayList<ModelCellDetalles>();
-    
+
     public PanelDetalleVentas() {
-       initComponents();
-       TableDetalles.fixTable(jScrollPane2);
-       TableDetalles.setIconsColumns(7, 10,5,4);
-       initData();
+        initComponents();
+        TableDetalles.fixTable(jScrollPane2);
+        TableDetalles.setIconsColumns(7, 10, 5, 4);
+        initData();
     }
 
-  
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -236,16 +236,24 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 /*EVENTO DE BOTONES*/
-    TableActionEventDetalles event = new TableActionEventDetalles () {
+    TableActionEventDetalles event = new TableActionEventDetalles() {
         @Override
         public void onEdit(ModelCellDetalles detalles) {
-            System.out.println("edit "+ TableDetalles.getSelectedRow());
+            System.out.println("edit " + TableDetalles.getSelectedRow());
             //addContainer(new FormDetalle(), getWidth(), getHeight(), PanelContent);
         }
 
         @Override
         public void onDelete(ModelCellDetalles detalles) {
-            System.out.println(" delete"+ TableDetalles.getSelectedRow());
+            String codventa = listaVentas.get(TableDetalles.getSelectedRow()).getCodVenta();
+            String numventa = listaVentas.get(TableDetalles.getSelectedRow()).getnVenta();
+            JsonVentaCRUD.deleteVenta(codventa.trim());
+            JsonDetalleProducto.deleteList(numventa.trim());
+            listarDetalles();
+            if(ValidateRegular.conexion){
+                CrudMysql.crudMysqlVentas();
+                CrudMysql.crudMysqlDetalleProducto();
+            }
         }
 
         @Override
@@ -254,40 +262,40 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
             String codVenta = listaVentas.get(TableDetalles.getSelectedRow()).getCodVenta();
             String numVenta = listaVentas.get(TableDetalles.getSelectedRow()).getnVenta();
             String codCliente = listaVentas.get(TableDetalles.getSelectedRow()).getCliente();
-            
-            
+
             /*Lleando de datos para detalle de ventas*/
             ValidateRegular.ventaSelect = JsonVentaCRUD.searchVentaCode(codVenta);
-            
+
             ValidateRegular.listDetalleSelect = JsonDetalleProducto.returnListProducts(numVenta);
-            ValidateRegular.clienteSelect = JsonClienteCRUD.searchClienteCodigo(codCliente);
-            
+            ValidateRegular.clienteSelect = JsonClienteCRUD.searchClienteHistorialCodigo(codCliente);
+
             ValidateRegular.formDetalleProducto = true;
             /*View*/
-            
+
             addContainer(new FormDetalleProductos(), getWidth(), getHeight(), PanelContent);
         }
-       
+
     };
-    
-    
 
     /*INIT DATA*/
     private void initData() {
+        listarDetalles();
+    }
+
+    private void listarDetalles() {
         listaVentas = JsonVentaCRUD.returnVentas();
-        
+
         DefaultTableModel modelo = new DefaultTableModel();
-        String columns[] = {"Nº Venta", "Cliente", "Total Venta","Fecha","Productos","Eliminar"};
+        String columns[] = {"Nº Venta", "Cliente", "Total Venta", "Fecha", "Productos", "Eliminar"};
         modelo.setColumnIdentifiers(columns);
         TableDetalles.setModel(modelo);
-        for(ModelCellDetalles m : listaVentas){
-            ModelCellClientes cl = JsonClienteCRUD.searchClienteCodigo(m.getCliente());
+        for (ModelCellDetalles m : listaVentas) {
+            ModelCellClientes cl = JsonClienteCRUD.searchClienteHistorialCodigo(m.getCliente());
             TableDetalles.addRow(new ModelCellDetalles(m.getnVenta(), cl.getNombre(), m.getTotalVenta(), m.getFecha()).toRowTable(event));
         }
     }
-    
-    
-     /**
+
+    /**
      *
      * @param p Panel de Ingreso
      * @param width Ancho
@@ -302,8 +310,8 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         c.revalidate();
         c.repaint();
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;
     private javax.swing.JPanel ContentPanel;

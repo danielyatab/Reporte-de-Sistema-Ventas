@@ -370,15 +370,16 @@ public class CrudMysql {
             deleteStmt.executeUpdate();
             // Insertar los nuevos registros en la tabla
             for (ModelCellVenta venta : listDetalleProductos) {
-                PreparedStatement ps = con.prepareStatement("REPLACE INTO detalleproducto (numVenta, producto, marca, descripcion,cantidad, precio, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement ps = con.prepareStatement("REPLACE INTO detalleproducto (numVenta, codigo, producto, marca, descripcion,cantidad, precio, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-                ps.setString(1, venta.getCodigo());
-                ps.setString(2, venta.getProducto());
-                ps.setString(3, venta.getMarca());
-                ps.setString(4, venta.getDescripcion());
-                ps.setInt(5, venta.getCantidad());
-                ps.setDouble(6, venta.getPrecioU());
-                ps.setDouble(7, venta.getTotal());
+                ps.setString(1, venta.getNumVenta());
+                 ps.setString(2, venta.getCodigo());
+                ps.setString(3, venta.getProducto());
+                ps.setString(4, venta.getMarca());
+                ps.setString(5, venta.getDescripcion());
+                ps.setInt(6, venta.getCantidad());
+                ps.setDouble(7, venta.getPrecioU());
+                ps.setDouble(8, venta.getTotal());
 
                 ps.executeUpdate();
             }

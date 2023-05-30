@@ -4,6 +4,7 @@
  */
 package controller;
 
+import Model.ModelCellProductos;
 import Model.ModelCellProveedores;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -229,13 +230,14 @@ public class JsonProveedoresCRUD {
 
     public static List<ModelCellProveedores> returnProveedorHistorial() {
         Gson gson = new Gson();
+         List<ModelCellProveedores> proveedorglobalHistorial = new ArrayList<ModelCellProveedores>();
         try (Reader reader = new FileReader(FileJson.rutaIdProveedores)) { // Asegura que se cerrara de manera segura el archivo
-            proveedorGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellProveedores>>() {
+                proveedorglobalHistorial = gson.fromJson(reader, new TypeToken<List<ModelCellProveedores>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return proveedorGlobal;
+        return proveedorglobalHistorial;
     }
 
     public static void modificarProveedorHistorial(List<ModelCellProveedores> proveedor) {

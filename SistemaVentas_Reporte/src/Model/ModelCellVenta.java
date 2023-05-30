@@ -39,6 +39,17 @@ public class ModelCellVenta {
         this.precioU = precioU;
         this.total = total;
     }
+    
+    public ModelCellVenta(String numVenta, String codigo, String producto, String marca, String descripcion, int cantidad, double precioU, double total) {
+        this.numVenta = numVenta;
+        this.codigo = codigo;
+        this.producto = producto;
+        this.marca = marca;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.precioU = precioU;
+        this.total = total;
+    }
 
     public String getNumVenta() {
         return numVenta;

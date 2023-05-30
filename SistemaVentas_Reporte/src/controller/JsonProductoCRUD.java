@@ -1,5 +1,6 @@
 package controller;
 
+import Model.ModelCellClientes;
 import Model.ModelCellProductos;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +23,8 @@ public class JsonProductoCRUD {
 
     private static List<ModelCellProductos> productoGlobal = null;
     static ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
-    private static String codeGlobal="";
+    private static String codeGlobal = "";
+
     /*
     * Return Productos
      */
@@ -111,6 +113,39 @@ public class JsonProductoCRUD {
     }
 
     /**
+     * ****************************VERIFICAR STOCK*******************
+     */
+    public static boolean extraerStock(String code, int stock, boolean aumentar) {
+        List<ModelCellProductos> listStocks = returnProductos();
+        for (int i = 0; i < listStocks.size(); i++) {
+            if (listStocks.get(i).getCodigo().trim().equals(code.trim())) {
+                int newStock = 0;
+                if (aumentar) {
+                    newStock = listStocks.get(i).getCantidad() + stock;
+                    listStocks.get(i).setCantidad(newStock);
+                    modificarProducto(listStocks);
+                    System.out.println("El nuevos tock del producto : " +  listStocks.get(i).getProducto()+"SE AUMENTO;: "+ listStocks.get(i).getCantidad());
+                    return true;
+                } else {
+                    newStock = listStocks.get(i).getCantidad() - stock;
+                    if (newStock < 0) {
+                        JOptionPane.showMessageDialog(null, "La cantidad supera el stock", "", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    } else {
+                        listStocks.get(i).setCantidad(newStock);
+                        modificarProducto(listStocks);
+                        System.out.println("El nuevos tock del producto : " +  listStocks.get(i).getProducto()+"SE EXTRAJO;: "+ listStocks.get(i).getCantidad());
+                        return true;
+                    }
+                }    
+            }
+        }
+        /*Listar stocks*/
+      
+        return true;
+    }
+
+    /**
      * ****************************TIPOS DE BUSCADORES*******************
      */
     public static ModelCellProductos buscarProductoCodigo(String codigo) {
@@ -123,7 +158,7 @@ public class JsonProductoCRUD {
         return null;
     }
 
- /*
+    /*
     public static List<ModelCellProductos> searchProductoApellido(String apellido) {
         List<ModelCellProductos> searchProductoList = null;
         for (ModelCellProductos p : returnProductoes()) {
@@ -183,7 +218,7 @@ public class JsonProductoCRUD {
                     //OldProduct return
                     ValidateRegular.oldProducto = p;
                     return true;
-                } 
+                }
             }
         }
         return false;
@@ -194,26 +229,20 @@ public class JsonProductoCRUD {
         return null;
     }
 
-
-    
-    
-    
     /*COMPROBAR PROVEEDOR UPDATE(UPDATEPROVEEDOR, INDICE PARA OBVIARLO CON CONTINUE)*/
     /**
      * *****************HISTORTIAL PRODUCTO**************
      */
-   
-   
-
     public static List<ModelCellProductos> returnProductoHistorial() {
         Gson gson = new Gson();
+        List<ModelCellProductos> productoglobalHistorial = new ArrayList<ModelCellProductos>();
         try (Reader reader = new FileReader(FileJson.rutaIdProducto)) { // Asegura que se cerrara de manera segura el archivo
-            productoGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellProductos>>() {
+            productoglobalHistorial = gson.fromJson(reader, new TypeToken<List<ModelCellProductos>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return productoGlobal;
+        return productoglobalHistorial;
     }
 
     public static void modificarProductoHistorial(List<ModelCellProductos> producto) {
@@ -226,23 +255,22 @@ public class JsonProductoCRUD {
         }
     }
 
-    
-    
-    /******CODIGO AUTOGENERADO PARA PRODUCTOS******/
-     public static String returnCodeGenerate(){
-        while(codeGlobal.equals("")){
+    /**
+     * ****CODIGO AUTOGENERADO PARA PRODUCTOS*****
+     */
+    public static String returnCodeGenerate() {
+        while (codeGlobal.equals("")) {
             generateCode();
         }
         return codeGlobal;
     }
-    
-    
+
     public static boolean generateCode() {
         Random random = new Random();
         int numeroAleatorio = random.nextInt(1001);
         String code = "pd-" + String.format("%04d", numeroAleatorio);
-        for(ModelCellProductos p: returnProductoHistorial()){
-            if(p.getCodigo() == code){
+        for (ModelCellProductos p : returnProductoHistorial()) {
+            if (p.getCodigo() == code) {
                 return false;
             }
         }

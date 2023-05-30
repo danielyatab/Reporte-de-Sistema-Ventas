@@ -7,10 +7,19 @@ package view.panels.forms;
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
 import Model.ModelCellVenta;
+import Model.conexion.CrudMysql;
+import com.itextpdf.text.DocumentException;
+import controller.GeneratePdf;
+import controller.JsonClienteCRUD;
+import controller.JsonDetalleProducto;
+import controller.JsonNumBoleta;
+import controller.JsonProductoCRUD;
+import controller.JsonVentaCRUD;
 import controller.ValidateRegular;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import static java.awt.image.ImageObserver.ABORT;
 import static java.lang.String.valueOf;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
+import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.Venta.TableActionEventVenta;
@@ -32,6 +43,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     public static List<ModelCellVenta> listProducts = new ArrayList<ModelCellVenta>();
     public static ModelCellClientes cliente = new ModelCellClientes();
     public static ModelCellDetalles venta = new ModelCellDetalles();
+    public double totalNewVenta = 0;
 
     /**
      * Creates new form FromDetalleProductos
@@ -105,6 +117,11 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnCancelarDetalleProducto.png"))); // NOI18N
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         PanelTotal.setOpaque(false);
 
@@ -167,6 +184,11 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         txtNameCliente.setForeground(new java.awt.Color(0, 0, 102));
         txtNameCliente.setBorder(null);
         txtNameCliente.setOpaque(false);
+        txtNameCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameClienteKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextNameLayout = new javax.swing.GroupLayout(TextName);
         TextName.setLayout(TextNameLayout);
@@ -280,6 +302,11 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         );
 
         btnNewProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddProductDetalle.png"))); // NOI18N
+        btnNewProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNewProductMouseClicked(evt);
+            }
+        });
 
         btnBoleta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnBoleta.png"))); // NOI18N
         btnBoleta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -448,8 +475,10 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        ValidateRegular.formDetalleProducto = false;
-        addContainer(new PanelDetalleVentas(), getWidth(), getHeight(), PanelContent);
+
+        generateVenta();
+
+
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void btnBoletaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBoletaMouseClicked
@@ -458,18 +487,83 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         addContainer(boleta, PanelContent.getWidth(), PanelContent.getHeight(), PanelContent);
     }//GEN-LAST:event_btnBoletaMouseClicked
 
+    private void txtNameClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameClienteKeyReleased
+        ModelCellClientes clienteSearc = JsonClienteCRUD.searchClienteNombre(txtNameCliente.getText().trim());
+        if (clienteSearc != null) {
+            txtTelefono.setText(clienteSearc.getTelefono());
+            txtLastNameCliente.setText(clienteSearc.getApellido());
+            //LLenado de cliente encontrado
+            cliente = clienteSearc;
+        } else {
+            System.out.println("No encontre XD");
+        }
+
+    }//GEN-LAST:event_txtNameClienteKeyReleased
+
+    private void btnNewProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewProductMouseClicked
+        FormAddProducto.mostrarDialogo();
+        listProducts = ValidateRegular.listDetalleSelect;
+        listTable();
+    }//GEN-LAST:event_btnNewProductMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+
+        String[] opciones = {"Si", "No"};
+        ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
+        int opcion = JOptionPane.showOptionDialog(null,
+                "¿Desea salir del detalle de la venta Nº" + venta.getnVenta() + "?",
+                "",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                icono,
+                opciones,
+                opciones[0]);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            if (ValidateRegular.listVentasExtrac != null) {
+                for (int i = 0; i < ValidateRegular.listVentasExtrac.size(); i++) {
+                    JsonProductoCRUD.extraerStock(ValidateRegular.listVentasExtrac.get(i).getCodigo(),
+                            ValidateRegular.listVentasExtrac.get(i).getCantidad(),
+                            true);
+                }
+                ValidateRegular.listVentasExtrac = null;
+            }
+
+            if (ValidateRegular.listVentasDelete != null) {
+                for (int i = 0; i < ValidateRegular.listVentasDelete.size(); i++) {
+                    JsonProductoCRUD.extraerStock(ValidateRegular.listVentasDelete.get(i).getCodigo(),
+                            ValidateRegular.listVentasDelete.get(i).getCantidad(),
+                            false);
+                }
+                ValidateRegular.listVentasDelete = null;
+            }
+
+            /*Mostrar otravez lista de detalle Ventas*/
+            ValidateRegular.formDetalleProducto = false;
+            addContainer(new PanelDetalleVentas(), getWidth(), getHeight(), PanelContent);
+        }
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
     /*EVENTO DE BOTONES*/
     TableActionEventVenta event = new TableActionEventVenta() {
         @Override
         public void onDelete(ModelCellVenta venta) {
             System.out.println("Eliminar venta producto");
+            /*Aumentar Cantidad*/
+
+            /*Agregar delete*/
+            ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
+            ValidateRegular.listVentasDelete.add(listProducts.get(TableVenta.getSelectedRow()));
+            
+            JsonProductoCRUD.extraerStock(listProducts.get(TableVenta.getSelectedRow()).getCodigo(), listProducts.get(TableVenta.getSelectedRow()).getCantidad(), true);
+            listProducts.remove(TableVenta.getSelectedRow());
+            listTable();
         }
 
         @Override
         public void onEdit(ModelCellVenta venta) {
             System.out.println("Editar venta producto");
         }
-
     };
 
 
@@ -479,6 +573,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
             listTable();
             llenadoCliente(cliente);
             llenadoVenta(venta);
+            totalNewVenta = venta.getTotalVenta();
         }
     }
 
@@ -487,8 +582,111 @@ public class FormDetalleProductos extends javax.swing.JPanel {
         String columns[] = {"Codigo", "Producto", "Marca", "Descrp.", "Cantidad", "Precio U. ", "Importe", "Eliminar"};
         TableVenta.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
+        totalNewVenta = 0;
+
         for (ModelCellVenta v : listProducts) {
             TableVenta.addRow(new ModelCellVenta(v.getCodigo(), v.getProducto(), v.getMarca(), v.getDescripcion(), v.getCantidad(), v.getPrecioU(), v.getTotal()).toRowTable(event));
+            totalNewVenta += v.getTotal();
+        }
+
+        /*Mostrar nuevo total*/
+        txtTotalVenta.setText(valueOf(totalNewVenta));
+    }
+
+    public void generateVenta() {
+        ImageIcon icononew = new ImageIcon("src/img/message/advertencia.png");
+
+        if (listProducts.size() > 0) {
+            if (!txtNameCliente.getText().equals("")) {
+
+                String[] opciones = {"Si", "No"};
+                ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
+                int opcion = JOptionPane.showOptionDialog(null, "¿Desea guardar la venta, se genrar como una nueva?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    addVenta();
+                    deleteOldVenta();
+
+                    /*Mostrar otravez lista de detalle Ventas*/
+                    ValidateRegular.formDetalleProducto = false;
+                    ValidateRegular.listVentasDelete = null;
+                    ValidateRegular.listVentasExtrac = null;
+                    addContainer(new PanelDetalleVentas(), getWidth(), getHeight(), PanelContent);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se tiene agregado Ningun Cliente", "", 0, icononew);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No tiene ningun producto Agregado", "", 0, icononew);
+        }
+    }
+
+    public void addDetalleProducto(String newnumventa) {
+        List<ModelCellVenta> lisnewventa = new ArrayList<ModelCellVenta>();
+        for (ModelCellVenta v : listProducts) {
+            v.setNumVenta(newnumventa);
+            lisnewventa.add(v);
+        }
+    }
+
+    public void addVenta() {
+        //Obtencion de venta
+        String newNumVenta = JsonNumBoleta.generateNumVenta(ValidateRegular.numVenta);
+        JsonNumBoleta.modificarNumBoleta(Long.parseLong(newNumVenta));
+
+        //Obtener Fecha Actual
+        Date fechaSeleccionada = jDateFecha.getDate();
+
+        // Crear un objeto SimpleDateFormat para formatear la fecha
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Obtener la fecha formateada como cadena de texto (string)
+        String fechaFormateada = sdf.format(fechaSeleccionada);
+
+        //LLenado de datos de la venta en general
+        ModelCellDetalles ventaDetalle = new ModelCellDetalles();
+        ventaDetalle.setCodVenta(newNumVenta); //PR CORREGIR
+
+        ventaDetalle.setnVenta(newNumVenta);
+        ventaDetalle.setCliente(cliente.getIdCliente());
+        ventaDetalle.setTotalVenta(Double.valueOf(txtTotalVenta.getText()));
+        ventaDetalle.setFecha(fechaFormateada);
+        ventaDetalle.setRutaBoleta(newNumVenta + ".pdf");
+
+        try {
+            GeneratePdf.pdf(listProducts, cliente, ventaDetalle, Double.parseDouble("0"), 0);
+        } catch (DocumentException e) {
+            System.out.println("Error al generar PDf" + e.getMessage());
+        }
+
+        /*
+         * Json almacenaje
+         */
+        addDetalleProducto(newNumVenta);
+
+        JsonDetalleProducto.addListDetalleProducto(listProducts);
+        JsonVentaCRUD.addVenta(ventaDetalle);
+
+        if (ValidateRegular.conexion) {
+            CrudMysql.crudMysqlVentas();
+            CrudMysql.crudMysqlVentaHistorial();
+            CrudMysql.crudMysqlDetalleProducto();
+        } else {
+            System.out.println("Sin conexiona  internet");
+        }
+
+        addContainer(new PanelDetalleVentas(), PanelContent.getWidth(), PanelContent.getHeight(), PanelContent);
+    }
+
+    public void deleteOldVenta() {
+        /*Eliminar venta antigua*/
+        JsonVentaCRUD.deleteVenta(venta.getCodVenta());
+        /*Eliminar detalle de productso antiguos*/
+        JsonDetalleProducto.deleteList(venta.getnVenta());
+        if (ValidateRegular.conexion) {
+            CrudMysql.crudMysqlVentas();
+            CrudMysql.crudMysqlDetalleProducto();
+        } else {
+            System.out.println("Sin conexion para actualizar el delete oldVenta");
         }
     }
 

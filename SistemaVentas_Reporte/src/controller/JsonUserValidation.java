@@ -14,6 +14,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -179,13 +180,14 @@ public class JsonUserValidation {
 
     public static List<ModelUser> returnUserHistorial() {
         Gson gson = new Gson();
+        List<ModelUser> globalhistorialuser = new ArrayList<ModelUser>();
         try (Reader reader = new FileReader(FileJson.rutaIdUser)) { // Asegura que se cerrara de manera segura el archivo
-            usersGlobal = gson.fromJson(reader, new TypeToken<List<ModelUser>>() {
+                globalhistorialuser = gson.fromJson(reader, new TypeToken<List<ModelUser>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return usersGlobal;
+        return globalhistorialuser;
     }
 
     public static void modificarUserHistorial(List<ModelUser> user) {

@@ -133,6 +133,15 @@ public class JsonClienteCRUD {
         return null;
     }
     
+    public static ModelCellClientes searchClienteHistorialCodigo(String codigo) {
+        for (ModelCellClientes p : returnClientesHistorial()) {
+            if (p.getIdCliente().trim().equals(codigo)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
     
     public static List<ModelCellClientes> searchClienteApellido(String apellido) {
         List<ModelCellClientes> searchClienteList = null;
@@ -249,13 +258,14 @@ public class JsonClienteCRUD {
 
     public static List<ModelCellClientes> returnClientesHistorial() {
         Gson gson = new Gson();
+        List <ModelCellClientes> clienteglobalHistorial = new ArrayList<ModelCellClientes>();
         try (Reader reader = new FileReader(FileJson.rutaIdCliente)) { // Asegura que se cerrara de manera segura el archivo
-            clienteGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellClientes>>() {
+            clienteglobalHistorial = gson.fromJson(reader, new TypeToken<List<ModelCellClientes>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return clienteGlobal;
+        return clienteglobalHistorial;
     }
 
     public static void modificarClienteHistorial(List<ModelCellClientes> cliente) {

@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import static java.lang.String.valueOf;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 

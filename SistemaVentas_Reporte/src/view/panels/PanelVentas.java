@@ -44,6 +44,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.Venta.TableActionEventVenta;
 import view.panels.forms.FormClientes;
+import static view.panels.forms.FormDetalleProductos.listProducts;
 import view.panels.forms.FormProductos;
 
 /**
@@ -64,6 +65,7 @@ public class PanelVentas extends javax.swing.JPanel {
         TableVenta.setIconsColumns(8, 7, 10);
         listProductos = ValidateRegular.listVentas;
         listarProductos();
+        txtCantidadCompra.setText("1");
         //initData();
     }
 
@@ -157,6 +159,9 @@ public class PanelVentas extends javax.swing.JPanel {
         txtSearchProducto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSearchProductoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchProductoKeyTyped(evt);
             }
         });
 
@@ -788,30 +793,36 @@ public class PanelVentas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCantidadCompraMouseClicked
 
     private void txtSearchProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchProductoKeyPressed
-        int cantidad = 0;
-        txtCantidadCompra.setText("1");
+        int cantidad = 1;
+
         if (evt.getKeyCode() == evt.VK_ENTER) {
             //Tabla de datos
             if (JsonProductoCRUD.buscarProductoCodigo(txtSearchProducto.getText().trim()) != null) {
-                System.out.println("ENTREeeeeeeeeeeeeeee XD");
-                cantidad = Integer.parseInt(valueOf(txtCantidadCompra.getText().trim()));
-
-                /*LLenado del producto encontrado*/
                 ModelCellProductos productReturn = JsonProductoCRUD.buscarProductoCodigo(txtSearchProducto.getText().trim());
-                ModelCellVenta newProducto = new ModelCellVenta();
-                newProducto.setCodigo(productReturn.getCodigo());
-                newProducto.setProducto(productReturn.getProducto());
-                newProducto.setMarca(productReturn.getMarca());
-                newProducto.setDescripcion(productReturn.getDescripcion());
-                newProducto.setCantidad(cantidad);
-                newProducto.setPrecioU(productReturn.getPrecioU());
-                //Redondeo a solo 2 decimales
-                newProducto.setTotal(Math.round(cantidad * productReturn.getPrecioU() * 100.0) / 100.0);
-                if (!repitProduct(newProducto)) {
-                    listProductos.add(newProducto);
-                    listarProductos();
+
+                if (!txtCantidadCompra.getText().equals("") && Integer.parseInt(txtCantidadCompra.getText()) > 0) {
+                    cantidad = Integer.parseInt(valueOf(txtCantidadCompra.getText().trim()));
+                    if (JsonProductoCRUD.extraerStock(productReturn.getCodigo(), cantidad, false)) {
+                        System.out.println("ENTREeeeeeeeeeeeeeee XD");
+                        System.out.println("LA CANTIDAD ES: " + cantidad);
+                        /*LLenado del producto encontrado*/
+                        ModelCellVenta newProducto = new ModelCellVenta();
+                        newProducto.setCodigo(productReturn.getCodigo());
+                        newProducto.setProducto(productReturn.getProducto());
+                        newProducto.setMarca(productReturn.getMarca());
+                        newProducto.setDescripcion(productReturn.getDescripcion());
+                        newProducto.setCantidad(cantidad);
+                        newProducto.setPrecioU(productReturn.getPrecioU());
+                        //Redondeo a solo 2 decimales
+                        newProducto.setTotal(Math.round(cantidad * productReturn.getPrecioU() * 100.0) / 100.0);
+                        if (!repitProduct(newProducto)) {
+                            listProductos.add(newProducto);
+                            listarProductos();
+                        }
+                        resetContent();
+                    }
                 }
-                resetContent();
+
             } else {
                 String[] opciones = {"Si", "No"};
                 ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
@@ -858,6 +869,29 @@ public class PanelVentas extends javax.swing.JPanel {
         ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(null, "¿Desea cancelar la Venta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
+            ValidateRegular.listDetalleSelect = new ArrayList<ModelCellVenta>();
+            ValidateRegular.listVentasExtrac = listProductos;
+            
+            ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
+            
+            if (ValidateRegular.listVentasExtrac != null) {
+                for (int i = 0; i < ValidateRegular.listVentasExtrac.size(); i++) {
+                    JsonProductoCRUD.extraerStock(ValidateRegular.listVentasExtrac.get(i).getCodigo(),
+                            ValidateRegular.listVentasExtrac.get(i).getCantidad(),
+                            true);
+                }
+                ValidateRegular.listVentasExtrac = null;
+            }
+
+            if (ValidateRegular.listVentasDelete != null) {
+                for (int i = 0; i < ValidateRegular.listVentasDelete.size(); i++) {
+                    JsonProductoCRUD.extraerStock(ValidateRegular.listVentasDelete.get(i).getCodigo(),
+                            ValidateRegular.listVentasDelete.get(i).getCantidad(),
+                            false);
+                }
+                ValidateRegular.listVentasDelete = null;
+            }
+
             resetContentVenta();
         }
     }//GEN-LAST:event_btnCancelarVentaMouseClicked
@@ -865,11 +899,27 @@ public class PanelVentas extends javax.swing.JPanel {
     private void btnGeneraVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGeneraVentaMouseClicked
         generateVenta();
     }//GEN-LAST:event_btnGeneraVentaMouseClicked
+
+    private void txtSearchProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchProductoKeyTyped
+        char c = evt.getKeyChar();
+        // Verificar si el carácter no es un número o si ya hay 9 cifras
+        if (!Character.isDigit(c)) {
+            System.out.println("No ingresar numeros");
+            evt.consume(); // Cancelar el evento para evitar la entrada
+        }
+    }//GEN-LAST:event_txtSearchProductoKeyTyped
     /*EVENTO DE BOTONES*/
     TableActionEventVenta event = new TableActionEventVenta() {
         @Override
         public void onDelete(ModelCellVenta venta) {
+            
             System.out.println("Eliminar venta");
+            /*Aumentar Cantidad*/
+            JsonProductoCRUD.extraerStock(TOOL_TIP_TEXT_KEY, ABORT, cantidadSearch);
+            
+            //
+            ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
+            ValidateRegular.listVentasDelete.add(listProducts.get(TableVenta.getSelectedRow()));
             listProductos.remove(TableVenta.getSelectedRow());
             listarProductos();
         }
@@ -962,6 +1012,8 @@ public class PanelVentas extends javax.swing.JPanel {
                     int opcion = JOptionPane.showOptionDialog(null, "¿Desea generar la venta?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                     if (opcion == JOptionPane.YES_OPTION) {
                         addVenta();
+                        ValidateRegular.listVentasDelete = null;
+                        ValidateRegular.listVentasExtrac = null;
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "El vuelto es menor al Total establecido", "", 0, icononew);
@@ -976,7 +1028,7 @@ public class PanelVentas extends javax.swing.JPanel {
 
     public void addDetalleProducto(String newnumventa) {
         List<ModelCellVenta> lisnewventa = new ArrayList<ModelCellVenta>();
-        for(ModelCellVenta v : listProductos){
+        for (ModelCellVenta v : listProductos) {
             v.setNumVenta(newnumventa);
             lisnewventa.add(v);
         }
@@ -1011,9 +1063,8 @@ public class PanelVentas extends javax.swing.JPanel {
         /*
          * Json almacenaje
          */
-        
         addDetalleProducto(newNumVenta);
-        
+
         JsonDetalleProducto.addListDetalleProducto(listProductos);
         JsonVentaCRUD.addVenta(ventaDetalle);
 

@@ -32,7 +32,8 @@ public class UpdateMysqlDetalleProducto extends Thread{
             rs = ps.executeQuery();
             List<ModelCellVenta> listProductoVenta =  new ArrayList<ModelCellVenta>();
             while(rs.next()){
-                String codigo = rs.getString("numVenta");
+                String numventa = rs.getString("numVenta");
+                String codigo = rs.getString("codigo");
                 String producto = rs.getString("producto");
                 String tipo = rs.getString("marca");
                 String  descripcion = rs.getString("descripcion");
@@ -40,7 +41,7 @@ public class UpdateMysqlDetalleProducto extends Thread{
                 double precio = rs.getDouble("precio");
                 double total = rs.getDouble("total");
                 
-                ModelCellVenta pd = new ModelCellVenta(codigo, producto, tipo, descripcion, cantidad, precio, total);
+                ModelCellVenta pd = new ModelCellVenta(numventa, codigo, producto, tipo, descripcion, cantidad, precio, total);
                 listProductoVenta.add(pd);
             }         
             JsonDetalleProducto.modificarListDetalleProducto(listProductoVenta);

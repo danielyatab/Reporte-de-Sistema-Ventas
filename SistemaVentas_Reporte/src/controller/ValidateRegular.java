@@ -44,11 +44,15 @@ public class ValidateRegular {
     
     //Content VENTAS
     public static List<ModelCellVenta> listVentas = new ArrayList<ModelCellVenta>();
+    public static List<ModelCellVenta> listVentasExtrac  = null;
+    public static List<ModelCellVenta> listVentasDelete = null;
     
     //Content DetalleVentasForm
     public static List<ModelCellVenta> listDetalleSelect = new ArrayList<ModelCellVenta>();
     public static ModelCellDetalles ventaSelect = new ModelCellDetalles();
     public static ModelCellClientes clienteSelect = new ModelCellClientes();
+    
+    
     
     
     //BANDERAS INTERFACES

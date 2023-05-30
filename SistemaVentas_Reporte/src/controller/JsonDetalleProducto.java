@@ -64,4 +64,14 @@ public class JsonDetalleProducto {
         }
     }
 
+    public static void deleteList(String numVenta) {
+        globalDetalleProducto = returnListDetalleProducto();
+        for (int i = 0; i < globalDetalleProducto.size(); i++) {
+            if (globalDetalleProducto.get(i).getNumVenta().equals(numVenta.trim())) {
+                globalDetalleProducto.remove(i);
+            }
+        }
+        modificarListDetalleProducto(globalDetalleProducto);
+    }
+
 }

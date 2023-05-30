@@ -27,9 +27,8 @@ public class JsonVentaCRUD {
 
     public static List<ModelCellDetalles> returnVentas() {
         Gson gson = new Gson();
-        System.out.println("RETORNE DETALLE VENTAS ::::: " + FileJson.rutaVentas);
         try (Reader reader = new FileReader(FileJson.rutaVentas)) { // Asegura que se cerrara de manera segura el archivo
-                ventaGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellDetalles>>() {
+            ventaGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellDetalles>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,34 +42,33 @@ public class JsonVentaCRUD {
     /*Retorno de Usuarios*/
     public static void addVenta(ModelCellDetalles newVenta) {
         ventaGlobal = returnVentas();
-        List<ModelCellDetalles> historial = returnVentasHistorial();
-        
-        if (ventaGlobal == null) {
-            ventaGlobal = new ArrayList<ModelCellDetalles>();
-        } 
-        
-        ModelCellDetalles newDetalle = newVenta;
-        newDetalle = verifCodeVenta(newVenta);
 
+     
+        verifCodeVenta(newVenta);
+        
         String rutaIncial = newVenta.getRutaBoleta();
-
-        newDetalle.setRutaBoleta("src/pdf/" + rutaIncial);
-        ventaGlobal.add(newDetalle);
-
-        newDetalle.setRutaBoleta("src/boleta-historial/" + rutaIncial);
-        historial.add(newDetalle);
-        System.out.println("NUEVA VENTA INGRSADA: JIJIJIJ ;;;;; " + ventaGlobal.get(ventaGlobal.size()-1).getTotalVenta());
        
+        newVenta.setRutaBoleta("src/boleta/" + rutaIncial);
+        
+        
+        /*Verificar llenado*/
+        for (ModelCellDetalles v : ventaGlobal) {
+            System.out.println("INTEGRAN22222;:" + v.getnVenta());
+        }
+        ventaGlobal.add(newVenta);
         modificarVentas(ventaGlobal);
+
+        List<ModelCellDetalles> historial = returnVentasHistorial();
+        newVenta.setRutaBoleta("src/boleta-historial/" + rutaIncial);
+        historial.add(newVenta);
         modificarVentaHistorial(historial);
+
     }
 
-   
-    
-    public static ModelCellDetalles searchVentaCode(String codVenta){
-        ventaGlobal  = returnVentas(); 
-        for(ModelCellDetalles m : ventaGlobal){
-            if(m.getCodVenta().equals(codVenta.trim())){
+    public static ModelCellDetalles searchVentaCode(String codVenta) {
+        ventaGlobal = returnVentas();
+        for (ModelCellDetalles m : ventaGlobal) {
+            if (m.getCodVenta().equals(codVenta.trim())) {
                 return m;
             }
         }
@@ -93,7 +91,7 @@ public class JsonVentaCRUD {
             System.out.println("List" + listVentas.get(i).getCodVenta());
             if (listVentas.get(i).getCodVenta().equals(codeDelete)) {
                 listVentas.remove(i);
-                System.out.println("Removi al cliente");
+                System.out.println("Removi la venta");
                 break;
             }
         }
@@ -118,7 +116,7 @@ public class JsonVentaCRUD {
             }
         }
         modificarVentas(listaVentas);
-        modificarVentaHistorial(listaVentas);
+        modificarVentaHistorial(listaVentasHistorial);
         ValidateRegular.setUpdateVenta = true;
 
     }
@@ -208,12 +206,6 @@ public class JsonVentaCRUD {
     }
 
     public static boolean comprobarVentaCode(ModelCellDetalles cl) {
-        for (ModelCellDetalles u : returnVentas()) {
-            //Si el id es igual o el usuario
-            if (u.getCodVenta().equals(cl.getCodVenta())) {
-                return false;
-            }
-        }
         for (ModelCellDetalles us : returnVentasHistorial()) {
             //Si el id historial es igual o el usuario
             if (us.getCodVenta().equals(cl.getCodVenta())) {
@@ -236,13 +228,14 @@ public class JsonVentaCRUD {
 
     public static List<ModelCellDetalles> returnVentasHistorial() {
         Gson gson = new Gson();
+        List<ModelCellDetalles> historialglobal = new ArrayList<ModelCellDetalles>();
         try (Reader reader = new FileReader(FileJson.rutaHistorialVentas)) { // Asegura que se cerrara de manera segura el archivo
-            ventaGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellDetalles>>() {
+            historialglobal = gson.fromJson(reader, new TypeToken<List<ModelCellDetalles>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ventaGlobal;
+        return historialglobal;
     }
 
     public static void modificarVentaHistorial(List<ModelCellDetalles> ventas) {

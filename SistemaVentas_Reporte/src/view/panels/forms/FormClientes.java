@@ -165,6 +165,11 @@ public class FormClientes extends javax.swing.JPanel {
         txtTelefono.setForeground(new java.awt.Color(0, 0, 102));
         txtTelefono.setBorder(null);
         txtTelefono.setOpaque(false);
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextLastName1Layout = new javax.swing.GroupLayout(TextLastName1);
         TextLastName1.setLayout(TextLastName1Layout);
@@ -465,6 +470,14 @@ public class FormClientes extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_comboBoxTipoItemStateChanged
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+       char c = evt.getKeyChar();
+        // Verificar si el carácter no es un número o si ya hay 9 cifras
+       if (!Character.isDigit(c)) {
+           evt.consume(); // Cancelar el evento para evitar la entrada
+       }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /*INIT DATA*/
     private void initData() {

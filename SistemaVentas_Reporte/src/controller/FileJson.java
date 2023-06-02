@@ -10,6 +10,7 @@ import Model.conexion.UpdateMysqlUser;
 import Model.conexion.UpdateMysqlVenta;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.FileWriter;
@@ -39,6 +40,8 @@ public class FileJson {
     public static String rutaDetalleProductos;
 
     public static String rutaNumeroBoleta;
+
+    public static String rutaTiposProductos;
 
     public static void verifRuteUser(String archivo, String archivoId) {
         File file = new File(archivo);
@@ -213,9 +216,7 @@ public class FileJson {
     public static void verifRuteNumeroBoleto(String archivo) {
         File file = new File(archivo);
         if (!file.exists()) {
-
             int numeroboleta = 0;
-
             // Crear objeto JSON
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("numeroboleta", numeroboleta);
@@ -226,19 +227,44 @@ public class FileJson {
                 // Escribir el objeto JSON en el archivo
                 gson.toJson(jsonObject, writer);
                 rutaNumeroBoleta = archivo;
-                if(Conexion.testConecion()){
+                if (Conexion.testConecion()) {
                     new UpdateMysqlBoleta().start();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             /*Llenado*/
-            if(ValidateRegular.setNumBoleta == false){
-                 JsonNumBoleta.modificarNumBoleta(JsonNumBoleta.generarNumBoleta());
+            if (ValidateRegular.setNumBoleta == false) {
+                JsonNumBoleta.modificarNumBoleta(JsonNumBoleta.generarNumBoleta());
             }
-        } 
+        }
         rutaNumeroBoleta = archivo;
-        ValidateRegular.numVenta = JsonNumBoleta.obtenerNumero() ;
+        ValidateRegular.numVenta = JsonNumBoleta.obtenerNumero();
+    }
+
+    public static void verifRutaTipoProducto(String archivo) {
+        File file = new File(archivo);
+        if (!file.exists()) {
+            JsonArray tiposProductos = new JsonArray();
+            JsonObject tipoProducto1 = new JsonObject();
+            tipoProducto1.addProperty("tipoProducto", "Golosinas");
+
+            JsonObject tipoProducto2 = new JsonObject();
+            tipoProducto2.addProperty("tipoProducto", "Lacteos");
+
+            tiposProductos.add(tipoProducto1);
+            tiposProductos.add(tipoProducto2);
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(tiposProductos);
+
+            try (FileWriter writer = new FileWriter(archivo)) {
+                writer.write(json);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        rutaTiposProductos = archivo;
     }
 
 }

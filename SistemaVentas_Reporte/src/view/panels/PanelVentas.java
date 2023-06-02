@@ -225,6 +225,11 @@ public class PanelVentas extends javax.swing.JPanel {
         );
 
         btn_AgregarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_AgregarVenta.png"))); // NOI18N
+        btn_AgregarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_AgregarProductoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout ContextSearchLayout = new javax.swing.GroupLayout(ContextSearch);
         ContextSearch.setLayout(ContextSearchLayout);
@@ -624,6 +629,9 @@ public class PanelVentas extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtEfectiveKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEfectiveKeyTyped(evt);
+            }
         });
 
         javax.swing.GroupLayout TextVueltoLayout = new javax.swing.GroupLayout(TextVuelto);
@@ -816,6 +824,7 @@ public class PanelVentas extends javax.swing.JPanel {
                         //Redondeo a solo 2 decimales
                         newProducto.setTotal(Math.round(cantidad * productReturn.getPrecioU() * 100.0) / 100.0);
                         if (!repitProduct(newProducto)) {
+                            System.out.println("Agregado a LIST PRODUCTS");
                             listProductos.add(newProducto);
                             listarProductos();
                         }
@@ -839,7 +848,12 @@ public class PanelVentas extends javax.swing.JPanel {
 
     private void BtnAgregarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAgregarClienteMouseClicked
         ValidateRegular.passCliente = true;
-        ValidateRegular.vuelto = Double.parseDouble(valueOf(txtEfective.getText()));
+        if(!txtEfective.getText().equals("")) {
+                ValidateRegular.vuelto = Double.parseDouble(valueOf(txtEfective.getText()));
+        }else {
+            System.out.println("Nulo");
+        }
+        
         addContainer(new FormClientes(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_BtnAgregarClienteMouseClicked
 
@@ -901,25 +915,109 @@ public class PanelVentas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGeneraVentaMouseClicked
 
     private void txtSearchProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchProductoKeyTyped
-        char c = evt.getKeyChar();
-        // Verificar si el carácter no es un número o si ya hay 9 cifras
-        if (!Character.isDigit(c)) {
-            System.out.println("No ingresar numeros");
-            evt.consume(); // Cancelar el evento para evitar la entrada
-        }
+        
     }//GEN-LAST:event_txtSearchProductoKeyTyped
+
+    private void txtEfectiveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEfectiveKeyTyped
+        char c = evt.getKeyChar();
+
+        // Permitir teclas de control como backspace y delete
+        if (Character.isISOControl(c)) {
+            txtEfective.setEditable(true);
+            return;
+        }
+
+        // Permitir el punto decimal si no se ha ingresado previamente
+        if (c == '.' && txtEfective.getText().contains(".")) {
+            txtEfective.setEditable(false);
+            evt.consume();
+            return;
+        }
+
+        // Permitir solo dígitos y el punto decimal
+        if (!Character.isDigit(c) && c != '.') {
+            txtEfective.setEditable(false);
+            evt.consume();
+        } else {
+            // Validar que solo haya hasta 2 decimales
+            String text = txtEfective.getText();
+            int dotIndex = text.indexOf('.');
+            if (dotIndex != -1 && text.substring(dotIndex).length() > 2) {
+                txtEfective.setEditable(false);
+                evt.consume();
+            } else {
+                txtEfective.setEditable(true);
+            }
+        }
+    }//GEN-LAST:event_txtEfectiveKeyTyped
+
+    private void btn_AgregarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProductoMouseClicked
+            int cantidad = 1;
+            //Tabla de datos
+            if (JsonProductoCRUD.buscarProductoCodigo(txtSearchProducto.getText().trim()) != null) {
+                ModelCellProductos productReturn = JsonProductoCRUD.buscarProductoCodigo(txtSearchProducto.getText().trim());
+
+                if (!txtCantidadCompra.getText().equals("") && Integer.parseInt(txtCantidadCompra.getText()) > 0) {
+                    cantidad = Integer.parseInt(valueOf(txtCantidadCompra.getText().trim()));
+                    if (JsonProductoCRUD.extraerStock(productReturn.getCodigo(), cantidad, false)) {
+                        /*LLenado del producto encontrado*/
+                        ModelCellVenta newProducto = new ModelCellVenta();
+                        newProducto.setCodigo(productReturn.getCodigo());
+                        newProducto.setProducto(productReturn.getProducto());
+                        newProducto.setMarca(productReturn.getMarca());
+                        newProducto.setDescripcion(productReturn.getDescripcion());
+                        newProducto.setCantidad(cantidad);
+                        newProducto.setPrecioU(productReturn.getPrecioU());
+                        //Redondeo a solo 2 decimales
+                        newProducto.setTotal(Math.round(cantidad * productReturn.getPrecioU() * 100.0) / 100.0);
+                        if (!repitProduct(newProducto)) {
+                            listProductos.add(newProducto);
+                            listarProductos();
+                        }
+                        resetContent();
+                    }
+                }
+
+            } else {
+                String[] opciones = {"Si", "No"};
+                ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+                int opcion = JOptionPane.showOptionDialog(null, "No se encontro al producto ¿Desea registrarlo?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    ValidateRegular.listVentas = listProductos;
+                    ValidateRegular.passProducto = true;
+                    addContainer(new FormProductos(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
+                }
+                resetContent();
+            }
+    }//GEN-LAST:event_btn_AgregarProductoMouseClicked
     /*EVENTO DE BOTONES*/
     TableActionEventVenta event = new TableActionEventVenta() {
         @Override
         public void onDelete(ModelCellVenta venta) {
+            /*
+            System.out.println("ENTRE A BORRARA");
+            System.out.println(listProductos.get(0));
+            System.out.println("NUMERO DE TABLA: " + listProducts.get(TableVenta.getSelectedRow()));
             
-            System.out.println("Eliminar venta");
-            /*Aumentar Cantidad*/
-            JsonProductoCRUD.extraerStock(TOOL_TIP_TEXT_KEY, ABORT, cantidadSearch);
             
-            //
+            JsonProductoCRUD.extraerStock(listProducts.get(TableVenta.getSelectedRow()).getCodigo(),
+                    listProducts.get(TableVenta.getSelectedRow()).getCantidad(),
+                    cantidadSearch);
+            
+            System.out.println("Productos: "+listProducts.get(TableVenta.getSelectedRow()).getMarca());
             ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
             ValidateRegular.listVentasDelete.add(listProducts.get(TableVenta.getSelectedRow()));
+            */
+            
+            
+            JsonProductoCRUD.extraerStock(listProductos.get(TableVenta.getSelectedRow()).getCodigo(),
+                    listProductos.get(TableVenta.getSelectedRow()).getCantidad(),
+                    true);
+            
+            ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
+            ValidateRegular.listVentasDelete.add(listProductos.get(TableVenta.getSelectedRow()));
+            
+            
             listProductos.remove(TableVenta.getSelectedRow());
             listarProductos();
         }
@@ -1075,10 +1173,11 @@ public class PanelVentas extends javax.swing.JPanel {
         } else {
             System.out.println("Sin conexiona  internet");
         }
-
+        
         resetContentVenta();
     }
 
+    
     public void resetContentVenta() {
         resetCliente();
         resetContent();
@@ -1088,7 +1187,10 @@ public class PanelVentas extends javax.swing.JPanel {
         txtTotal.setText("");
         txtEfective.setText("");
         ValidateRegular.listVentas = new ArrayList<ModelCellVenta>();
+        txtSearchProducto.setText("");
     }
+    
+    
 
     public void calcularVuelto() {
         double efectivo = ValidateRegular.vuelto;

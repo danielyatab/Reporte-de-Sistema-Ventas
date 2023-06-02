@@ -115,9 +115,7 @@ public class JsonClienteCRUD {
 
     public static ModelCellClientes searchClienteNombre(String nombre) {
         for (ModelCellClientes p : returnClientes()) {
-            System.out.println("Listando : " + p.getNombre() +" = " + nombre);
-            if (p.getNombre().trim().equals(nombre.trim())) {
-                System.out.println("Encontre:" + p.getNombre());
+            if (p.getNombre().trim().toLowerCase().equals(nombre.trim().toLowerCase())) {
                 return p;
             }
         }

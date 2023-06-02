@@ -400,8 +400,7 @@ public class Main extends javax.swing.JFrame {
     private void ButtonReporteVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseClicked
         cambiarIconoColor(ButtonReporteVentas);
         indexPanel = 0;
-        Maximize.isForm = false;
-        resizeFormsPanels();
+        addConatiner(new PanelReporteVentas(), ContentPanel.getWidth(),ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonReporteVentasMouseClicked
 
     private void ButtonProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseClicked

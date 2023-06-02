@@ -7,6 +7,7 @@ package view.panels.forms;
 import Model.ModelCellProductos;
 import Model.conexion.CrudMysql;
 import controller.JsonProductoCRUD;
+import controller.JsonTipoProducto;
 import controller.ValidateRegular;
 import design.Maximize;
 import java.awt.BorderLayout;
@@ -226,6 +227,11 @@ public class FormProductos extends javax.swing.JPanel {
         );
 
         btnAddTipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddTipo.png"))); // NOI18N
+        btnAddTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddTipoMouseClicked(evt);
+            }
+        });
 
         btnGeneraCodigo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_GenerarCodigo.png"))); // NOI18N
         btnGeneraCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -257,6 +263,11 @@ public class FormProductos extends javax.swing.JPanel {
         txtCantidad.setForeground(new java.awt.Color(0, 0, 102));
         txtCantidad.setBorder(null);
         txtCantidad.setOpaque(false);
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextLastName2Layout = new javax.swing.GroupLayout(TextLastName2);
         TextLastName2.setLayout(TextLastName2Layout);
@@ -286,6 +297,11 @@ public class FormProductos extends javax.swing.JPanel {
         txtPrecioU.setForeground(new java.awt.Color(0, 0, 102));
         txtPrecioU.setBorder(null);
         txtPrecioU.setOpaque(false);
+        txtPrecioU.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioUKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextPhone2Layout = new javax.swing.GroupLayout(TextPhone2);
         TextPhone2.setLayout(TextPhone2Layout);
@@ -505,7 +521,53 @@ public class FormProductos extends javax.swing.JPanel {
         txtCodigo.setEditable(false);
     }//GEN-LAST:event_btnGeneraCodigoMouseClicked
 
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        char c = evt.getKeyChar();
+        // Verificar si el carácter no es un número o si ya hay 9 cifras
+        if (!Character.isDigit(c)) {
+            evt.consume(); // Cancelar el evento para evitar la entrada
+        }
+    }//GEN-LAST:event_txtCantidadKeyTyped
 
+    private void txtPrecioUKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioUKeyTyped
+        char c = evt.getKeyChar();
+
+        // Permitir teclas de control como backspace y delete
+        if (Character.isISOControl(c)) {
+            txtPrecioU.setEditable(true);
+            return;
+        }
+
+        // Permitir el punto decimal si no se ha ingresado previamente
+        if (c == '.' && txtPrecioU.getText().contains(".")) {
+            txtPrecioU.setEditable(false);
+            evt.consume();
+            return;
+        }
+
+        // Permitir solo dígitos y el punto decimal
+        if (!Character.isDigit(c) && c != '.') {
+            txtPrecioU.setEditable(false);
+            evt.consume();
+        } else {
+            // Validar que solo haya hasta 2 decimales
+            String text = txtPrecioU.getText();
+            int dotIndex = text.indexOf('.');
+            if (dotIndex != -1 && text.substring(dotIndex).length() > 2) {
+                txtPrecioU.setEditable(false);
+                evt.consume();
+            } else {
+                txtPrecioU.setEditable(true);
+            }
+        }
+    }//GEN-LAST:event_txtPrecioUKeyTyped
+
+    private void btnAddTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddTipoMouseClicked
+        FormAddTipoProducto.mostrarDialogo();
+        listaTiposProductos();
+    }//GEN-LAST:event_btnAddTipoMouseClicked
+
+ 
     /*INIT DATA*/
     private void initData() {
         System.out.print("INIT DATA sssssXD");
@@ -521,7 +583,17 @@ public class FormProductos extends javax.swing.JPanel {
             add = true;
             title.setText("AGREGAR PRODUCTO");
         }
+        listaTiposProductos();
     }
+
+    public void listaTiposProductos() {
+       comboTipo.removeAllItems();
+        // Agregar los elementos del ArrayList al JComboBox
+        for (String elemento : JsonTipoProducto.returnTiposProductos()) {
+           comboTipo.addItem(elemento);
+        }
+    }
+   
 
     /**
      *

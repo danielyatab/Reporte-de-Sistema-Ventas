@@ -25,7 +25,8 @@ public class FormAddTipoDocumento {
         JTextField campoTextoCantidad = new JTextField(5);
         campoTextoCantidad.setText("1");
         JComboBox<String> comboBox = new JComboBox<>(new String[]{"Codigo", "Nombre", "Marca"});
-
+        
+        
         panel.add(etiquetaDato);
         panel.add(campoTextoDato);
         panel.add(comboBox);
@@ -43,6 +44,7 @@ public class FormAddTipoDocumento {
             }else {
                 JOptionPane.showMessageDialog(null, "No termino de llenar los campos","Error",JOptionPane.ERROR_MESSAGE);
             }
+            
             String dato = campoTextoDato.getText();
             String cantidad = campoTextoCantidad.getText();
             String tipoDato = comboBox.getSelectedItem().toString();

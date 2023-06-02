@@ -103,6 +103,11 @@ public class FormProveedores extends javax.swing.JPanel {
         txtRuc.setForeground(new java.awt.Color(0, 0, 102));
         txtRuc.setBorder(null);
         txtRuc.setOpaque(false);
+        txtRuc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRucKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextNameLayout = new javax.swing.GroupLayout(TextName);
         TextName.setLayout(TextNameLayout);
@@ -198,6 +203,11 @@ public class FormProveedores extends javax.swing.JPanel {
         txtTelefono.setForeground(new java.awt.Color(0, 0, 102));
         txtTelefono.setBorder(null);
         txtTelefono.setOpaque(false);
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextPhone1Layout = new javax.swing.GroupLayout(TextPhone1);
         TextPhone1.setLayout(TextPhone1Layout);
@@ -420,6 +430,22 @@ public class FormProveedores extends javax.swing.JPanel {
             addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);
         }
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void txtRucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRucKeyTyped
+        char c = evt.getKeyChar();
+        // Verificar si el carácter no es un número o si ya hay 9 cifras
+        if (!Character.isDigit(c)) {
+            evt.consume(); // Cancelar el evento para evitar la entrada
+        }
+    }//GEN-LAST:event_txtRucKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+       char c = evt.getKeyChar();
+        // Verificar si el carácter no es un número o si ya hay 9 cifras
+       if (!Character.isDigit(c)) {
+           evt.consume(); // Cancelar el evento para evitar la entrada
+       }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /*INIT DATA*/
     private void initData() {

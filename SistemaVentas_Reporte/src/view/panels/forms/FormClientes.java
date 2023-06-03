@@ -55,7 +55,6 @@ public class FormClientes extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         TextPhone1 = new FondoPanelTotal();
         txtCorreo = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         comboBoxTipo = new javax.swing.JComboBox<>();
         TextLastName2 = new FondoPanelTotal();
@@ -93,7 +92,6 @@ public class FormClientes extends javax.swing.JPanel {
         txtNumDoc.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtNumDoc.setForeground(new java.awt.Color(0, 0, 102));
         txtNumDoc.setBorder(null);
-        txtNumDoc.setOpaque(false);
         txtNumDoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNumDocKeyTyped(evt);
@@ -123,7 +121,11 @@ public class FormClientes extends javax.swing.JPanel {
         txtNombres.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtNombres.setForeground(new java.awt.Color(0, 0, 102));
         txtNombres.setBorder(null);
-        txtNombres.setOpaque(false);
+        txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombresKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout TextLastNameLayout = new javax.swing.GroupLayout(TextLastName);
         TextLastName.setLayout(TextLastNameLayout);
@@ -164,7 +166,6 @@ public class FormClientes extends javax.swing.JPanel {
         txtTelefono.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(0, 0, 102));
         txtTelefono.setBorder(null);
-        txtTelefono.setOpaque(false);
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
@@ -198,7 +199,6 @@ public class FormClientes extends javax.swing.JPanel {
         txtCorreo.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(0, 0, 102));
         txtCorreo.setBorder(null);
-        txtCorreo.setOpaque(false);
 
         javax.swing.GroupLayout TextPhone1Layout = new javax.swing.GroupLayout(TextPhone1);
         TextPhone1.setLayout(TextPhone1Layout);
@@ -217,14 +217,11 @@ public class FormClientes extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddTipo.png"))); // NOI18N
-
         title.setFont(new java.awt.Font("Dubai", 1, 36)); // NOI18N
         title.setForeground(new java.awt.Color(51, 51, 51));
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("AGREGAR CLIENTE");
 
-        comboBoxTipo.setBackground(new java.awt.Color(255, 255, 255));
         comboBoxTipo.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         comboBoxTipo.setForeground(new java.awt.Color(16, 21, 64));
         comboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC" }));
@@ -242,7 +239,6 @@ public class FormClientes extends javax.swing.JPanel {
         txtApellidos.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtApellidos.setForeground(new java.awt.Color(0, 0, 102));
         txtApellidos.setBorder(null);
-        txtApellidos.setOpaque(false);
         txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApellidosKeyTyped(evt);
@@ -297,14 +293,11 @@ public class FormClientes extends javax.swing.JPanel {
                         .addGap(50, 50, 50))
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelWhiteLayout.createSequentialGroup()
-                                .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11))
+                            .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(TextLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addContainerGap())))
+                        .addGap(56, 56, 56))))
             .addGroup(PanelWhiteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,9 +325,7 @@ public class FormClientes extends javax.swing.JPanel {
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -479,6 +470,15 @@ public class FormClientes extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
+    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
+        char c = evt.getKeyChar();
+
+        // Verificar si el carácter no es una letra
+        if (!Character.isLetter(c) && c != ' ') {
+            evt.consume(); // Cancelar el evento para evitar la entrada
+        }
+    }//GEN-LAST:event_txtNombresKeyTyped
+
     /*INIT DATA*/
     private void initData() {
         if (Maximize.updateCrud) {
@@ -597,7 +597,6 @@ public class FormClientes extends javax.swing.JPanel {
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JComboBox<String> comboBoxTipo;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

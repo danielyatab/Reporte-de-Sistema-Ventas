@@ -64,7 +64,6 @@ public class FormProveedores extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         TextPhone1 = new FondoPanelTotal();
         txtTelefono = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
@@ -102,7 +101,6 @@ public class FormProveedores extends javax.swing.JPanel {
         txtRuc.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtRuc.setForeground(new java.awt.Color(0, 0, 102));
         txtRuc.setBorder(null);
-        txtRuc.setOpaque(false);
         txtRuc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRucKeyTyped(evt);
@@ -132,7 +130,6 @@ public class FormProveedores extends javax.swing.JPanel {
         txtNombres.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtNombres.setForeground(new java.awt.Color(0, 0, 102));
         txtNombres.setBorder(null);
-        txtNombres.setOpaque(false);
 
         javax.swing.GroupLayout TextLastNameLayout = new javax.swing.GroupLayout(TextLastName);
         TextLastName.setLayout(TextLastNameLayout);
@@ -173,7 +170,6 @@ public class FormProveedores extends javax.swing.JPanel {
         txtCorreo.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(0, 0, 102));
         txtCorreo.setBorder(null);
-        txtCorreo.setOpaque(false);
 
         javax.swing.GroupLayout TextLastName1Layout = new javax.swing.GroupLayout(TextLastName1);
         TextLastName1.setLayout(TextLastName1Layout);
@@ -202,7 +198,6 @@ public class FormProveedores extends javax.swing.JPanel {
         txtTelefono.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(0, 0, 102));
         txtTelefono.setBorder(null);
-        txtTelefono.setOpaque(false);
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
@@ -226,17 +221,14 @@ public class FormProveedores extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddTipo.png"))); // NOI18N
-
         title.setFont(new java.awt.Font("Dubai", 1, 36)); // NOI18N
         title.setForeground(new java.awt.Color(51, 51, 51));
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("AGREGAR PROVEEDOR");
 
-        comboTipo.setBackground(new java.awt.Color(255, 255, 255));
         comboTipo.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         comboTipo.setForeground(new java.awt.Color(16, 21, 64));
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Natural", "Juridica" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Juridica", "Natural" }));
         comboTipo.setBorder(null);
         comboTipo.setFocusable(false);
 
@@ -250,7 +242,6 @@ public class FormProveedores extends javax.swing.JPanel {
         txtProductos.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtProductos.setForeground(new java.awt.Color(0, 0, 102));
         txtProductos.setBorder(null);
-        txtProductos.setOpaque(false);
 
         javax.swing.GroupLayout TextPhone2Layout = new javax.swing.GroupLayout(TextPhone2);
         TextPhone2.setLayout(TextPhone2Layout);
@@ -296,14 +287,11 @@ public class FormProveedores extends javax.swing.JPanel {
                         .addGap(50, 50, 50))
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelWhiteLayout.createSequentialGroup()
-                                .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11))
+                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel12)
                             .addComponent(TextPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addGap(56, 56, 56))))
             .addGroup(PanelWhiteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,9 +319,7 @@ public class FormProveedores extends javax.swing.JPanel {
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                            .addComponent(comboTipo))
+                        .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -433,8 +419,9 @@ public class FormProveedores extends javax.swing.JPanel {
 
     private void txtRucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRucKeyTyped
         char c = evt.getKeyChar();
+  
         // Verificar si el carácter no es un número o si ya hay 9 cifras
-        if (!Character.isDigit(c)) {
+        if (!Character.isDigit(c) || txtRuc.getText().length() >= 11) {
             evt.consume(); // Cancelar el evento para evitar la entrada
         }
     }//GEN-LAST:event_txtRucKeyTyped
@@ -534,7 +521,6 @@ public class FormProveedores extends javax.swing.JPanel {
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

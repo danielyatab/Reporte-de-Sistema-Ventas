@@ -1,7 +1,6 @@
 package main;
 
 import Model.ModelUser;
-import Model.conexion.Conexion;
 import Model.conexion.CrudMysql;
 import controller.JsonUserValidation;
 import controller.ValidateRegular;
@@ -34,6 +33,7 @@ public class Users extends javax.swing.JFrame {
 
     public Users() {
         initComponents();
+         setIconImage(new ImageIcon(getClass().getResource("/store.png")).getImage());
         setFocusable(true);
         setBackground(new Color(0, 0, 0, 0));
         setLocationRelativeTo(null);
@@ -143,16 +143,14 @@ public class Users extends javax.swing.JFrame {
             login.setVisible(true);
             dispose();
         }
-
-
     }//GEN-LAST:event_btnVolverMouseClicked
 
     private void btnVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseEntered
-        btnVolver.setIcon(new ImageIcon("src/img/Login/VolverUserCreateWhite.png"));
+        btnVolver.setIcon(new ImageIcon(getClass().getResource("/img/Login/VolverUserCreateWhite.png")));
     }//GEN-LAST:event_btnVolverMouseEntered
 
     private void btnVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseExited
-        btnVolver.setIcon(new ImageIcon("src/img/Login/VolverUserCreate.png"));
+        btnVolver.setIcon(new ImageIcon(getClass().getResource("/img/Login/VolverUserCreate.png")));
     }//GEN-LAST:event_btnVolverMouseExited
 
     private void btnCrearUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUserMouseClicked
@@ -160,7 +158,7 @@ public class Users extends javax.swing.JFrame {
         String passwordStr = valueOf(contraseña);
         int newPassword = contraseña.length;
         String userName = txtUsuario.getText();
-        ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
         ModelUser user = new ModelUser();
 
         if (checkSetPassword) {
@@ -193,12 +191,10 @@ public class Users extends javax.swing.JFrame {
                         } catch (Exception e) {
                             System.out.println("Sin conexion a internet Mysql");
                         }
-                    } else {
-                        System.out.println("Sin conexion xd");
-                    }
+                    } 
 
                     if (ValidateRegular.setCreateUser) {
-                        ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+                        ImageIcon icononew = new ImageIcon(getClass().getResource("/img/message/comprobado.png"));
                         JOptionPane.showMessageDialog(null, "Regitro exitoso del Nuevo Usuario " + txtUsuario.getText(), "", 0, icononew);
                         LoginInit login = new LoginInit();
                         setMainEnter(false);
@@ -219,16 +215,16 @@ public class Users extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearUserMouseClicked
 
     private void btnCrearUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUserMouseEntered
-        btnCrearUser.setIcon(new ImageIcon("src/img/Login/btnCreateUsarioWhite.png"));
+        btnCrearUser.setIcon(new ImageIcon(getClass().getResource("/img/Login/btnCreateUsarioWhite.png")));
     }//GEN-LAST:event_btnCrearUserMouseEntered
 
     private void btnCrearUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUserMouseExited
-        btnCrearUser.setIcon(new ImageIcon("src/img/Login/btnCreateUsario.png"));
+        btnCrearUser.setIcon(new ImageIcon(getClass().getResource("/img/Login/btnCreateUsario.png")));
     }//GEN-LAST:event_btnCrearUserMouseExited
 
     private void CheckBoxPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CheckBoxPasswordMouseClicked
         if (check) {
-            CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOn.png"));
+            CheckBoxPassword.setIcon(new ImageIcon(getClass().getResource("/img/Login/CheckOn.png")));
             check = false;
             if (checkSetPassword) {
                 txtContraseña.setText("");
@@ -236,7 +232,7 @@ public class Users extends javax.swing.JFrame {
             }
             txtContraseña.setEchoChar((char) 0);
         } else {
-            CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOff.png"));
+            CheckBoxPassword.setIcon(new ImageIcon(getClass().getResource("/img/Login/CheckOff.png")));
             check = true;
             txtContraseña.setEchoChar('*');
         }

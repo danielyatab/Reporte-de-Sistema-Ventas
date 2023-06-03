@@ -74,7 +74,6 @@ public class FormProductos extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         TextPhone2 = new FondoPanelTotal();
         txtPrecioU = new javax.swing.JTextField();
-        btnAddCantidad = new javax.swing.JLabel();
 
         setOpaque(false);
 
@@ -320,8 +319,6 @@ public class FormProductos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        btnAddCantidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btnAddTipo.png"))); // NOI18N
-
         javax.swing.GroupLayout PanelWhiteLayout = new javax.swing.GroupLayout(PanelWhite);
         PanelWhite.setLayout(PanelWhiteLayout);
         PanelWhiteLayout.setHorizontalGroup(
@@ -337,15 +334,12 @@ public class FormProductos extends javax.swing.JPanel {
                             .addComponent(TextLastName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9)
                             .addComponent(TextName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelWhiteLayout.createSequentialGroup()
-                                .addComponent(TextLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAddCantidad))
+                            .addComponent(TextLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)))
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(btnCancelar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,9 +406,7 @@ public class FormProductos extends javax.swing.JPanel {
                     .addGroup(PanelWhiteLayout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAddCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TextLastName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
                         .addGroup(PanelWhiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -570,8 +562,8 @@ public class FormProductos extends javax.swing.JPanel {
  
     /*INIT DATA*/
     private void initData() {
-        System.out.print("INIT DATA sssssXD");
         //txtCodigo.setSelectionStart(0);
+        listaTiposProductos();
         if (Maximize.updateCrud) {
             add = false;
             btnAceptar.setIcon(new ImageIcon("src/img/btn_Actualizar.png"));
@@ -583,7 +575,7 @@ public class FormProductos extends javax.swing.JPanel {
             add = true;
             title.setText("AGREGAR PRODUCTO");
         }
-        listaTiposProductos();
+       
     }
 
     public void listaTiposProductos() {
@@ -617,6 +609,7 @@ public class FormProductos extends javax.swing.JPanel {
         txtMarca.setText(updateP.getMarca());
         txtDescripcion.setText(updateP.getDescripcion());
         txtCantidad.setText(valueOf(updateP.getCantidad()));
+        System.out.println("ESTOY CAMBIANDO EL COMOBOBOX: " + updateP.getTipo());
         comboTipo.setSelectedItem(updateP.getTipo());
         txtPrecioU.setText(valueOf(updateP.getPrecioU()));
     }
@@ -672,7 +665,6 @@ public class FormProductos extends javax.swing.JPanel {
     private javax.swing.JPanel TextPhone1;
     private javax.swing.JPanel TextPhone2;
     private javax.swing.JLabel btnAceptar;
-    private javax.swing.JLabel btnAddCantidad;
     private javax.swing.JLabel btnAddTipo;
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnGeneraCodigo;

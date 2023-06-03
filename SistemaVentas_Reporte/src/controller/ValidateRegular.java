@@ -35,6 +35,7 @@ public class ValidateRegular {
     public static int testValidate = 0;
     public static double vuelto =0;
     public static long numVenta = 0;
+     public static long intentConnect = 0;
 
     public static ModelCellClientes updateCliente;
     public static ModelCellProveedores updateProveedor;

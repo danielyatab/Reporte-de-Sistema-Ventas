@@ -325,13 +325,12 @@ public class PanelProducto extends javax.swing.JPanel {
             ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
             int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al producto " + deleteProducto.getProducto() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
             if (opcion == JOptionPane.YES_OPTION) {
-                System.out.println("Seleccione el yes option");
                 JsonProductoCRUD.deleteProducto(deleteProducto.getCodigo());
                 if (ValidateRegular.conexion) {
                     try {
                         CrudMysql.crudMysqlProductos();
                     } catch (Exception e) {
-                        System.out.println("Sin conexion a internet producto no eliminado en base de datos");
+                        System.out.println("Sin conexion a internet producto no eliminado en base de datos" + e.getMessage());
                     }
                 }
             }

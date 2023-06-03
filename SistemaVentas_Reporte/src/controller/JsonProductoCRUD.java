@@ -101,12 +101,14 @@ public class JsonProductoCRUD {
                 break;
             }
         }
-        for (int i = 0; i < listaProductosHistorial.size(); i++) {
-            if (listaProductosHistorial.get(i).getCodigo().equals(updateCl.getCodigo())) {
-                listaProductos.set(i, updateCl);
+        
+        for (int j = 0; j < listaProductosHistorial.size(); j++) {
+            if (listaProductosHistorial.get(j).getCodigo().equals(updateCl.getCodigo())) {
+                listaProductos.set(j, updateCl);
                 break;
             }
         }
+        
         modificarProducto(listaProductos);
         modificarProductoHistorial(listaProductos);
         ValidateRegular.setUpdateProducto = true;
@@ -124,7 +126,7 @@ public class JsonProductoCRUD {
                     newStock = listStocks.get(i).getCantidad() + stock;
                     listStocks.get(i).setCantidad(newStock);
                     modificarProducto(listStocks);
-                    System.out.println("El nuevos tock del producto : " +  listStocks.get(i).getProducto()+"SE AUMENTO;: "+ listStocks.get(i).getCantidad());
+                    System.out.println("El nuevos tock del producto : " + listStocks.get(i).getProducto() + "SE AUMENTO;: " + listStocks.get(i).getCantidad());
                     return true;
                 } else {
                     newStock = listStocks.get(i).getCantidad() - stock;
@@ -134,10 +136,10 @@ public class JsonProductoCRUD {
                     } else {
                         listStocks.get(i).setCantidad(newStock);
                         modificarProducto(listStocks);
-                        System.out.println("El nuevos tock del producto : " +  listStocks.get(i).getProducto()+"SE EXTRAJO;: "+ listStocks.get(i).getCantidad());
+                        System.out.println("El nuevos tock del producto : " + listStocks.get(i).getProducto() + "SE EXTRAJO;: " + listStocks.get(i).getCantidad());
                         return true;
                     }
-                }    
+                }
             }
         }
         /*Listar stocks*/
@@ -258,9 +260,7 @@ public class JsonProductoCRUD {
      * ****CODIGO AUTOGENERADO PARA PRODUCTOS*****
      */
     public static String returnCodeGenerate() {
-        while (codeGlobal.equals("")) {
-            generateCode();
-        }
+        generateCode();
         return codeGlobal;
     }
 

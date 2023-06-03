@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import table.TableClient.TableActionEventCliente;
 import view.panels.forms.FormClientes;
 
-
 public class PanelCliente extends javax.swing.JPanel {
 
     private static List<ModelCellClientes> listClient;
@@ -23,11 +22,14 @@ public class PanelCliente extends javax.swing.JPanel {
     private static String searchSelect = "";
 
     public PanelCliente() {
-        try {
-            listClient = JsonClienteCRUD.returnClientes();
-        } catch (Exception e) {
-            System.out.println("Error de documento clientes");
+        if (ValidateRegular.conexion) {
+            try {
+                listClient = JsonClienteCRUD.returnClientes();
+            } catch (Exception e) {
+                System.out.println("Error de documento clientes");
+            }
         }
+
         initComponents();
         TableClientes.fixTable(jScrollPane1);
         TableClientes.setIconsColumns(8, 6, 7);
@@ -339,10 +341,12 @@ public class PanelCliente extends javax.swing.JPanel {
             if (opcion == JOptionPane.YES_OPTION) {
                 System.out.println("Seleccione el yes option");
                 JsonClienteCRUD.deleteCliente(deleteCliente.getIdCliente());
-                try {
-                    CrudMysql.crudMysqlClientes();
-                } catch (Exception e) {
-                    System.out.println("Sin conexion a internet clientes no eliminado en base de datos");
+                if (ValidateRegular.conexion) {
+                    try {
+                        CrudMysql.crudMysqlClientes();
+                    } catch (Exception e) {
+                        System.out.println("Sin conexion a internet clientes no eliminado en base de datos");
+                    }
                 }
             }
             listarClientes();

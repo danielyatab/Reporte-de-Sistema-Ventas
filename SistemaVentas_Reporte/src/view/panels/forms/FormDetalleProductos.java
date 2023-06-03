@@ -601,7 +601,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
 
                 String[] opciones = {"Si", "No"};
                 ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
-                int opcion = JOptionPane.showOptionDialog(null, "¿Desea guardar la venta, se genrar como una nueva?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+                int opcion = JOptionPane.showOptionDialog(null, "¿Desea guardar la venta, se generara como una nueva?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                 if (opcion == JOptionPane.YES_OPTION) {
                     addVenta();
                     deleteOldVenta();

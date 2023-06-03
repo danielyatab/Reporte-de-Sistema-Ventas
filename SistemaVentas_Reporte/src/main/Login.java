@@ -7,6 +7,7 @@ package main;
 import Model.conexion.Conexion;
 import Model.conexion.FullCrudMysql;
 import controller.Threads;
+import controller.ValidateRegular;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -23,15 +24,23 @@ public class Login extends javax.swing.JFrame {
     Thread hilo = new Thread(ejecutor);
 
     public Login() {
-        hilo.start();
-        if (Conexion.testConecion()) {
-            try {
-                new FullCrudMysql();
-            } catch (Exception e) {
-                System.out.println("Error de conexion");
+        if (ValidateRegular.intentConnect != 1) {
+            //Validacion Unica
+            ValidateRegular.intentConnect =1;
+            //CRUD MYSQL
+            hilo.start();
+            if (Conexion.testConecion()) {
+                try {
+                    if (ValidateRegular.conexion) {
+                        new FullCrudMysql();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error de conexion");
+                }
             }
         }
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/store.png")).getImage());
         setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
     }
@@ -105,27 +114,27 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
-        btnClose.setIcon(new ImageIcon("src/img/BtnCloseWhite.png"));
+        btnClose.setIcon(new ImageIcon(getClass().getResource("/img/BtnCloseWhite.png")));
     }//GEN-LAST:event_btnCloseMouseEntered
 
     private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
-        btnClose.setIcon(new ImageIcon("src/img/BtnClose.png"));
+        btnClose.setIcon(new ImageIcon(getClass().getResource("/img/BtnClose.png")));
     }//GEN-LAST:event_btnCloseMouseExited
 
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
-        btnIniciarSesion.setIcon(new ImageIcon("src/img/Login/InicarSesiondScale.png"));
+        btnIniciarSesion.setIcon(new ImageIcon(getClass().getResource("/img/Login/InicarSesiondScale.png")));
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
     private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
-        btnIniciarSesion.setIcon(new ImageIcon("src/img/Login/InicarSesion.png"));
+        btnIniciarSesion.setIcon(new ImageIcon(getClass().getResource("/img/Login/InicarSesion.png")));
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
     private void btnCrearUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseEntered
-        btnCrearUsuario.setIcon(new ImageIcon("src/img/Login/btnCrearUsuarioWhite.png"));
+        btnCrearUsuario.setIcon(new ImageIcon(getClass().getResource("/img/Login/btnCrearUsuarioWhite.png")));
     }//GEN-LAST:event_btnCrearUsuarioMouseEntered
 
     private void btnCrearUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseExited
-        btnCrearUsuario.setIcon(new ImageIcon("src/img/Login/btnCrearUsuario.png"));
+        btnCrearUsuario.setIcon(new ImageIcon(getClass().getResource("/img/Login/btnCrearUsuario.png")));
     }//GEN-LAST:event_btnCrearUsuarioMouseExited
 
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked

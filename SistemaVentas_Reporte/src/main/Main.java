@@ -22,7 +22,6 @@ import view.panels.PanelProducto;
 import view.panels.PanelProveedores;
 import view.panels.PanelReporteVentas;
 import view.panels.PanelVentas;
-import view.panels.forms.FormDetalleProductos;
 
 /**
  *
@@ -33,13 +32,14 @@ public class Main extends javax.swing.JFrame {
     private ArrayList<JLabel> listaLabels = new ArrayList<>();
     private ArrayList<JPanel> listaJpanel = new ArrayList<>();
     private ArrayList<JPanel> listaForms = new ArrayList<>();
-    private String rutas[] = {"src/img/btn_ReporteVentas", "src/img/btn_Clientes", "src/img/btn_Productos", "src/img/btn_Proveedores", "src/img/btn_Ventas", "src/img/btn_DetalleVentas", "src/img/btn_LogOut"};
+    private String rutas[] = {"/img/btn_ReporteVentas", "/img/btn_Clientes", "/img/btn_Productos", "/img/btn_Proveedores", "/img/btn_Ventas", "/img/btn_DetalleVentas", "/img/btn_LogOut"};
     private String rute = "";
     private int indexPanel = 0;
     static boolean maximize = false;
 
     public Main() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/store.png")).getImage());
         //Reset Design
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -354,7 +354,7 @@ public class Main extends javax.swing.JFrame {
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
 
         String[] opciones = {"Si", "No"};
-        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0);
@@ -362,12 +362,12 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseEntered
-        closeLabel.setIcon(new ImageIcon("src/img/BtnCloseWhite.png"));
+        closeLabel.setIcon(new ImageIcon(getClass().getResource("/img/BtnCloseWhite.png")));
         btnClose.setBackground(new Color(235, 20, 20));
     }//GEN-LAST:event_btnCloseMouseEntered
 
     private void btnCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseExited
-        closeLabel.setIcon(new ImageIcon("src/img/BtnClose.png"));
+        closeLabel.setIcon(new ImageIcon(getClass().getResource("/img/BtnClose.png")));
         btnClose.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_btnCloseMouseExited
 
@@ -468,7 +468,7 @@ public class Main extends javax.swing.JFrame {
             MenuPanel.setPreferredSize(new Dimension(342, getHeight()));
             pack();
             setLocationRelativeTo(null);
-            LogoLabel.setIcon(new ImageIcon("src/img/LogoIsrael.png"));
+            LogoLabel.setIcon(new ImageIcon(getClass().getResource("/img/LogoIsrael.png")));
             autoLabelsResize();
             maximize = false;
         } else {
@@ -476,7 +476,7 @@ public class Main extends javax.swing.JFrame {
             pack();
             setExtendedState(MAXIMIZED_BOTH);
             autoLabelsResize();
-            LogoLabel.setIcon(new ImageIcon("src/img/LogoIsraelFull.png"));
+            LogoLabel.setIcon(new ImageIcon(getClass().getResource("/img/LogoIsraelFull.png")));
             maximize = true;
         }
     }
@@ -501,7 +501,7 @@ public class Main extends javax.swing.JFrame {
                     rute = rutas[i] + ".png";
                 }
             }
-            listaLabels.get(i).setIcon(new ImageIcon(rute));
+            listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
         }
     }
 
@@ -510,18 +510,18 @@ public class Main extends javax.swing.JFrame {
             if (maximize) {
                 if (!listaLabels.get(i).equals(labelWhite)) {
                     rute = rutas[i] + "Full.png";
-                    listaLabels.get(i).setIcon(new ImageIcon(rute));
+                    listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
                 } else {
                     rute = rutas[i] + "FullWhite.png";
-                    listaLabels.get(i).setIcon(new ImageIcon(rute));
+                    listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
                 }
             } else {
                 if (!listaLabels.get(i).equals(labelWhite)) {
                     rute = rutas[i] + ".png";
-                    listaLabels.get(i).setIcon(new ImageIcon(rute));
+                    listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
                 } else {
                     rute = rutas[i] + "White.png";
-                    listaLabels.get(i).setIcon(new ImageIcon(rute));
+                    listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
                 }
             }
         }
@@ -565,7 +565,7 @@ public class Main extends javax.swing.JFrame {
 
     private void autoList() {
 
-        ButtonReporteVentas.setIcon(new ImageIcon("src/img/btn_ReporteVentasWhite.png"));
+        ButtonReporteVentas.setIcon(new ImageIcon(getClass().getResource("/img/btn_ReporteVentasWhite.png")));
         /*JLABEL*/
         listaLabels.add(ButtonReporteVentas);
         listaLabels.add(ButtonClientes);

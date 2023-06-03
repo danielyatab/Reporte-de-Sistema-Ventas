@@ -27,6 +27,7 @@ public class LoginInit extends javax.swing.JFrame {
 
     public LoginInit() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/store.png")).getImage());
         setFocusable(true);
         setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
@@ -135,11 +136,11 @@ public class LoginInit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseEntered
-        btnVolver.setIcon(new ImageIcon("src/img/Login/btnVolverSelect.png"));
+        btnVolver.setIcon(new ImageIcon(getClass().getResource("/img/Login/btnVolverSelect.png")));
     }//GEN-LAST:event_btnVolverMouseEntered
 
     private void btnVolverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseExited
-        btnVolver.setIcon(new ImageIcon("src/img/Login/btnVolver_1.png"));
+        btnVolver.setIcon(new ImageIcon(getClass().getResource("/img/Login/btnVolver_1.png")));
     }//GEN-LAST:event_btnVolverMouseExited
 
     private void btnVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVolverMouseClicked
@@ -153,7 +154,7 @@ public class LoginInit extends javax.swing.JFrame {
         String passwordStr = valueOf(contraseña);
         int newPassword = contraseña.length;
         String userName = txtUsuario.getText();
-        ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
         ModelUser user = new ModelUser(userName, passwordStr);
 
         if (checkSetPassword) {
@@ -207,7 +208,7 @@ public class LoginInit extends javax.swing.JFrame {
 
     private void CheckBoxPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CheckBoxPasswordMouseClicked
         if (check) {
-            CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOnBlack.png"));
+            CheckBoxPassword.setIcon(new ImageIcon(getClass().getResource("/img/Login/CheckOnBlack.png")));
             check = false;
             txtContraseña.setEchoChar((char) 0);
             if (checkSetPassword) {
@@ -215,7 +216,7 @@ public class LoginInit extends javax.swing.JFrame {
                 checkSetPassword = false;
             }
         } else {
-            CheckBoxPassword.setIcon(new ImageIcon("src/img/Login/CheckOffBlack.png"));
+            CheckBoxPassword.setIcon(new ImageIcon(getClass().getResource("/img/Login/CheckOffBlack.png")));
             check = true;
             txtContraseña.setEchoChar('*');
         }

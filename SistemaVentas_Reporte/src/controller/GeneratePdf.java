@@ -19,6 +19,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -195,6 +196,8 @@ public class GeneratePdf {
             doc.close();
             archivo.close();
             archivo2.close();
+            
+            Desktop.getDesktop().open(file);
             
         } catch (IOException e) {
             System.out.println("Error al crear pdf "+ e);

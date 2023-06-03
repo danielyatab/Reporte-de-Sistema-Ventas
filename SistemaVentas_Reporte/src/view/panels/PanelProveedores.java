@@ -23,11 +23,13 @@ public class PanelProveedores extends javax.swing.JPanel {
     private static String searchSelect = "";
 
     public PanelProveedores() {
-        try {
-            listProveedor = JsonProveedoresCRUD.returnProveedores();
-        } catch (Exception e) {
-            e.getMessage();
-            System.out.println("Error de documento PROVEEDORES");
+        if (ValidateRegular.conexion) {
+            try {
+                listProveedor = JsonProveedoresCRUD.returnProveedores();
+            } catch (Exception e) {
+                e.getMessage();
+                System.out.println("Error de documento PROVEEDORES");
+            }
         }
         initComponents();
         TableProveedores.fixTable(jScrollPane2);
@@ -339,10 +341,12 @@ public class PanelProveedores extends javax.swing.JPanel {
             int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al proveedor " + deleteProveedores.getNombres() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
             if (opcion == JOptionPane.YES_OPTION) {
                 JsonProveedoresCRUD.deleteProveedor(deleteProveedores.getIdProveedor());
-                try {
-                    CrudMysql.crudMysqlProveedores();
-                } catch (Exception e) {
-                    System.out.println("Sin conexion a internet proveedor no eliminado en base de datos");
+                if (ValidateRegular.conexion) {
+                    try {
+                        CrudMysql.crudMysqlProveedores();
+                    } catch (Exception e) {
+                        System.out.println("Sin conexion a internet proveedor no eliminado en base de datos");
+                    }
                 }
             }
             listarProveedores();

@@ -1,4 +1,8 @@
-package design.graphics;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
+package view.panels;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -9,6 +13,11 @@ import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ *
+ * @author yatac
+ */
 public class PanelChartLine extends javax.swing.JPanel {
 
     private final List<ModelChartLine> list;
@@ -18,7 +27,6 @@ public class PanelChartLine extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,7 +42,6 @@ public class PanelChartLine extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
     private double getMax() {
         double max = 0;
         for (ModelChartLine d : list) {
@@ -45,6 +52,8 @@ public class PanelChartLine extends javax.swing.JPanel {
         return max;
     }
 
+    
+    
     @Override
     protected void paintComponent(Graphics grphcs) {
         if (list.size() > 1) {
@@ -99,7 +108,7 @@ public class PanelChartLine extends javax.swing.JPanel {
         list.clear();
         repaint();
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

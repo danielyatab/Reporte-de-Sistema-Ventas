@@ -4,8 +4,6 @@
  */
 package view.panels;
 
-import design.graphics.ModelChartLine;
-import design.graphics.ModelChartPie;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -40,8 +38,8 @@ public class PanelReporteVentas extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        chartLine1 = new design.graphics.ChartLine();
-        chartPie1 = new design.graphics.ChartPie();
+        chartPie1 = new view.panels.ChartPie();
+        chartLine1 = new view.panels.ChartLine();
         PanelBackroundVentaDiaria = new FondoPanelDiario();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -53,29 +51,24 @@ public class PanelReporteVentas extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        chartLine1.setBackground(new java.awt.Color(250, 250, 250));
-
-        chartPie1.setBackground(new java.awt.Color(250, 250, 250));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chartLine1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(chartPie1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(11, 11, 11))
+                    .addComponent(chartPie1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(chartLine1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
+                .addContainerGap()
                 .addComponent(chartPie1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(49, 49, 49))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chartLine1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         PanelBackroundVentaDiaria.setBackground(new java.awt.Color(153, 255, 102));
@@ -154,8 +147,8 @@ public class PanelReporteVentas extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(PanelBackroundVentaDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -179,7 +172,7 @@ public class PanelReporteVentas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-public void initData(){
+    public void initData() {
         List<ModelChartPie> list1 = new ArrayList<>();
         list1.add(new ModelChartPie("Monday", 10, new Color(4, 174, 243)));
         list1.add(new ModelChartPie("Tuesday", 150, new Color(215, 39, 250)));
@@ -188,7 +181,7 @@ public void initData(){
         list1.add(new ModelChartPie("Friday", 125, new Color(127, 63, 255)));
         list1.add(new ModelChartPie("Saturday", 80, new Color(238, 167, 35)));
         list1.add(new ModelChartPie("Sunday", 200, new Color(245, 79, 99)));
-        
+
         chartPie1.setModel(list1);
         //  Test data chart line
         List<ModelChartLine> list = new ArrayList<>();
@@ -204,14 +197,14 @@ public void initData(){
         list.add(new ModelChartLine("Ocutbre", 200));
         list.add(new ModelChartLine("Noviembre", 200));
         list.add(new ModelChartLine("Diciembre", 200));
-        
+
         chartLine1.setModel(list);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelBackroundVentaDiaria;
     private table.ventaDiaria.TableVentaDiaria TableDiario;
-    private design.graphics.ChartLine chartLine1;
-    private design.graphics.ChartPie chartPie1;
+    private view.panels.ChartLine chartLine1;
+    private view.panels.ChartPie chartPie1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -220,20 +213,17 @@ public void initData(){
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    class FondoPanelDiario extends JPanel
-    {
+    class FondoPanelDiario extends JPanel {
+
         private Image imagen;
-        
+
         @Override
-        public void paint(Graphics g)
-        {
+        public void paint(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/img/PanelVentasDelDia.png")).getImage();
-            g.drawImage(imagen,0, 0, getWidth(), getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }
     }
-    
-    
-    
+
 }

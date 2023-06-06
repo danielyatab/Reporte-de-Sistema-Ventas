@@ -48,7 +48,7 @@ public class JsonVentaCRUD {
         
         String rutaIncial = newVenta.getRutaBoleta();
        
-        newVenta.setRutaBoleta("src/boleta/" + rutaIncial);
+        newVenta.setRutaBoleta("boleta/" + rutaIncial);
         
         
         /*Verificar llenado*/
@@ -59,7 +59,7 @@ public class JsonVentaCRUD {
         modificarVentas(ventaGlobal);
 
         List<ModelCellDetalles> historial = returnVentasHistorial();
-        newVenta.setRutaBoleta("src/boleta-historial/" + rutaIncial);
+        newVenta.setRutaBoleta("boleta-historial/" + rutaIncial);
         historial.add(newVenta);
         modificarVentaHistorial(historial);
 
@@ -111,7 +111,7 @@ public class JsonVentaCRUD {
 
         for (int i = 0; i < listaVentasHistorial.size(); i++) {
             if (listaVentasHistorial.get(i).getCodVenta().equals(updateCl.getCodVenta())) {
-                listaVentas.set(i, updateCl);
+                listaVentasHistorial.set(i, updateCl);
                 break;
             }
         }
@@ -238,6 +238,7 @@ public class JsonVentaCRUD {
         return historialglobal;
     }
 
+    
     public static void modificarVentaHistorial(List<ModelCellDetalles> ventas) {
         Gson gson = new Gson();
         //LLenado clientes

@@ -1,6 +1,5 @@
 package controller;
 
-import Model.ModelCellClientes;
 import Model.ModelCellProductos;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -104,13 +103,13 @@ public class JsonProductoCRUD {
         
         for (int j = 0; j < listaProductosHistorial.size(); j++) {
             if (listaProductosHistorial.get(j).getCodigo().equals(updateCl.getCodigo())) {
-                listaProductos.set(j, updateCl);
+                listaProductosHistorial.set(j, updateCl);
                 break;
             }
         }
         
         modificarProducto(listaProductos);
-        modificarProductoHistorial(listaProductos);
+        modificarProductoHistorial(listaProductosHistorial);
         ValidateRegular.setUpdateProducto = true;
     }
 
@@ -159,6 +158,49 @@ public class JsonProductoCRUD {
         return null;
     }
 
+     public static List<ModelCellProductos> searchListProductoCodigo(String codigo) {
+        List<ModelCellProductos> searchProductoList = new ArrayList<ModelCellProductos>();;
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getCodigo().toLowerCase().trim().contains(codigo.toLowerCase().trim())) {
+                searchProductoList.add(p);
+            }
+        }
+        return searchProductoList;
+    }
+
+    public static List<ModelCellProductos> searchListProductoNombre(String producto) {
+        List<ModelCellProductos> searchProductoList = new ArrayList<ModelCellProductos>();;
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getProducto().toLowerCase().trim().contains(producto.toLowerCase().trim())) {
+                searchProductoList.add(p);
+            }
+        }
+        return searchProductoList;
+    }
+
+    public static List<ModelCellProductos> searchListProductoMarca(String marca) {
+        List<ModelCellProductos> searchProductoList = new ArrayList<ModelCellProductos>();;
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getMarca().toLowerCase().trim().contains(marca.toLowerCase().trim())) {
+                searchProductoList.add(p);
+            }
+        }
+        return searchProductoList;
+    }
+
+    public static List<ModelCellProductos> searchListProductoTipo(String tipo) {
+        List<ModelCellProductos> searchProductoList = new ArrayList<ModelCellProductos>();;
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getTipo().toLowerCase().trim().contains(tipo.toLowerCase().trim())) {
+                searchProductoList.add(p);
+            }
+        }
+        return searchProductoList;
+    }
+    
+    
+    
+    
     /*
     public static List<ModelCellProductos> searchProductoApellido(String apellido) {
         List<ModelCellProductos> searchProductoList = null;

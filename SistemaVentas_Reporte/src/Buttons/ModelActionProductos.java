@@ -1,7 +1,7 @@
 package Buttons;
 
 import Model.ModelCellProductos;
-import Table.TableProduct.TableActionEventProduct;
+import view.panels.TableActionEventProduct;
 
 public class ModelActionProductos {
 

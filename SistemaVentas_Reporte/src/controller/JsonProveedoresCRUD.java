@@ -4,6 +4,7 @@
  */
 package controller;
 
+import Model.ModelCellProveedores;
 import Model.ModelCellProductos;
 import Model.ModelCellProveedores;
 import com.google.gson.Gson;
@@ -30,7 +31,6 @@ public class JsonProveedoresCRUD {
     private static List<ModelCellProveedores> proveedorGlobal = null;
     static ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
 
-    
     public static List<ModelCellProveedores> returnProveedores() {
         Gson gson = new Gson();
         try (Reader reader = new FileReader(FileJson.rutaProveedores)) { // Asegura que se cerrara de manera segura el archivo
@@ -94,22 +94,67 @@ public class JsonProveedoresCRUD {
 
         for (int i = 0; i < listaProveedorsHistorial.size(); i++) {
             if (listaProveedorsHistorial.get(i).getIdProveedor().equals(updateCl.getIdProveedor())) {
-                listaProveedors.set(i, updateCl);
+                listaProveedorsHistorial.set(i, updateCl);
                 break;
             }
         }
         modificarProveedor(listaProveedors);
-        modificarProveedorHistorial(listaProveedors);
+        modificarProveedorHistorial(listaProveedorsHistorial);
         ValidateRegular.setUpdateProveedor = true;
     }
 
-    /**
+    /*
      * ****************************TIPOS DE BUSCADORES*******************
      */
-    public static List<ModelCellProveedores> searchProveedorNombre(String nombre) {
+    public static List<ModelCellProveedores> searchListProveedorNombre(String nombre) {
         List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
         for (ModelCellProveedores p : returnProveedores()) {
-            if (p.getNombres().trim().equals(nombre.trim())) {
+            System.out.println("Listando  CONTIENE EN CLIENTES ::::: " + p.getNombres() + " = " + nombre);
+            if (p.getNombres().toLowerCase().trim().contains(nombre.toLowerCase().trim())) {
+                searchProveedorList.add(p);
+            }
+        }
+        return searchProveedorList;
+    }
+
+    public static List<ModelCellProveedores> searchListProveedorProductos(String producto) {
+        List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
+        for (ModelCellProveedores p : returnProveedores()) {
+            System.out.println("Listando  CONTIENE APELLIDOS EN CLIENTES ::::: " + p.getProductos() + " = " + producto);
+            if (p.getProductos().toLowerCase().trim().contains(producto.toLowerCase().trim())) {
+                searchProveedorList.add(p);
+            }
+        }
+        return searchProveedorList;
+    }
+
+    public static List<ModelCellProveedores> searchListProveedorTelefono(String telefono) {
+        List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
+        for (ModelCellProveedores p : returnProveedores()) {
+            System.out.println("Listando  CONTIENE TELEFONOS EN CLIENTES ::::: " + p.getTelefono() + " = " + telefono);
+            if (p.getTelefono().toLowerCase().trim().contains(telefono.toLowerCase().trim())) {
+                searchProveedorList.add(p);
+            }
+        }
+        return searchProveedorList;
+    }
+
+    public static List<ModelCellProveedores> searchListProveedorNumero(String numero) {
+        List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
+        for (ModelCellProveedores p : returnProveedores()) {
+            System.out.println("Listando  CONTIENE NUMEROS EN CLIENTES ::::: " + p.getRuc() + " = " + numero);
+            if (p.getRuc().toLowerCase().trim().contains(numero.toLowerCase().trim())) {
+                searchProveedorList.add(p);
+            }
+        }
+        return searchProveedorList;
+    }
+
+    public static List<ModelCellProveedores> searchListProveedorTipoProveedor(String numero) {
+        List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
+        for (ModelCellProveedores p : returnProveedores()) {
+            System.out.println("Listando  CONTIENE NUMEROS EN CLIENTES ::::: " + p.getRuc()+ " = " + numero);
+            if (p.getTipo().toLowerCase().trim().contains(numero.toLowerCase().trim())) {
                 searchProveedorList.add(p);
             }
         }
@@ -230,9 +275,9 @@ public class JsonProveedoresCRUD {
 
     public static List<ModelCellProveedores> returnProveedorHistorial() {
         Gson gson = new Gson();
-         List<ModelCellProveedores> proveedorglobalHistorial = new ArrayList<ModelCellProveedores>();
+        List<ModelCellProveedores> proveedorglobalHistorial = new ArrayList<ModelCellProveedores>();
         try (Reader reader = new FileReader(FileJson.rutaIdProveedores)) { // Asegura que se cerrara de manera segura el archivo
-                proveedorglobalHistorial = gson.fromJson(reader, new TypeToken<List<ModelCellProveedores>>() {
+            proveedorglobalHistorial = gson.fromJson(reader, new TypeToken<List<ModelCellProveedores>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
         } catch (IOException e) {
             e.printStackTrace();

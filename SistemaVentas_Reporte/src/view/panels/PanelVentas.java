@@ -5,20 +5,12 @@
 package view.panels;
 
 import java.awt.Image;
-import com.itextpdf.text.Document;
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
 import Model.ModelCellProductos;
 import Model.ModelCellVenta;
 import Model.conexion.CrudMysql;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import controller.GeneratePdf;
 import controller.JsonClienteCRUD;
 import controller.JsonDetalleProducto;
@@ -29,14 +21,10 @@ import controller.ValidateRegular;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.File;
-import java.io.FileOutputStream;
 import static java.lang.String.valueOf;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -44,7 +32,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.Venta.TableActionEventVenta;
 import view.panels.forms.FormClientes;
-import static view.panels.forms.FormDetalleProductos.listProducts;
 import view.panels.forms.FormProductos;
 
 /**
@@ -61,7 +48,7 @@ public class PanelVentas extends javax.swing.JPanel {
 
     public PanelVentas() {
         initComponents();
-        TableVenta.fixTable(jScrollPane1);
+        TableVenta.fixTable(jScrollPane2);
         TableVenta.setIconsColumns(8, 7, 10);
         listProductos = ValidateRegular.listVentas;
         listarProductos();
@@ -93,9 +80,6 @@ public class PanelVentas extends javax.swing.JPanel {
         btn_AgregarProducto = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        ContentTableProduct = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TableVenta = new table.Venta.TableVenta();
         ContentClienteBoleta = new javax.swing.JPanel();
         PanelFormCliente = new FondoPanelCliente();
         TextDocumento = new FondoPanelTextCliente();
@@ -130,6 +114,8 @@ public class PanelVentas extends javax.swing.JPanel {
         btnCancelarVenta = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         btnGeneraVenta = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableVenta = new table.Venta.TableVenta();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -175,7 +161,7 @@ public class PanelVentas extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TextSearchLayout.createSequentialGroup()
                 .addComponent(IconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(txtSearchProducto))
+                .addComponent(txtSearchProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
         );
         TextSearchLayout.setVerticalGroup(
             TextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,35 +282,6 @@ public class PanelVentas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
-        );
-
-        ContentTableProduct.setBackground(new java.awt.Color(255, 255, 255));
-
-        TableVenta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Producto", "Marca", "Descrp.", "Cantidad", "Precio U.", "Importe", "Eliminar"
-            }
-        ));
-        jScrollPane1.setViewportView(TableVenta);
-
-        javax.swing.GroupLayout ContentTableProductLayout = new javax.swing.GroupLayout(ContentTableProduct);
-        ContentTableProduct.setLayout(ContentTableProductLayout);
-        ContentTableProductLayout.setHorizontalGroup(
-            ContentTableProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContentTableProductLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-                .addGap(4, 4, 4))
-        );
-        ContentTableProductLayout.setVerticalGroup(
-            ContentTableProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ContentTableProductLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1)
-                .addGap(70, 70, 70))
         );
 
         ContentClienteBoleta.setBackground(new java.awt.Color(255, 255, 255));
@@ -718,7 +675,7 @@ public class PanelVentas extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(PanelFormBoletaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCancelarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGeneraVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE))
+                    .addComponent(btnGeneraVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(14, 14, 14))
         );
 
@@ -738,36 +695,46 @@ public class PanelVentas extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        TableVenta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(TableVenta);
+
         javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
         ContentPanel.setLayout(ContentPanelLayout);
         ContentPanelLayout.setHorizontalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 918, Short.MAX_VALUE)
-            .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(ContentPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(ContentPanelLayout.createSequentialGroup()
-                            .addComponent(ContentTableProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(0, 0, 0)
-                            .addComponent(ContentClienteBoleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(24, 24, 24)))
-                    .addContainerGap()))
+            .addGroup(ContentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(ContentPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ContentClienteBoleta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)))
+                .addContainerGap())
         );
         ContentPanelLayout.setVerticalGroup(
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 781, Short.MAX_VALUE)
-            .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(ContentPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(ContentTableProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(ContentPanelLayout.createSequentialGroup()
-                            .addComponent(ContentClienteBoleta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(33, 33, 33)))
-                    .addContainerGap()))
+            .addGroup(ContentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ContentButtonsSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ContentClienteBoleta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(ContentPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2)))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1012,7 +979,7 @@ public class PanelVentas extends javax.swing.JPanel {
             
             JsonProductoCRUD.extraerStock(listProductos.get(TableVenta.getSelectedRow()).getCodigo(),
                     listProductos.get(TableVenta.getSelectedRow()).getCantidad(),
-                    true);
+               true);
             
             ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
             ValidateRegular.listVentasDelete.add(listProductos.get(TableVenta.getSelectedRow()));
@@ -1059,8 +1026,7 @@ public class PanelVentas extends javax.swing.JPanel {
         TableVenta.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
         for (ModelCellVenta v : listProductos) {
-            //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
-            // 12, 12.5f,"Abierto").toRowTable(event));
+            
             TableVenta.addRow(new ModelCellVenta(v.getCodigo(), v.getProducto(), v.getMarca(), v.getDescripcion(), v.getCantidad(), v.getPrecioU(), v.getTotal()).toRowTable(event));
             total += v.getTotal();
         }
@@ -1212,7 +1178,6 @@ public class PanelVentas extends javax.swing.JPanel {
     private javax.swing.JPanel ContentButtonsSearch;
     private javax.swing.JPanel ContentClienteBoleta;
     private javax.swing.JPanel ContentPanel;
-    private javax.swing.JPanel ContentTableProduct;
     private javax.swing.JPanel ContextSearch;
     private javax.swing.JLabel IconSearch;
     private javax.swing.JComboBox<String> JcomboTipoBusquedaCliente;
@@ -1242,7 +1207,7 @@ public class PanelVentas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

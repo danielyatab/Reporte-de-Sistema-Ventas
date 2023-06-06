@@ -4,7 +4,6 @@ import Model.ModelCellClientes;
 import Model.conexion.CrudMysql;
 import controller.JsonClienteCRUD;
 import controller.ValidateRegular;
-import design.Maximize;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,22 +13,16 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import table.TableClient.TableActionEventCliente;
 import view.panels.forms.FormClientes;
+import view.panels.forms.Maximize;
 
 public class PanelCliente extends javax.swing.JPanel {
 
-    private static List<ModelCellClientes> listClient;
+    private List<ModelCellClientes> listClient = new ArrayList<ModelCellClientes>();
     private ArrayList<String> busquedaLista = new ArrayList<>();
-    private static String searchSelect = "";
+    private String searchSelect = "";
+    private String banderaSearch = "nombres";
 
     public PanelCliente() {
-        if (ValidateRegular.conexion) {
-            try {
-                listClient = JsonClienteCRUD.returnClientes();
-            } catch (Exception e) {
-                System.out.println("Error de documento clientes");
-            }
-        }
-
         initComponents();
         TableClientes.fixTable(jScrollPane1);
         TableClientes.setIconsColumns(8, 6, 7);
@@ -58,10 +51,10 @@ public class PanelCliente extends javax.swing.JPanel {
         txtSearchCliente = new javax.swing.JTextField();
         IconSearch = new javax.swing.JLabel();
         typeName = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        typeTelefono = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
         typeApellido = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        typeNumDOC = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         ContentTable = new javax.swing.JPanel();
@@ -131,18 +124,33 @@ public class PanelCliente extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeTelefono.png"))); // NOI18N
+        typeTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeTelefono.png"))); // NOI18N
+        typeTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                typeTelefonoMouseClicked(evt);
+            }
+        });
 
         jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         jComboBox2.setForeground(new java.awt.Color(16, 21, 64));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documento", "DNI", "RUC" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC" }));
         jComboBox2.setBorder(null);
         jComboBox2.setFocusable(false);
 
         typeApellido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeApellido.png"))); // NOI18N
+        typeApellido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                typeApellidoMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeNumDoc.png"))); // NOI18N
+        typeNumDOC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeNumDoc.png"))); // NOI18N
+        typeNumDOC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                typeNumDOCMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout ContextSearchLayout = new javax.swing.GroupLayout(ContextSearch);
         ContextSearch.setLayout(ContextSearchLayout);
@@ -156,12 +164,12 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(typeApellido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(typeTelefono)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addComponent(typeNumDOC)
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         ContextSearchLayout.setVerticalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,9 +182,9 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(typeApellido)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                    .addComponent(typeTelefono)
                     .addComponent(typeName)
-                    .addComponent(jLabel3))
+                    .addComponent(typeNumDOC))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -295,31 +303,48 @@ public class PanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 
     private void txtSearchClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchClienteKeyReleased
+        System.out.println("Campturadbno el texto: " + txtSearchCliente.getText());
         if (txtSearchCliente.getText().trim().isEmpty()) {
             listarClientes();
-        }
-        if (searchSelect.equals("nombre")) {
-            System.out.println("NOMBREEEEEE SOY NOMBREEE");
-            List<ModelCellClientes> newCellCliente = JsonClienteCRUD.searchListClienteNombre(txtSearchCliente.getText());
-            listarClientesType(newCellCliente);
+        } else {
+            switch (banderaSearch) {
+                case "nombres":
+                    listarNombres();
+                    break;
+                case "apellidos":
+                    listarApellidos();
+                    break;
+                case "telefono":
+                    listarTelefono();
+                    break;
+                case "numero":
+                    listarNumero();
+                    break;
+                default:
+                    System.out.println("Error");
+            }
         }
     }//GEN-LAST:event_txtSearchClienteKeyReleased
 
     private void typeNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNameMouseClicked
-        try {
-            if (searchSelect.equals(listClient.get(0).toString())) {
-                listarClientes();
-                searchSelect = listClient.get(5).toString();
-            } else {
-                searchSelect = listClient.get(0).toString();
-                List<ModelCellClientes> newCellCliente = JsonClienteCRUD.searchListClienteNombre(txtSearchCliente.getText());
-                listarClientesType(newCellCliente);
-            }
-        } catch (Exception e) {
-            System.out.println("Error al buscar");
-        }
-
+        banderaSearch = "nombres";
+        listarNombres();
     }//GEN-LAST:event_typeNameMouseClicked
+
+    private void typeApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeApellidoMouseClicked
+        banderaSearch = "apellidos";
+        listarApellidos();
+    }//GEN-LAST:event_typeApellidoMouseClicked
+
+    private void typeTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeTelefonoMouseClicked
+        banderaSearch = "telefono";
+        listarTelefono();
+    }//GEN-LAST:event_typeTelefonoMouseClicked
+
+    private void typeNumDOCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNumDOCMouseClicked
+        banderaSearch = "numero";
+        listarNumero();
+    }//GEN-LAST:event_typeNumDOCMouseClicked
 
     /*EVENTO DE BOTONES*/
     TableActionEventCliente event = new TableActionEventCliente() {
@@ -340,7 +365,7 @@ public class PanelCliente extends javax.swing.JPanel {
             int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al cliente " + deleteCliente.getNombre() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
             if (opcion == JOptionPane.YES_OPTION) {
                 System.out.println("Seleccione el yes option");
-                JsonClienteCRUD.deleteCliente(deleteCliente.getIdCliente());
+                new JsonClienteCRUD().deleteCliente(deleteCliente.getIdCliente());
                 if (ValidateRegular.conexion) {
                     try {
                         CrudMysql.crudMysqlClientes();
@@ -355,15 +380,18 @@ public class PanelCliente extends javax.swing.JPanel {
 
     /*INIT DATA*/
     private void listarClientes() {
-        listClient = JsonClienteCRUD.returnClientes();
+        if(ValidateRegular.ModifClientes != null){
+            listClient = ValidateRegular.ModifClientes;
+        }else {
+            listClient = new JsonClienteCRUD().returnClientes();
+        }
         DefaultTableModel modelo = new DefaultTableModel();
         String columns[] = {"Nombres", "Apellidos", "Tipo", "Documento", "Telefono", "Correo", "Editar", "Eliminar"};
         TableClientes.setModel(modelo);
         modelo.setColumnIdentifiers(columns);
         if (listClient != null) {
             for (ModelCellClientes cl : listClient) {
-                //TableProveedores.addRow(new ModelCellProduct("13123sd", "galleta soda V",
-                // 12, 12.5f,"Abierto").toRowTable(event));
+                System.out.println("ESTOY LISTADO A CLIENTE: " + cl.getApellido());
                 TableClientes.addRow(new ModelCellClientes(cl.getNombre(), cl.getApellido(), cl.getTipoDocumento(), cl.getNumDocumento(), cl.getTelefono(),
                         cl.getCorreo()).toRowTable(event));
             }
@@ -381,6 +409,28 @@ public class PanelCliente extends javax.swing.JPanel {
         }
     }
 
+    
+    
+    private void listarNombres() {
+        List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteNombre(txtSearchCliente.getText());
+        listarClientesType(newCellCliente);
+    }
+
+    private void listarApellidos() {
+        List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteApellido(txtSearchCliente.getText());
+        listarClientesType(newCellCliente);
+    }
+
+     private void listarTelefono() {
+        List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteTelefono(txtSearchCliente.getText());
+        listarClientesType(newCellCliente);
+    }
+     
+      private void listarNumero() {
+        List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteNumero(txtSearchCliente.getText());
+        listarClientesType(newCellCliente);
+    }
+    
     /**
      *
      * @param p Panel de Ingreso
@@ -419,8 +469,6 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JLabel btn_ExportarExcel;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -429,6 +477,8 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JTextField txtSearchCliente;
     private javax.swing.JLabel typeApellido;
     private javax.swing.JLabel typeName;
+    private javax.swing.JLabel typeNumDOC;
+    private javax.swing.JLabel typeTelefono;
     // End of variables declaration//GEN-END:variables
 
 }

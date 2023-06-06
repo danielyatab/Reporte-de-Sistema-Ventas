@@ -8,7 +8,6 @@ import Model.ModelCellProveedores;
 import Model.conexion.CrudMysql;
 import controller.JsonProveedoresCRUD;
 import controller.ValidateRegular;
-import design.Maximize;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;

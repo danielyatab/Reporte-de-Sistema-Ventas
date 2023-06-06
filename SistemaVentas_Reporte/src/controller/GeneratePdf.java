@@ -38,8 +38,8 @@ public class GeneratePdf {
             FileOutputStream archivo;
             FileOutputStream archivo2;
              
-            File file = new File("src/boleta/"+detalleVenta.getRutaBoleta());
-            File file2 = new File("src/boleta-historial/"+detalleVenta.getRutaBoleta());
+            File file = new File("boleta/"+detalleVenta.getRutaBoleta());
+            File file2 = new File("boleta-historial/"+detalleVenta.getRutaBoleta());
             
             archivo = new FileOutputStream(file);
             archivo2 = new FileOutputStream(file2);
@@ -51,7 +51,7 @@ public class GeneratePdf {
             doc.open();
             
             /*Para que no coliciones con la clase IMG de java*/
-            com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance("src/img/LogoIsraelFull.png");
+            com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance(GeneratePdf.class.getResource("/img/LogoIsraelFull.png"));
 
             Paragraph fecha = new Paragraph();
             

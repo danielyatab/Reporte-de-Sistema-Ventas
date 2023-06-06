@@ -89,12 +89,12 @@ public class JsonClienteCRUD {
 
         for (int i = 0; i < listaClientesHistorial.size(); i++) {
             if (listaClientesHistorial.get(i).getIdCliente().equals(updateCl.getIdCliente())) {
-                listaClientes.set(i, updateCl);
+                listaClientesHistorial.set(i, updateCl);
                 break;
             }
         }
         modificarClientes(listaClientes);
-        modificarClienteHistorial(listaClientes);
+        modificarClienteHistorial(listaClientesHistorial);
         ValidateRegular.setUpdateCliente = true;
     }
 
@@ -104,9 +104,41 @@ public class JsonClienteCRUD {
     public static List<ModelCellClientes> searchListClienteNombre(String nombre) {
         List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
         for (ModelCellClientes p : returnClientes()) {
-            System.out.println("Listando : " + p.getNombre() +" = " + nombre);
-            if (p.getNombre().trim().equals(nombre.trim())) {
-                System.out.println("Encontre:" + p.getNombre());
+            System.out.println("Listando  CONTIENE EN CLIENTES ::::: " + p.getNombre() + " = " + nombre);
+            if (p.getNombre().toLowerCase().trim().contains(nombre.toLowerCase().trim())) {
+                searchClienteList.add(p);
+            }
+        }
+        return searchClienteList;
+    }
+
+    public static List<ModelCellClientes> searchListClienteApellido(String apellido) {
+        List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
+        for (ModelCellClientes p : returnClientes()) {
+            System.out.println("Listando  CONTIENE APELLIDOS EN CLIENTES ::::: " + p.getApellido() + " = " + apellido);
+            if (p.getApellido().toLowerCase().trim().contains(apellido.toLowerCase().trim())) {
+                searchClienteList.add(p);
+            }
+        }
+        return searchClienteList;
+    }
+
+    public static List<ModelCellClientes> searchListClienteTelefono(String telefono) {
+        List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
+        for (ModelCellClientes p : returnClientes()) {
+            System.out.println("Listando  CONTIENE TELEFONOS EN CLIENTES ::::: " + p.getApellido() + " = " + telefono);
+            if (p.getTelefono().toLowerCase().trim().contains(telefono.toLowerCase().trim())) {
+                searchClienteList.add(p);
+            }
+        }
+        return searchClienteList;
+    }
+
+    public static List<ModelCellClientes> searchListClienteNumero(String numero) {
+        List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
+        for (ModelCellClientes p : returnClientes()) {
+            System.out.println("Listando  CONTIENE NUMEROS EN CLIENTES ::::: " + p.getApellido() + " = " + numero);
+            if (p.getNumDocumento().toLowerCase().trim().contains(numero.toLowerCase().trim())) {
                 searchClienteList.add(p);
             }
         }
@@ -121,7 +153,7 @@ public class JsonClienteCRUD {
         }
         return null;
     }
-    
+
     public static ModelCellClientes searchClienteCodigo(String codigo) {
         for (ModelCellClientes p : returnClientes()) {
             if (p.getIdCliente().trim().equals(codigo)) {
@@ -130,7 +162,7 @@ public class JsonClienteCRUD {
         }
         return null;
     }
-    
+
     public static ModelCellClientes searchClienteHistorialCodigo(String codigo) {
         for (ModelCellClientes p : returnClientesHistorial()) {
             if (p.getIdCliente().trim().equals(codigo)) {
@@ -139,12 +171,11 @@ public class JsonClienteCRUD {
         }
         return null;
     }
-    
-    
+
     public static List<ModelCellClientes> searchClienteApellido(String apellido) {
         List<ModelCellClientes> searchClienteList = null;
         for (ModelCellClientes p : returnClientes()) {
-            if (p.getApellido()== apellido) {
+            if (p.getApellido() == apellido) {
                 searchClienteList.add(p);
                 break;
             }
@@ -256,7 +287,7 @@ public class JsonClienteCRUD {
 
     public static List<ModelCellClientes> returnClientesHistorial() {
         Gson gson = new Gson();
-        List <ModelCellClientes> clienteglobalHistorial = new ArrayList<ModelCellClientes>();
+        List<ModelCellClientes> clienteglobalHistorial = new ArrayList<ModelCellClientes>();
         try (Reader reader = new FileReader(FileJson.rutaIdCliente)) { // Asegura que se cerrara de manera segura el archivo
             clienteglobalHistorial = gson.fromJson(reader, new TypeToken<List<ModelCellClientes>>() {
             }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)

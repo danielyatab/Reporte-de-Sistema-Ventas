@@ -1,6 +1,5 @@
 package main;
 
-import design.Maximize;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +21,7 @@ import view.panels.PanelProducto;
 import view.panels.PanelProveedores;
 import view.panels.PanelReporteVentas;
 import view.panels.PanelVentas;
+import view.panels.forms.Maximize;
 
 /**
  *

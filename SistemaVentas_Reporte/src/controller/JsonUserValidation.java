@@ -29,7 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class JsonUserValidation {
 
     private static List<ModelUser> usersGlobal = null;
-    static ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
+    static ImageIcon icono = new ImageIcon(JsonUserValidation.class.getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
 
     /*Retorno de Usuarios*/
     public static List<ModelUser> returnUser() {

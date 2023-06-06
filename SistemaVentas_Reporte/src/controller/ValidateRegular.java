@@ -29,7 +29,7 @@ public class ValidateRegular {
     public static boolean setCreateVenta = false;
     public static boolean setUpdateVenta = true;
      
-    public static boolean setNumBoleta = false; 
+    //public static boolean setNumBoleta = false; 
      
    // public static boolean productOld = true;
     public static int testValidate = 0;
@@ -37,11 +37,13 @@ public class ValidateRegular {
     public static long numVenta = 0;
      public static long intentConnect = 0;
 
+    public static long listIntentTempTipoPro=0;
+     
     public static ModelCellClientes updateCliente;
     public static ModelCellProveedores updateProveedor;
     public static ModelCellProductos updateProducto;
     public static ModelCellProductos oldProducto;
-    
+    public static boolean setNumBoleta = false;
     
     //Content VENTAS
     public static List<ModelCellVenta> listVentas = new ArrayList<ModelCellVenta>();
@@ -52,7 +54,8 @@ public class ValidateRegular {
     public static List<ModelCellVenta> listDetalleSelect = new ArrayList<ModelCellVenta>();
     public static ModelCellDetalles ventaSelect = new ModelCellDetalles();
     public static ModelCellClientes clienteSelect = new ModelCellClientes();
-    
+    //Lista temporal de Tipo Productos
+    public static List<String> listaTempTipo = new ArrayList<String>();
     
     
     
@@ -64,4 +67,7 @@ public class ValidateRegular {
     public static boolean formDetalleProducto = false;
     
     public static String rutaStatic="";
+
+    /*Listado de modfiicaciioones*/
+    public static List<ModelCellClientes> ModifClientes = null;
 }

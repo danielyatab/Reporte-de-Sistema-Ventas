@@ -94,7 +94,6 @@ public class CuadroImagen extends JPanel
 
     public void resize() {
         setPreferredSize(new Dimension(this.ancho, this.alto));
-        resize(this.ancho, this.alto);
     }
 
     public int print(Graphics g, PageFormat pf, int indexPage)

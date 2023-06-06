@@ -242,8 +242,12 @@ public class FileJson {
         ValidateRegular.numVenta = JsonNumBoleta.obtenerNumero();
     }
 
+    
+    
     public static void verifRutaTipoProducto(String archivo) {
+        
         File file = new File(archivo);
+        
         if (!file.exists()) {
             JsonArray tiposProductos = new JsonArray();
             JsonObject tipoProducto1 = new JsonObject();
@@ -264,6 +268,7 @@ public class FileJson {
                 e.printStackTrace();
             }
         }
+        
         rutaTiposProductos = archivo;
     }
 

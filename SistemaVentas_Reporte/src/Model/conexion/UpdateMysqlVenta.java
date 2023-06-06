@@ -47,7 +47,7 @@ public class UpdateMysqlVenta extends Thread{
                 byte[] archivoBytes = rs.getBytes("boleta");
                 
                 // Guardar el archivo en la carpeta destino
-                String rutaArchivoDestino = "src/boleta/"+numVenta+".pdf";
+                String rutaArchivoDestino = "boleta/"+numVenta+".pdf";
                 try (OutputStream outputStream = new FileOutputStream(rutaArchivoDestino)) {
                     outputStream.write(archivoBytes);
                 } catch (FileNotFoundException ex) {
@@ -80,7 +80,7 @@ public class UpdateMysqlVenta extends Thread{
                 byte[] archivoBytes = rs.getBytes("boleta");
                 
                 // Guardar el archivo en la carpeta destino
-                String rutaArchivoDestino = "src/boleta-historial/"+numVenta+".pdf";
+                String rutaArchivoDestino = "boleta-historial/"+numVenta+".pdf";
                 try (OutputStream outputStream = new FileOutputStream(rutaArchivoDestino)) {
                     
                     outputStream.write(archivoBytes);

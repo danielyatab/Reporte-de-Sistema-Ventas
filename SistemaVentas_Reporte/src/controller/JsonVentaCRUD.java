@@ -4,15 +4,19 @@
  */
 package controller;
 
+import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
+import Model.ModelCellProductos;
 import Model.ModelCellVenta;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import static controller.JsonProductoCRUD.returnProductos;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import static java.lang.String.valueOf;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,14 +47,12 @@ public class JsonVentaCRUD {
     public static void addVenta(ModelCellDetalles newVenta) {
         ventaGlobal = returnVentas();
 
-     
         verifCodeVenta(newVenta);
-        
+
         String rutaIncial = newVenta.getRutaBoleta();
-       
+
         newVenta.setRutaBoleta("boleta/" + rutaIncial);
-        
-        
+
         /*Verificar llenado*/
         for (ModelCellDetalles v : ventaGlobal) {
             System.out.println("INTEGRAN22222;:" + v.getnVenta());
@@ -124,7 +126,58 @@ public class JsonVentaCRUD {
     /**
      * ****************************TIPOS DE BUSCADORES*******************
      */
+    public static List<ModelCellDetalles> searchListVentaNum(String codigo) {
+        List<ModelCellDetalles> searchVentaList = new ArrayList<ModelCellDetalles>();;
+        for (ModelCellDetalles p : returnVentas()) {
+            if (p.getnVenta().toLowerCase().trim().contains(codigo.toLowerCase().trim())) {
+                searchVentaList.add(p);
+            }
+        }
+        return searchVentaList;
+    }
+
+    public static List<ModelCellDetalles> searchListVentaTotal(String total) {
+        List<ModelCellDetalles> searchVentaList = new ArrayList<ModelCellDetalles>();;
+        for (ModelCellDetalles p : returnVentas()) {
+            System.out.println("MOSTRAR VENTAS TOTALSE: "+p.getTotalVenta() +" :::" +total );
+            if (valueOf(p.getTotalVenta()).toLowerCase().trim().contains(total.toLowerCase().trim())) {
+                searchVentaList.add(p);
+            }
+        }
+        return searchVentaList;
+    }
+
+    public static List<ModelCellDetalles> searchListVentaCliente(String nombre) {
+        List<ModelCellDetalles> searchVentaList = new ArrayList<ModelCellDetalles>();
+        List<ModelCellClientes> searchClienteList = JsonClienteCRUD.returnClientes();
+
+        for (ModelCellDetalles p : returnVentas()) {
+            for (ModelCellClientes c : searchClienteList) {
+                if (c.getIdCliente().equals(p.getCliente())) {
+                    if (c.getNombre().trim().toLowerCase().contains(nombre.trim().toLowerCase())) {
+                        searchVentaList.add(p);
+                    }
+                }
+            }
+        }
+        return searchVentaList;
+    }
+
+    
+    public static List<ModelCellDetalles> searchListVentaFecha(String fecha){
+        List<ModelCellDetalles>  searchListFecha  =  new ArrayList<ModelCellDetalles>();
+        for (ModelCellDetalles p : returnVentas()) {
+            if (valueOf(p.getFecha()).toLowerCase().trim().contains(fecha.toLowerCase().trim())) {
+                searchListFecha.add(p);
+            }
+        }
+        return searchListFecha;
+    }
+    
     /*
+    
+    
+    
     public static List<ModelCellVenta> searchListVentaNombre(String nombre) {
         List<ModelCellVenta> searchVentaList = new ArrayList<ModelCellVenta>();;
         for (ModelCellVenta p : returnVentas()) {
@@ -238,7 +291,6 @@ public class JsonVentaCRUD {
         return historialglobal;
     }
 
-    
     public static void modificarVentaHistorial(List<ModelCellDetalles> ventas) {
         Gson gson = new Gson();
         //LLenado clientes

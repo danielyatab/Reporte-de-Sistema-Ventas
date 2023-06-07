@@ -158,7 +158,7 @@ public class JsonProductoCRUD {
         return null;
     }
 
-     public static List<ModelCellProductos> searchListProductoCodigo(String codigo) {
+    public static List<ModelCellProductos> searchListProductoCodigo(String codigo) {
         List<ModelCellProductos> searchProductoList = new ArrayList<ModelCellProductos>();;
         for (ModelCellProductos p : returnProductos()) {
             if (p.getCodigo().toLowerCase().trim().contains(codigo.toLowerCase().trim())) {

@@ -12,14 +12,19 @@ import com.toedter.calendar.JDateChooser;
 import controller.JsonClienteCRUD;
 import controller.JsonDetalleProducto;
 import controller.JsonProductoCRUD;
+import controller.JsonUserValidation;
 import controller.JsonVentaCRUD;
 import controller.ValidateRegular;
+import controller.viewExcel.Modelo_Excel;
 import java.awt.BorderLayout;
+import java.io.File;
 import static java.lang.String.valueOf;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -52,7 +57,6 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
         btn_ExportarExcel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         ContextSearch = new javax.swing.JPanel();
         TextSearch = new javax.swing.JPanel();
         txtSearchVentas = new javax.swing.JTextField();
@@ -72,9 +76,11 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
 
         btn_ExportarExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_ExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ExportarExcel.png"))); // NOI18N
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ImportarExcel.png"))); // NOI18N
+        btn_ExportarExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ExportarExcelMouseClicked(evt);
+            }
+        });
 
         ContextSearch.setBackground(new java.awt.Color(250, 250, 250));
 
@@ -183,9 +189,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(TitleProveedores)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_ExportarExcel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1))
+                        .addComponent(btn_ExportarExcel))
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addGap(3, 3, 3))
@@ -195,11 +199,10 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         ContentButtonsSearchLayout.setVerticalGroup(
             ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addGap(12, 12, 12)
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_ExportarExcel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TitleProveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(TitleProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_ExportarExcel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -234,7 +237,7 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addGap(69, 69, 69))
         );
 
@@ -320,6 +323,33 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_txtSearchVentasKeyReleased
+
+    private void btn_ExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ExportarExcelMouseClicked
+        JFileChooser archivo_selec = new JFileChooser();
+        File archivo;
+        Modelo_Excel model_ex = new Modelo_Excel();
+        
+        if (archivo_selec.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            archivo = archivo_selec.getSelectedFile();
+            
+            String nombreArchivo = archivo.getName();
+            if (!nombreArchivo.toLowerCase().endsWith(".xls") && !nombreArchivo.toLowerCase().endsWith(".xlsx")) {
+                // Agregar extensión .xlsx si no está presente en el nombre del archivo
+                nombreArchivo += ".xlsx";
+                archivo = new File(archivo.getParentFile(), nombreArchivo);
+            }
+
+            // Continuar con el código para guardar el archivo
+            if (archivo.getName().endsWith("xls") || archivo.getName().endsWith("xlsx")) {
+                model_ex.exportacion(archivo, TableDetalles, 4);
+                /*MENSAJE DE EXITO*/
+                ImageIcon icononew = new ImageIcon(JsonUserValidation.class.getResource("/img/message/comprobado.png"));
+                JOptionPane.showMessageDialog(null, "Archivo creado", "", 0, icononew);
+            } else {
+                JOptionPane.showMessageDialog(null, "Elija un formato válido");
+            }
+        }
+    }//GEN-LAST:event_btn_ExportarExcelMouseClicked
 
     /*EVENTO DE BOTONES*/
     TableActionEventDetalles event = new TableActionEventDetalles() {
@@ -440,7 +470,6 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
     private javax.swing.JButton btnSearchFecha;
     private javax.swing.JLabel btn_ExportarExcel;
     private com.toedter.calendar.JDateChooser jDateChooser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

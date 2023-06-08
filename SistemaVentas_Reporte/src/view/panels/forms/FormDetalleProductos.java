@@ -509,7 +509,7 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
 
         String[] opciones = {"Si", "No"};
-        ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/comprobado.png")); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(null,
                 "¿Desea salir del detalle de la venta Nº" + venta.getnVenta() + "?",
                 "",
@@ -594,13 +594,13 @@ public class FormDetalleProductos extends javax.swing.JPanel {
     }
 
     public void generateVenta() {
-        ImageIcon icononew = new ImageIcon("src/img/message/advertencia.png");
+        ImageIcon icononew = new ImageIcon(getClass().getResource("/img/message/advertencia.png"));
 
         if (listProducts.size() > 0) {
             if (!txtNameCliente.getText().equals("")) {
 
                 String[] opciones = {"Si", "No"};
-                ImageIcon icono = new ImageIcon("src/img/message/comprobado.png"); // Ruta al archivo de imagen del ícono
+                ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/comprobado.png")); // Ruta al archivo de imagen del ícono
                 int opcion = JOptionPane.showOptionDialog(null, "¿Desea guardar la venta, se generara como una nueva?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
                 if (opcion == JOptionPane.YES_OPTION) {
                     addVenta();

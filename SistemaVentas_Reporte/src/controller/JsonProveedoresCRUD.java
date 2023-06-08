@@ -29,7 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class JsonProveedoresCRUD {
 
     private static List<ModelCellProveedores> proveedorGlobal = null;
-    static ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
+    static ImageIcon icono = new ImageIcon(JsonProveedoresCRUD.class.getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
 
     public static List<ModelCellProveedores> returnProveedores() {
         Gson gson = new Gson();
@@ -47,7 +47,6 @@ public class JsonProveedoresCRUD {
      */
     /*Retorno de Usuarios*/
     public static void addProveedor(ModelCellProveedores newProveedor) {
-        System.out.println("Agregabndo Proveedor ;" + newProveedor.getNombres());
         proveedorGlobal = returnProveedores();
         if (proveedorGlobal != null) {
             verifCodeProveedor(newProveedor);
@@ -109,7 +108,6 @@ public class JsonProveedoresCRUD {
     public static List<ModelCellProveedores> searchListProveedorNombre(String nombre) {
         List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
         for (ModelCellProveedores p : returnProveedores()) {
-            System.out.println("Listando  CONTIENE EN CLIENTES ::::: " + p.getNombres() + " = " + nombre);
             if (p.getNombres().toLowerCase().trim().contains(nombre.toLowerCase().trim())) {
                 searchProveedorList.add(p);
             }
@@ -120,7 +118,6 @@ public class JsonProveedoresCRUD {
     public static List<ModelCellProveedores> searchListProveedorProductos(String producto) {
         List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
         for (ModelCellProveedores p : returnProveedores()) {
-            System.out.println("Listando  CONTIENE APELLIDOS EN CLIENTES ::::: " + p.getProductos() + " = " + producto);
             if (p.getProductos().toLowerCase().trim().contains(producto.toLowerCase().trim())) {
                 searchProveedorList.add(p);
             }
@@ -131,7 +128,6 @@ public class JsonProveedoresCRUD {
     public static List<ModelCellProveedores> searchListProveedorTelefono(String telefono) {
         List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
         for (ModelCellProveedores p : returnProveedores()) {
-            System.out.println("Listando  CONTIENE TELEFONOS EN CLIENTES ::::: " + p.getTelefono() + " = " + telefono);
             if (p.getTelefono().toLowerCase().trim().contains(telefono.toLowerCase().trim())) {
                 searchProveedorList.add(p);
             }
@@ -142,7 +138,6 @@ public class JsonProveedoresCRUD {
     public static List<ModelCellProveedores> searchListProveedorNumero(String numero) {
         List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
         for (ModelCellProveedores p : returnProveedores()) {
-            System.out.println("Listando  CONTIENE NUMEROS EN CLIENTES ::::: " + p.getRuc() + " = " + numero);
             if (p.getRuc().toLowerCase().trim().contains(numero.toLowerCase().trim())) {
                 searchProveedorList.add(p);
             }
@@ -153,7 +148,6 @@ public class JsonProveedoresCRUD {
     public static List<ModelCellProveedores> searchListProveedorTipoProveedor(String numero) {
         List<ModelCellProveedores> searchProveedorList = new ArrayList<ModelCellProveedores>();;
         for (ModelCellProveedores p : returnProveedores()) {
-            System.out.println("Listando  CONTIENE NUMEROS EN CLIENTES ::::: " + p.getRuc()+ " = " + numero);
             if (p.getTipo().toLowerCase().trim().contains(numero.toLowerCase().trim())) {
                 searchProveedorList.add(p);
             }
@@ -161,51 +155,8 @@ public class JsonProveedoresCRUD {
         return searchProveedorList;
     }
 
-    /*
-    public static List<ModelCellProveedores> searchProveedorApellido(String apellido) {
-        List<ModelCellProveedores> searchProveedorList = null;
-        for (ModelCellProveedores p : returnProveedores()) {
-            if (p.getApellido== apellido) {
-                searchProveedorList.add(p);
-                break;
-            }
-        }
-        return searchProveedorList;
-    }
-
-    public static List<ModelCellProveedores> searchProveedorTelefono(String telefono) {
-        List<ModelCellProveedores> searchProveedorList = null;
-        for (ModelCellProveedores p : returnProveedors()) {
-            if (p.getTelefono().equals(telefono)) {
-                searchProveedorList.add(p);
-                break;
-            }
-        }
-        return searchProveedorList;
-    }
-
-    public static List<ModelCellProveedores> searchProveedorTipoDoc(String tipo) {
-        List<ModelCellProveedores> searchProveedorList = null;
-        for (ModelCellProveedores p : returnProveedors()) {
-            if (p.getTipoDocumento().equals(tipo)) {
-                searchProveedorList.add(p);
-                break;
-            }
-        }
-        return searchProveedorList;
-    }
-
-    public static List<ModelCellProveedores> searchProveedorNumDocumento(String documento) {
-        List<ModelCellProveedores> searchProveedorList = null;
-        for (ModelCellProveedores p : returnProveedors()) {
-            if (p.getNumDocumento().equals(documento)) {
-                searchProveedorList.add(p);
-                break;
-            }
-        }
-        return searchProveedorList;
-    }
-     */
+   
+   
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
      * JSON******************************

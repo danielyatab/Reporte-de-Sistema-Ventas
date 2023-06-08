@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class JsonProductoCRUD {
 
     private static List<ModelCellProductos> productoGlobal = null;
-    static ImageIcon icono = new ImageIcon("src/img/message/usuarioError.png"); // Ruta al archivo de imagen del ícono
+    static ImageIcon icono = new ImageIcon(JsonProductoCRUD.class.getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
     private static String codeGlobal = "";
 
     /*
@@ -125,7 +125,6 @@ public class JsonProductoCRUD {
                     newStock = listStocks.get(i).getCantidad() + stock;
                     listStocks.get(i).setCantidad(newStock);
                     modificarProducto(listStocks);
-                    System.out.println("El nuevos tock del producto : " + listStocks.get(i).getProducto() + "SE AUMENTO;: " + listStocks.get(i).getCantidad());
                     return true;
                 } else {
                     newStock = listStocks.get(i).getCantidad() - stock;
@@ -135,7 +134,6 @@ public class JsonProductoCRUD {
                     } else {
                         listStocks.get(i).setCantidad(newStock);
                         modificarProducto(listStocks);
-                        System.out.println("El nuevos tock del producto : " + listStocks.get(i).getProducto() + "SE EXTRAJO;: " + listStocks.get(i).getCantidad());
                         return true;
                     }
                 }
@@ -151,7 +149,6 @@ public class JsonProductoCRUD {
     public static ModelCellProductos buscarProductoCodigo(String codigo) {
         for (ModelCellProductos p : returnProductos()) {
             if (p.getCodigo().trim().equals(codigo.trim())) {
-                System.out.println("Encontre al producto xd");
                 return p;
             }
         }
@@ -201,51 +198,8 @@ public class JsonProductoCRUD {
     
     
     
-    /*
-    public static List<ModelCellProductos> searchProductoApellido(String apellido) {
-        List<ModelCellProductos> searchProductoList = null;
-        for (ModelCellProductos p : returnProductoes()) {
-            if (p.getApellido== apellido) {
-                searchProductoList.add(p);
-                break;
-            }
-        }
-        return searchProductoList;
-    }
-
-    public static List<ModelCellProductos> searchProductoTelefono(String telefono) {
-        List<ModelCellProductos> searchProductoList = null;
-        for (ModelCellProductos p : returnProductos()) {
-            if (p.getTelefono().equals(telefono)) {
-                searchProductoList.add(p);
-                break;
-            }
-        }
-        return searchProductoList;
-    }
-
-    public static List<ModelCellProductos> searchProductoTipoDoc(String tipo) {
-        List<ModelCellProductos> searchProductoList = null;
-        for (ModelCellProductos p : returnProductos()) {
-            if (p.getTipoDocumento().equals(tipo)) {
-                searchProductoList.add(p);
-                break;
-            }
-        }
-        return searchProductoList;
-    }
-
-    public static List<ModelCellProductos> searchProductoNumDocumento(String documento) {
-        List<ModelCellProductos> searchProductoList = null;
-        for (ModelCellProductos p : returnProductos()) {
-            if (p.getNumDocumento().equals(documento)) {
-                searchProductoList.add(p);
-                break;
-            }
-        }
-        return searchProductoList;
-    }
-     */
+   
+     
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
      * JSON******************************

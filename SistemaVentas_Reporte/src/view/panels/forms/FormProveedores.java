@@ -23,7 +23,7 @@ import view.panels.PanelProveedores;
 public class FormProveedores extends javax.swing.JPanel {
 
     public int cifDoc;
-    ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+    ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
     public boolean add = true;
 
     /**
@@ -408,7 +408,7 @@ public class FormProveedores extends javax.swing.JPanel {
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         //setDesignWindows();
         String[] opciones = {"Si", "No"};
-        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             //setDisignNimbus();
@@ -436,13 +436,13 @@ public class FormProveedores extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData() {
         if (Maximize.updateCrud) {
-            btnAceptar.setIcon(new ImageIcon("src/img/btn_Actualizar.png"));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("src/img/btn_Actualizar.png")));
             add = false;
             title.setText("ACTUALIZAR PROVEEDOR");
             Maximize.updateCrud = false;
             getElements();
         } else {
-            btnAceptar.setIcon(new ImageIcon("src/img/btn_Agregar.png"));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("/img/btn_Agregar.png")));
             add = true;
             title.setText("AGREGAR PROVEEDOR");
         }
@@ -472,7 +472,6 @@ public class FormProveedores extends javax.swing.JPanel {
         newPv.setProductos(txtProductos.getText());
         newPv.setCorreo(txtCorreo.getText());
         newPv.setTelefono(txtTelefono.getText());
-        System.out.println("Nre opv: + " + newPv.getNombres());
         return newPv;
     }
 
@@ -494,14 +493,14 @@ public class FormProveedores extends javax.swing.JPanel {
     }
 
     public void pushMysql() {
-        ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+        ImageIcon icononew = new ImageIcon(getClass().getResource("/img/message/comprobado.png"));
         JOptionPane.showMessageDialog(null, "Regitro exitoso del Proveedor", "", 0, icononew);
         if (ValidateRegular.conexion) {
             try {
                 CrudMysql.crudMysqlProveedores();
                 CrudMysql.crudMysqlProveedoresHistorial();
             } catch (Exception e) {
-                System.out.println("Sin conexion a internet HISTORIALCliente");
+                System.out.println("Sin conexion a internet HISTORIALCliente" + e.getMessage());
             }
         }
         addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);

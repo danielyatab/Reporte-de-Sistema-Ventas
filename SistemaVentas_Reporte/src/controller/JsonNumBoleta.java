@@ -30,12 +30,10 @@ public class JsonNumBoleta {
             if (jsonElement != null && jsonElement.isJsonPrimitive()) {
                 return jsonElement.getAsInt();
             } else {
-                System.out.println("La propiedad especificada no es un número.");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("RETORNE 0 NO SE COMO PERO LO HIZE Xsd");
         return 0; // Valor por defecto si no se encuentra la propiedad o hay un error
     }
     
@@ -65,7 +63,7 @@ public class JsonNumBoleta {
     
     public static int generarNumBoleta() {
         String[] opciones = {"Crear nuevo numero de boletario", "Crear desde la boleta nº 1"};
-        ImageIcon icono = new ImageIcon("src/img/message/lapiz.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(JsonNumBoleta.class.getResource("/img/message/lapiz.png")); // Ruta al archivo de imagen del ícono
 
         int opcion = JOptionPane.showOptionDialog(null, "¿Desea registrar un nuevo incio de boletas?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         String numero = "";
@@ -105,7 +103,6 @@ public class JsonNumBoleta {
         for (int i = num.trim().length(); i < 11; i++) {
             if (i == num.trim().length()) {
                 suma = Long.parseLong(num) + 1;
-                System.out.println("LA SUMA ES :::::" + suma);
             }
             newNum += "0";
         }

@@ -63,13 +63,10 @@ public class JsonClienteCRUD {
     }
 
     public static void deleteCliente(String codeDelete) {
-        System.out.println("El codigo a elimiinar es: " + codeDelete);
         List<ModelCellClientes> listClientes = returnClientes();
         for (int i = 0; i < listClientes.size(); i++) {
-            System.out.println("List" + listClientes.get(i).getIdCliente());
             if (listClientes.get(i).getIdCliente().equals(codeDelete)) {
                 listClientes.remove(i);
-                System.out.println("Removi al cliente");
                 break;
             }
         }
@@ -104,7 +101,6 @@ public class JsonClienteCRUD {
     public static List<ModelCellClientes> searchListClienteNombre(String nombre) {
         List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
         for (ModelCellClientes p : returnClientes()) {
-            System.out.println("Listando  CONTIENE EN CLIENTES ::::: " + p.getNombre() + " = " + nombre);
             if (p.getNombre().toLowerCase().trim().contains(nombre.toLowerCase().trim())) {
                 searchClienteList.add(p);
             }
@@ -115,7 +111,6 @@ public class JsonClienteCRUD {
     public static List<ModelCellClientes> searchListClienteApellido(String apellido) {
         List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
         for (ModelCellClientes p : returnClientes()) {
-            System.out.println("Listando  CONTIENE APELLIDOS EN CLIENTES ::::: " + p.getApellido() + " = " + apellido);
             if (p.getApellido().toLowerCase().trim().contains(apellido.toLowerCase().trim())) {
                 searchClienteList.add(p);
             }
@@ -126,7 +121,6 @@ public class JsonClienteCRUD {
     public static List<ModelCellClientes> searchListClienteTelefono(String telefono) {
         List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
         for (ModelCellClientes p : returnClientes()) {
-            System.out.println("Listando  CONTIENE TELEFONOS EN CLIENTES ::::: " + p.getApellido() + " = " + telefono);
             if (p.getTelefono().toLowerCase().trim().contains(telefono.toLowerCase().trim())) {
                 searchClienteList.add(p);
             }
@@ -137,7 +131,6 @@ public class JsonClienteCRUD {
     public static List<ModelCellClientes> searchListClienteNumero(String numero) {
         List<ModelCellClientes> searchClienteList = new ArrayList<ModelCellClientes>();;
         for (ModelCellClientes p : returnClientes()) {
-            System.out.println("Listando  CONTIENE NUMEROS EN CLIENTES ::::: " + p.getApellido() + " = " + numero);
             if (p.getNumDocumento().toLowerCase().trim().contains(numero.toLowerCase().trim())) {
                 searchClienteList.add(p);
             }
@@ -145,6 +138,9 @@ public class JsonClienteCRUD {
         return searchClienteList;
     }
 
+    
+    /*BUSUQEDA DE JCOMBO*/
+    
     public static ModelCellClientes searchClienteNombre(String nombre) {
         for (ModelCellClientes p : returnClientes()) {
             if (p.getNombre().trim().toLowerCase().equals(nombre.trim().toLowerCase())) {
@@ -153,7 +149,38 @@ public class JsonClienteCRUD {
         }
         return null;
     }
+    
+    public static ModelCellClientes searchClienteApellido(String apellido) {
+        for (ModelCellClientes p : returnClientes()) {
+            if (p.getApellido().trim().toLowerCase().equals(apellido.trim().toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    
+    public static ModelCellClientes searchClienteTelefono(String telefono) {
+        for (ModelCellClientes p : returnClientes()) {
+            if (p.getTelefono().trim().toLowerCase().equals(telefono.trim().toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
 
+     public static ModelCellClientes searchClienteNumDoc(String numDoc) {
+        for (ModelCellClientes p : returnClientes()) {
+            if (p.getNumDocumento().trim().toLowerCase().equals(numDoc.trim().toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+     
+    /////////////////////////////////////////////////////////////////// 
+     
     public static ModelCellClientes searchClienteCodigo(String codigo) {
         for (ModelCellClientes p : returnClientes()) {
             if (p.getIdCliente().trim().equals(codigo)) {
@@ -172,18 +199,9 @@ public class JsonClienteCRUD {
         return null;
     }
 
-    public static List<ModelCellClientes> searchClienteApellido(String apellido) {
-        List<ModelCellClientes> searchClienteList = null;
-        for (ModelCellClientes p : returnClientes()) {
-            if (p.getApellido() == apellido) {
-                searchClienteList.add(p);
-                break;
-            }
-        }
-        return searchClienteList;
-    }
+    
 
-    public static List<ModelCellClientes> searchClienteTelefono(String telefono) {
+    /*public static List<ModelCellClientes> searchClienteTelefono(String telefono) {
         List<ModelCellClientes> searchClienteList = null;
         for (ModelCellClientes p : returnClientes()) {
             if (p.getTelefono().equals(telefono)) {
@@ -192,7 +210,7 @@ public class JsonClienteCRUD {
             }
         }
         return searchClienteList;
-    }
+    }*/
 
     public static List<ModelCellClientes> searchClienteTipoDoc(String tipo) {
         List<ModelCellClientes> searchClienteList = null;
@@ -215,6 +233,42 @@ public class JsonClienteCRUD {
         }
         return searchClienteList;
     }
+
+
+
+    /********************************METODOS LISTADOS*********************************/
+    public static ArrayList<String> listarNombres(){
+        ArrayList<String> nombres = new ArrayList<String>();
+            for(ModelCellClientes cl : returnClientes()){
+                nombres.add(cl.getNombre());
+            }
+        return nombres;
+    }
+    
+    public static ArrayList<String> listarTelefonos(){
+        ArrayList<String> telefonos = new ArrayList<String>();
+            for(ModelCellClientes cl : returnClientes()){
+                telefonos.add(cl.getTelefono());
+            }
+        return telefonos;
+    }
+    
+    public static ArrayList<String> listarApellidos(){
+        ArrayList<String> apellidos = new ArrayList<String>();
+            for(ModelCellClientes cl : returnClientes()){
+                apellidos.add(cl.getApellido());
+            }
+        return apellidos;
+    }
+    
+    public static ArrayList<String> listarNumDocumento(){
+        ArrayList<String> documento = new ArrayList<String>();
+            for(ModelCellClientes cl : returnClientes()){
+                documento.add(cl.getNumDocumento());
+            }
+        return documento;
+    }
+    
 
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
@@ -252,7 +306,6 @@ public class JsonClienteCRUD {
         for (ModelCellClientes us : returnClientesHistorial()) {
             //Si el id historial es igual o el usuario
             if (us.getIdCliente().equals(cl.getIdCliente())) {
-                System.out.println("El id se repite");
                 return false;
             }
         }
@@ -275,6 +328,17 @@ public class JsonClienteCRUD {
         return false;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*COMPROBAR CLIENTE UPDATE(UPDATECLIENTE, INDICE PARA OBVIARLO CON CONTINUE)*/
     /**
      * *****************HISTORTIAL CLIENTE**************

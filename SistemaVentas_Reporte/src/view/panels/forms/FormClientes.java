@@ -22,7 +22,7 @@ import view.panels.PanelVentas;
 public class FormClientes extends javax.swing.JPanel {
 
     public int cifDoc;
-    ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+    ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
     public boolean add = true;
 
     public FormClientes() {
@@ -416,7 +416,7 @@ public class FormClientes extends javax.swing.JPanel {
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         //setDesignWindows();
         String[] opciones = {"Si", "No"};
-        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             //setDisignNimbus();
@@ -481,20 +481,20 @@ public class FormClientes extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData() {
         if (Maximize.updateCrud) {
-            btnAceptar.setIcon(new ImageIcon("src/img/btn_Actualizar.png"));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("/img/btn_Actualizar.png")));
             add = false;
             title.setText("ACTUALIZAR CLIENTE");
             Maximize.updateCrud = false;
             getElements();
         } else {
-            btnAceptar.setIcon(new ImageIcon("src/img/btn_Agregar.png"));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("/img/btn_Agregar.png")));
             add = true;
             title.setText("AGREGAR CLIENTE");
         }
     }
 
     public void setMysql() {
-        ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+        ImageIcon icononew = new ImageIcon(getClass().getResource("/img/message/comprobado.png"));
         JOptionPane.showMessageDialog(null, "Regitro exitoso del Cliente", "", 0, icononew);
         /*LLENADO MYSQL*/
         if (ValidateRegular.conexion) {

@@ -59,7 +59,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnIniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/InicarSesion.png"))); // NOI18N
+        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/BtnSession.png"))); // NOI18N
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnIniciarSesionMouseClicked(evt);
@@ -71,7 +71,7 @@ public class Login extends javax.swing.JFrame {
                 btnIniciarSesionMouseExited(evt);
             }
         });
-        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 600, 260, -1));
+        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 590, 260, -1));
 
         btnCrearUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Login/btnCrearUsuario.png"))); // NOI18N
@@ -122,11 +122,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseExited
 
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
-        btnIniciarSesion.setIcon(new ImageIcon(getClass().getResource("/img/Login/InicarSesiondScale.png")));
+        btnIniciarSesion.setIcon(new ImageIcon(getClass().getResource("/img/Login/BtnSessionFull.png")));
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
     private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
-        btnIniciarSesion.setIcon(new ImageIcon(getClass().getResource("/img/Login/InicarSesion.png")));
+        btnIniciarSesion.setIcon(new ImageIcon(getClass().getResource("/img/Login/BtnSession.png")));
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
     private void btnCrearUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseEntered

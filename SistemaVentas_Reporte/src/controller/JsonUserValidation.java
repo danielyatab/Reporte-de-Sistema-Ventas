@@ -80,7 +80,7 @@ public class JsonUserValidation {
         for (ModelUser u : users) {
             if (usuario.getUser().equals(u.getUser())) {
                 if (encriptarSha256(usuario.getPassword()).equals(u.getPassword())) {
-                    ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+                    ImageIcon icononew = new ImageIcon(JsonUserValidation.class.getResource("/img/message/comprobado.png"));
                     JOptionPane.showMessageDialog(null, "Regitro Exitoso", "", 0, icononew);
                     return true;
                 } else {

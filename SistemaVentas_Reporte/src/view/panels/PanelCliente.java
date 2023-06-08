@@ -3,13 +3,18 @@ package view.panels;
 import Model.ModelCellClientes;
 import Model.conexion.CrudMysql;
 import controller.JsonClienteCRUD;
+import controller.JsonUserValidation;
 import controller.ValidateRegular;
+import controller.viewExcel.Modelo_Excel;
 import java.awt.BorderLayout;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import table.TableClient.TableActionEventCliente;
 import view.panels.forms.FormClientes;
@@ -21,6 +26,10 @@ public class PanelCliente extends javax.swing.JPanel {
     private ArrayList<String> busquedaLista = new ArrayList<>();
     private String searchSelect = "";
     private String banderaSearch = "nombres";
+
+    JFileChooser archivo_selec = new JFileChooser();
+    File archivo;
+    Modelo_Excel model_ex = new Modelo_Excel();
 
     public PanelCliente() {
         initComponents();
@@ -44,7 +53,6 @@ public class PanelCliente extends javax.swing.JPanel {
         ContentButtonsSearch = new javax.swing.JPanel();
         TitleProveedores = new javax.swing.JLabel();
         btn_ExportarExcel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         btn_AgregarProveedores = new javax.swing.JLabel();
         ContextSearch = new javax.swing.JPanel();
         TextSearch = new javax.swing.JPanel();
@@ -67,9 +75,11 @@ public class PanelCliente extends javax.swing.JPanel {
 
         btn_ExportarExcel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_ExportarExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ExportarExcel.png"))); // NOI18N
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_ImportarExcel.png"))); // NOI18N
+        btn_ExportarExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ExportarExcelMouseClicked(evt);
+            }
+        });
 
         btn_AgregarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn_newCLIENTE.png"))); // NOI18N
         btn_AgregarProveedores.setToolTipText("");
@@ -206,9 +216,7 @@ public class PanelCliente extends javax.swing.JPanel {
                         .addComponent(TitleProveedores)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_ExportarExcel)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_AgregarProveedores)
                         .addGap(44, 44, 44))
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
@@ -225,14 +233,14 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContentButtonsSearchLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(TitleProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TitleProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(ContentButtonsSearchLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(ContentButtonsSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btn_ExportarExcel)
-                            .addComponent(jLabel1)
-                            .addComponent(btn_AgregarProveedores))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btn_AgregarProveedores))
+                        .addGap(10, 10, 10)))
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ContextSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -266,7 +274,7 @@ public class PanelCliente extends javax.swing.JPanel {
             ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentTableLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
                 .addGap(66, 66, 66))
         );
 
@@ -303,7 +311,7 @@ public class PanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 
     private void txtSearchClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchClienteKeyReleased
-        System.out.println("Campturadbno el texto: " + txtSearchCliente.getText());
+        System.out.println("Campturando el texto: " + txtSearchCliente.getText());
         if (txtSearchCliente.getText().trim().isEmpty()) {
             listarClientes();
         } else {
@@ -346,6 +354,29 @@ public class PanelCliente extends javax.swing.JPanel {
         listarNumero();
     }//GEN-LAST:event_typeNumDOCMouseClicked
 
+    private void btn_ExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ExportarExcelMouseClicked
+        if (archivo_selec.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
+            archivo = archivo_selec.getSelectedFile();
+            
+            String nombreArchivo = archivo.getName();
+            if (!nombreArchivo.toLowerCase().endsWith(".xls") && !nombreArchivo.toLowerCase().endsWith(".xlsx")) {
+                // Agregar extensión .xlsx si no está presente en el nombre del archivo
+                nombreArchivo += ".xlsx";
+                archivo = new File(archivo.getParentFile(), nombreArchivo);
+            }
+
+            // Continuar con el código para guardar el archivo
+            if (archivo.getName().endsWith("xls") || archivo.getName().endsWith("xlsx")) {
+                model_ex.exportacion(archivo, TableClientes, 6);
+                /*MENSAJE DE EXITO*/
+                ImageIcon icononew = new ImageIcon(JsonUserValidation.class.getResource("/img/message/comprobado.png"));
+                JOptionPane.showMessageDialog(null, "Archivo Creado", "", 0, icononew);
+            } else {
+                JOptionPane.showMessageDialog(null, "Elija un formato válido");
+            }
+        }
+    }//GEN-LAST:event_btn_ExportarExcelMouseClicked
+
     /*EVENTO DE BOTONES*/
     TableActionEventCliente event = new TableActionEventCliente() {
         @Override
@@ -380,9 +411,9 @@ public class PanelCliente extends javax.swing.JPanel {
 
     /*INIT DATA*/
     private void listarClientes() {
-        if(ValidateRegular.ModifClientes != null){
+        if (ValidateRegular.ModifClientes != null) {
             listClient = ValidateRegular.ModifClientes;
-        }else {
+        } else {
             listClient = new JsonClienteCRUD().returnClientes();
         }
         DefaultTableModel modelo = new DefaultTableModel();
@@ -409,8 +440,6 @@ public class PanelCliente extends javax.swing.JPanel {
         }
     }
 
-    
-    
     private void listarNombres() {
         List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteNombre(txtSearchCliente.getText());
         listarClientesType(newCellCliente);
@@ -421,16 +450,16 @@ public class PanelCliente extends javax.swing.JPanel {
         listarClientesType(newCellCliente);
     }
 
-     private void listarTelefono() {
+    private void listarTelefono() {
         List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteTelefono(txtSearchCliente.getText());
         listarClientesType(newCellCliente);
     }
-     
-      private void listarNumero() {
+
+    private void listarNumero() {
         List<ModelCellClientes> newCellCliente = new JsonClienteCRUD().searchListClienteNumero(txtSearchCliente.getText());
         listarClientesType(newCellCliente);
     }
-    
+
     /**
      *
      * @param p Panel de Ingreso
@@ -468,7 +497,6 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JLabel btn_AgregarProveedores;
     private javax.swing.JLabel btn_ExportarExcel;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

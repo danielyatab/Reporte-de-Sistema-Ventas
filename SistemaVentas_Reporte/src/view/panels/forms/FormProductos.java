@@ -26,7 +26,7 @@ import view.panels.PanelVentas;
 public class FormProductos extends javax.swing.JPanel {
 
     public boolean passCode = true;
-    ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+    ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
     public boolean add = true;
 
     public FormProductos() {
@@ -495,7 +495,7 @@ public class FormProductos extends javax.swing.JPanel {
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         String[] opciones = {"Si", "No"};
-        ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al producto?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             if (ValidateRegular.passProducto) {
@@ -565,12 +565,12 @@ public class FormProductos extends javax.swing.JPanel {
         listaTiposProductos();
         if (Maximize.updateCrud) {
             add = false;
-            btnAceptar.setIcon(new ImageIcon("src/img/btn_Actualizar.png"));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("/img/btn_Actualizar.png")));
             title.setText("ACTUALIZAR PRODUCTO");
             Maximize.updateCrud = false;
             getElements(ValidateRegular.updateProducto);
         } else {
-            btnAceptar.setIcon(new ImageIcon("src/img/btn_Agregar.png"));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("/img/btn_Agregar.png")));
             add = true;
             title.setText("AGREGAR PRODUCTO");
         }
@@ -608,7 +608,6 @@ public class FormProductos extends javax.swing.JPanel {
         txtMarca.setText(updateP.getMarca());
         txtDescripcion.setText(updateP.getDescripcion());
         txtCantidad.setText(valueOf(updateP.getCantidad()));
-        System.out.println("ESTOY CAMBIANDO EL COMOBOBOX: " + updateP.getTipo());
         comboTipo.setSelectedItem(updateP.getTipo());
         txtPrecioU.setText(valueOf(updateP.getPrecioU()));
     }
@@ -630,19 +629,18 @@ public class FormProductos extends javax.swing.JPanel {
         newPd.setDescripcion(txtDescripcion.getText());
         newPd.setCantidad(Integer.parseInt(txtCantidad.getText()));
         newPd.setPrecioU(Double.parseDouble(txtPrecioU.getText()));
-        System.out.println("New opv: + " + newPd.getProducto());
         return newPd;
     }
 
     public void pushMysql() {
-        ImageIcon icononew = new ImageIcon("src/img/message/comprobado.png");
+        ImageIcon icononew = new ImageIcon(getClass().getResource("/img/message/comprobado.png"));
         JOptionPane.showMessageDialog(null, "Regitro exitoso del Producto", "", 0, icononew);
         if (ValidateRegular.conexion) {
             try {
                 CrudMysql.crudMysqlProductos();
                 CrudMysql.crudMysqlProductosHistorial();
             } catch (Exception e) {
-                System.out.println("Sin conexion a internet HISTORIALproducto");
+                System.out.println("Sin conexion a internet HISTORIALproducto" + e.getMessage());
             }
         }
         if (ValidateRegular.passProducto) {

@@ -4,7 +4,6 @@
  */
 package controller;
 
-import Model.ModelCellClientes;
 import Model.ModelCellVenta;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

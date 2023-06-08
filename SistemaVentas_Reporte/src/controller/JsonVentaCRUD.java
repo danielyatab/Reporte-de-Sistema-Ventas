@@ -87,13 +87,11 @@ public class JsonVentaCRUD {
     }
 
     public static void deleteVenta(String codeDelete) {
-        System.out.println("El codigo a elimiinar es: " + codeDelete);
         List<ModelCellDetalles> listVentas = returnVentas();
         for (int i = 0; i < listVentas.size(); i++) {
             System.out.println("List" + listVentas.get(i).getCodVenta());
             if (listVentas.get(i).getCodVenta().equals(codeDelete)) {
                 listVentas.remove(i);
-                System.out.println("Removi la venta");
                 break;
             }
         }
@@ -139,7 +137,6 @@ public class JsonVentaCRUD {
     public static List<ModelCellDetalles> searchListVentaTotal(String total) {
         List<ModelCellDetalles> searchVentaList = new ArrayList<ModelCellDetalles>();;
         for (ModelCellDetalles p : returnVentas()) {
-            System.out.println("MOSTRAR VENTAS TOTALSE: "+p.getTotalVenta() +" :::" +total );
             if (valueOf(p.getTotalVenta()).toLowerCase().trim().contains(total.toLowerCase().trim())) {
                 searchVentaList.add(p);
             }
@@ -174,77 +171,7 @@ public class JsonVentaCRUD {
         return searchListFecha;
     }
     
-    /*
-    
-    
-    
-    public static List<ModelCellVenta> searchListVentaNombre(String nombre) {
-        List<ModelCellVenta> searchVentaList = new ArrayList<ModelCellVenta>();;
-        for (ModelCellVenta p : returnVentas()) {
-            System.out.println("Listando : " + p.getNombre() + " = " + nombre);
-            if (p.getNombre().trim().equals(nombre.trim())) {
-                System.out.println("Encontre:" + p.getNombre());
-                searchVentaList.add(p);
-            }
-        }
-        return searchVentaList;
-    }
-
-    public static ModelCellVenta searchVentaNombre(String nombre) {
-        for (ModelCellVenta p : returnVentas()) {
-            System.out.println("Listando : " + p.getNombre() + " = " + nombre);
-            if (p.getNombre().trim().equals(nombre.trim())) {
-                System.out.println("Encontre:" + p.getNombre());
-                return p;
-            }
-        }
-        return null;
-    }
-
-    public static List<ModelCellVenta> searchVentaApellido(String apellido) {
-        List<ModelCellVenta> searchVentaList = null;
-        for (ModelCellVenta p : returnVentas()) {
-            if (p.getApellido() == apellido) {
-                searchVentaList.add(p);
-                break;
-            }
-        }
-        return searchVentaList;
-    }
-
-    public static List<ModelCellVenta> searchVentaTelefono(String telefono) {
-        List<ModelCellVenta> searchVentaList = null;
-        for (ModelCellVenta p : returnVentas()) {
-            if (p.getTelefono().equals(telefono)) {
-                searchVentaList.add(p);
-                break;
-            }
-        }
-        return searchVentaList;
-    }
-
-    public static List<ModelCellVenta> searchVentaTipoDoc(String tipo) {
-        List<ModelCellVenta> searchVentaList = null;
-        for (ModelCellVenta p : returnVentas()) {
-            if (p.getTipoDocumento().equals(tipo)) {
-                searchVentaList.add(p);
-                break;
-            }
-        }
-        return searchVentaList;
-    }
-
-    public static List<ModelCellVenta> searchVentaNumDocumento(String documento) {
-        List<ModelCellVenta> searchVentaList = null;
-        for (ModelCellVenta p : returnVentas()) {
-            if (p.getNumDocumento().equals(documento)) {
-                searchVentaList.add(p);
-                break;
-            }
-        }
-        return searchVentaList;
-    }
-     */
+  
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
      * JSON******************************

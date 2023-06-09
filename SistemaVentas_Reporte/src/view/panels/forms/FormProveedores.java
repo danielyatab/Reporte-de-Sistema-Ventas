@@ -436,7 +436,7 @@ public class FormProveedores extends javax.swing.JPanel {
     /*INIT DATA*/
     private void initData() {
         if (Maximize.updateCrud) {
-            btnAceptar.setIcon(new ImageIcon(getClass().getResource("src/img/btn_Actualizar.png")));
+            btnAceptar.setIcon(new ImageIcon(getClass().getResource("/img/btn_Actualizar.png")));
             add = false;
             title.setText("ACTUALIZAR PROVEEDOR");
             Maximize.updateCrud = false;

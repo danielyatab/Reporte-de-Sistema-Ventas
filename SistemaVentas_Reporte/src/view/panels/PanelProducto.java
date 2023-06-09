@@ -385,7 +385,7 @@ public class PanelProducto extends javax.swing.JPanel {
         public void onDelete(ModelCellProductos productos) {
             ModelCellProductos deleteProducto = listProduct.get(TableProductos.getSelectedRow());
             String[] opciones = {"Si", "No"};
-            ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+            ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
             int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al producto " + deleteProducto.getProducto() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
             if (opcion == JOptionPane.YES_OPTION) {
                 JsonProductoCRUD.deleteProducto(deleteProducto.getCodigo());

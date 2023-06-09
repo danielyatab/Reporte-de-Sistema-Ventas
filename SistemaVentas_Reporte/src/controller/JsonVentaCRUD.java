@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import static java.lang.String.valueOf;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -28,6 +30,7 @@ import java.util.Random;
 public class JsonVentaCRUD {
 
     private static List<ModelCellDetalles> ventaGlobal = new ArrayList<ModelCellDetalles>();
+    private static LocalDate fechaActual = LocalDate.now();
 
     public static List<ModelCellDetalles> returnVentas() {
         Gson gson = new Gson();
@@ -160,9 +163,8 @@ public class JsonVentaCRUD {
         return searchVentaList;
     }
 
-    
-    public static List<ModelCellDetalles> searchListVentaFecha(String fecha){
-        List<ModelCellDetalles>  searchListFecha  =  new ArrayList<ModelCellDetalles>();
+    public static List<ModelCellDetalles> searchListVentaFecha(String fecha) {
+        List<ModelCellDetalles> searchListFecha = new ArrayList<ModelCellDetalles>();
         for (ModelCellDetalles p : returnVentas()) {
             if (valueOf(p.getFecha()).toLowerCase().trim().contains(fecha.toLowerCase().trim())) {
                 searchListFecha.add(p);
@@ -170,8 +172,7 @@ public class JsonVentaCRUD {
         }
         return searchListFecha;
     }
-    
-  
+
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
      * JSON******************************
@@ -227,4 +228,46 @@ public class JsonVentaCRUD {
             e.printStackTrace();
         }
     }
+
+    /**
+     * *****LISTAR VENTAS DEL MESA Y DIAS********
+     */
+    public static void listarMesesTotalVenta() {
+        ValidateRegular.totalesSemana = new double[7];
+
+        int mesActual = fechaActual.getMonthValue();
+        System.out.println("EL MES ACUTAL ES: " + mesActual);
+
+        // Recorrer la lista de fechas en formato de cadena
+        for (ModelCellDetalles v : returnVentas()) {
+            LocalDate fecha = LocalDate.parse(v.getFecha());
+            int mesFecha = fecha.getMonthValue();
+            if (mesFecha == mesActual) {
+                DayOfWeek diaSemana = fecha.getDayOfWeek();
+                int indiceDia = diaSemana.getValue(); // Obtener el índice del día de la semana (1 a 7)
+                System.out.println("EL DIA OBTENIDO ES " + indiceDia);
+                ValidateRegular.totalesSemana[indiceDia-1] += v.getTotalVenta();
+            }
+        }
+    }
+
+    public static void listarAnualTotal() {
+        ValidateRegular.totalesMes = new double[12];
+        
+        /*Obtencion año actual*/
+        int añoActual = fechaActual.getYear();
+        System.out.println("EL MES ACUTAL ES: " + añoActual);
+        for (ModelCellDetalles v : returnVentas()) {
+            LocalDate fecha = LocalDate.parse(v.getFecha());
+            int añoFecha = fecha.getYear();
+            
+            if (añoActual == añoFecha) {
+                int mesFecha = fecha.getMonthValue();
+                ValidateRegular.totalesMes[mesFecha-1] += v.getTotalVenta();
+            }
+        }
+    }
+
+
+
 }

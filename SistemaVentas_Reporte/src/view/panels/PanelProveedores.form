@@ -176,15 +176,17 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="TextSearch" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="JcomboTipo" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                                  <Component id="typeName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="typeRuc" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="typeTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="typeProducto" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="TextSearch" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="JcomboTipo" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="typeName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="typeRuc" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="typeTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="typeProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>

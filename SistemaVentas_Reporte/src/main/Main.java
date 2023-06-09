@@ -1,5 +1,8 @@
 package main;
 
+import Model.ModelCellVenta;
+import controller.JsonProductoCRUD;
+import controller.ValidateRegular;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -57,6 +60,7 @@ public class Main extends javax.swing.JFrame {
         autoList();
         updatePanelMinMax();
         setLocationRelativeTo(null);
+        JsonProductoCRUD.verificarStockProductos();
     }
 
     @SuppressWarnings("unchecked")
@@ -357,7 +361,34 @@ public class Main extends javax.swing.JFrame {
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
         int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
+            
+            if (ValidateRegular.ventaRealizada == false) {
+                ValidateRegular.listDetalleSelect = new ArrayList<ModelCellVenta>();
+                ValidateRegular.listVentasExtrac = ValidateRegular.listVentas;
+
+                ValidateRegular.listVentasDelete = new ArrayList<ModelCellVenta>();
+
+                if (ValidateRegular.listVentasExtrac != null) {
+                    for (int i = 0; i < ValidateRegular.listVentasExtrac.size(); i++) {
+                        JsonProductoCRUD.extraerStock(ValidateRegular.listVentasExtrac.get(i).getCodigo(),
+                                ValidateRegular.listVentasExtrac.get(i).getCantidad(),
+                                true);
+                    }
+                    ValidateRegular.listVentasExtrac = null;
+                }
+
+                if (ValidateRegular.listVentasDelete != null) {
+                    for (int i = 0; i < ValidateRegular.listVentasDelete.size(); i++) {
+                        JsonProductoCRUD.extraerStock(ValidateRegular.listVentasDelete.get(i).getCodigo(),
+                                ValidateRegular.listVentasDelete.get(i).getCantidad(),
+                                false);
+                    }
+                    ValidateRegular.listVentasDelete = null;
+                }
+            }
+
             System.exit(0);
+
         }
     }//GEN-LAST:event_btnCloseMouseClicked
 
@@ -400,39 +431,31 @@ public class Main extends javax.swing.JFrame {
     private void ButtonReporteVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonReporteVentasMouseClicked
         cambiarIconoColor(ButtonReporteVentas);
         indexPanel = 0;
-        addConatiner(new PanelReporteVentas(), ContentPanel.getWidth(),ContentPanel.getHeight(), ContentPanel);
+        addConatiner(new PanelReporteVentas(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonReporteVentasMouseClicked
 
     private void ButtonProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProductosMouseClicked
         cambiarIconoColor(ButtonProductos);
         indexPanel = 2;
-        addConatiner(new PanelProducto(), ContentPanel.getWidth(),ContentPanel.getHeight(), ContentPanel);
+        addConatiner(new PanelProducto(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonProductosMouseClicked
 
     private void ButtonProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProveedoresMouseClicked
-        Maximize.isForm = false;
-        resizeFormsPanels();
         cambiarIconoColor(ButtonProveedores);
         indexPanel = 3;
-        updatePanelMinMax();
+        addConatiner(new PanelProveedores(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonProveedoresMouseClicked
 
     private void ButtonVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonVentasMouseClicked
-        Maximize.isForm = false;
-        resizeFormsPanels();
-        cambiarIconoColor(ButtonVentas);
+       cambiarIconoColor(ButtonVentas);
         indexPanel = 4;
-        updatePanelMinMax();
-
+        addConatiner(new PanelVentas(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonVentasMouseClicked
 
     private void ButtonDetalleVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonDetalleVentasMouseClicked
-        //Maximize.isForm = false;
-        //resizeFormsPanels();
         cambiarIconoColor(ButtonDetalleVentas);
         indexPanel = 5;
-        addConatiner(new PanelDetalleVentas(), ContentPanel.getWidth(),ContentPanel.getHeight(), ContentPanel);
-        //updatePanelMinMax();
+        addConatiner(new PanelDetalleVentas(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonDetalleVentasMouseClicked
 
     private void ButtonExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonExitMouseClicked
@@ -532,7 +555,7 @@ public class Main extends javax.swing.JFrame {
         int heigth_min = 760;
         int heigth_max = getHeight() - HeadPanel.getHeight();
         System.out.println("ES HORA DE APRCER VENTANA: PANEL DETALLE VENTA");
-        addConatiner(listaJpanel.get(indexPanel), ContentPanel.getWidth(),ContentPanel.getHeight() , ContentPanel);
+        addConatiner(listaJpanel.get(indexPanel), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }
 
     public void setUpdateDetalleProduct() {
@@ -582,7 +605,7 @@ public class Main extends javax.swing.JFrame {
         listaJpanel.add(new PanelProveedores());
         listaJpanel.add(new PanelVentas());
         listaJpanel.add(new PanelDetalleVentas());
-        
+
     }
 
 

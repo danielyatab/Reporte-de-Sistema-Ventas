@@ -245,6 +245,8 @@ public class LoginInit extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaFocusGained
 
 
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bakcground;
     private javax.swing.JLabel CheckBoxPassword;

@@ -70,4 +70,23 @@ public class ValidateRegular {
 
     /*Listado de modfiicaciioones*/
     public static List<ModelCellClientes> ModifClientes = null;
+    
+    
+    /*LISTA ESTATICAS DEL DIA*/
+    public static ArrayList<Object[]> listaDiaNombre =new ArrayList<Object[]>() ;
+    public static String fechaActual = "";
+    public static double TotalVentaDia = 0;
+    
+    /*LISTA ESTATICAS DIAS DE LA SEMANA*/
+    public static double[] totalesSemana =  new double[7];
+    
+    
+    /*Listar Estatico del mes*/
+     public static double[] totalesMes =  new double[12];
+     
+     
+     
+    /*CONFIRMACION DE VENTA*/
+    public static boolean ventaRealizada = false ; 
+     
 }

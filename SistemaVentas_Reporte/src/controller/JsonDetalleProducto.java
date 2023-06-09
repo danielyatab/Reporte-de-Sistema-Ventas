@@ -4,6 +4,7 @@
  */
 package controller;
 
+import Model.ModelCellDetalles;
 import Model.ModelCellVenta;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +74,39 @@ public class JsonDetalleProducto {
             }
         }
         modificarListDetalleProducto(globalDetalleProducto);
+    }
+
+    /*LISTAR PARA VENTAS DIARIAS*/
+    public static void llenadoVentasDia() {
+        ValidateRegular.listaDiaNombre = new ArrayList<Object[]>();
+        ValidateRegular.TotalVentaDia =0;
+        //Fecha actual
+        LocalDate fechaActual = LocalDate.now();
+        // Crear un formateador de fecha
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+       
+        // Formatear la fecha actual
+        String fechaFormateada = fechaActual.format(formateador);
+        ValidateRegular.fechaActual = fechaFormateada;
+        
+        System.out.println("EL FORMATO DE FECHA ACTUAL ES: " + fechaFormateada);
+        for(ModelCellDetalles m : JsonVentaCRUD.returnVentas()){
+            for(ModelCellVenta v: returnListDetalleProducto()){
+                if(m.getnVenta().trim().equals(v.getNumVenta())){
+                    if(m.getFecha().equals(fechaFormateada)){
+                        ValidateRegular.TotalVentaDia+= v.getTotal();
+                        System.out.println("Encontre un producto co igual fecha: " + v.getProducto());
+                        Object[] o = new Object[3];
+                        o[0] =  v.getProducto();
+                        o[1] =  v.getCantidad();
+                        o[2] =  "S/." + v.getTotal();
+                        ValidateRegular.listaDiaNombre.add(o);
+                    }
+                }
+            }
+        }
+        
+        
     }
 
 }

@@ -6,12 +6,9 @@ package view.panels;
 
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
-import Model.ModelCellProductos;
 import Model.conexion.CrudMysql;
-import com.toedter.calendar.JDateChooser;
 import controller.JsonClienteCRUD;
 import controller.JsonDetalleProducto;
-import controller.JsonProductoCRUD;
 import controller.JsonUserValidation;
 import controller.JsonVentaCRUD;
 import controller.ValidateRegular;

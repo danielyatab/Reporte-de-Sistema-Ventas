@@ -129,6 +129,7 @@ public class PanelProducto extends javax.swing.JPanel {
             }
         });
 
+        jcomboTipo.setBackground(new java.awt.Color(255, 255, 255));
         jcomboTipo.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         jcomboTipo.setForeground(new java.awt.Color(16, 21, 64));
         jcomboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Golosina", "Cuaderno" }));
@@ -154,7 +155,7 @@ public class PanelProducto extends javax.swing.JPanel {
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addComponent(typeCode)
                 .addGap(30, 30, 30)
                 .addComponent(typeProductos)
@@ -162,19 +163,21 @@ public class PanelProducto extends javax.swing.JPanel {
                 .addComponent(typeMarca)
                 .addGap(18, 18, 18)
                 .addComponent(jcomboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
+                .addGap(89, 89, 89))
         );
         ContextSearchLayout.setVerticalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContextSearchLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(typeProductos)
-                        .addComponent(jcomboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(typeMarca)
-                        .addComponent(typeCode)))
+                .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(ContextSearchLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(typeProductos)
+                    .addComponent(jcomboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typeMarca)
+                    .addComponent(typeCode))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

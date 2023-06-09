@@ -6,6 +6,7 @@ package main;
 
 import Model.conexion.Conexion;
 import Model.conexion.FullCrudMysql;
+import controller.FileCarpet;
 import controller.Threads;
 import controller.ValidateRegular;
 import java.awt.BorderLayout;
@@ -24,6 +25,7 @@ public class Login extends javax.swing.JFrame {
     Thread hilo = new Thread(ejecutor);
 
     public Login() {
+        FileCarpet.crearCarpetas();
         if (ValidateRegular.intentConnect != 1) {
             //Validacion Unica
             ValidateRegular.intentConnect =1;
@@ -45,6 +47,7 @@ public class Login extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

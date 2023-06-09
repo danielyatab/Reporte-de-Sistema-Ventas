@@ -1,8 +1,10 @@
 package controller;
 
+import Model.ModelCellClientes;
 import Model.ModelCellProductos;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import static controller.JsonClienteCRUD.returnClientes;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -100,14 +102,14 @@ public class JsonProductoCRUD {
                 break;
             }
         }
-        
+
         for (int j = 0; j < listaProductosHistorial.size(); j++) {
             if (listaProductosHistorial.get(j).getCodigo().equals(updateCl.getCodigo())) {
                 listaProductosHistorial.set(j, updateCl);
                 break;
             }
         }
-        
+
         modificarProducto(listaProductos);
         modificarProductoHistorial(listaProductosHistorial);
         ValidateRegular.setUpdateProducto = true;
@@ -194,12 +196,50 @@ public class JsonProductoCRUD {
         }
         return searchProductoList;
     }
+
+    /*LISTAR SINGULARMENTE STRINGS*/
+    public static ArrayList<String> listarCodigos() {
+        ArrayList<String> codigos = new ArrayList<String>();
+        for (ModelCellProductos p : returnProductos()) {
+            codigos.add(p.getCodigo());
+        }
+        return codigos;
+    }
+
+    public static ArrayList<String> listarProductosNombres() {
+        ArrayList<String> productos = new ArrayList<String>();
+        for (ModelCellProductos p : returnProductos()) {
+            productos.add(p.getProducto());
+        }
+        return productos;
+    }
+
+    
+    /*LIOSTADO DE BUSQUEDA*/
+    /*BUSUQEDA DE JCOMBO*/
+    
+    public static ModelCellProductos searchProductoNombre(String nombre) {
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getProducto().trim().toLowerCase().equals(nombre.trim().toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public static ModelCellProductos searchProductoCodigo(String codigo) {
+        for (ModelCellProductos p : returnProductos()) {
+            if (p.getCodigo().trim().toLowerCase().equals(codigo.trim().toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
     
     
     
     
-   
-     
+    
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
      * JSON******************************
@@ -272,4 +312,16 @@ public class JsonProductoCRUD {
         codeGlobal = code;
         return true;
     }
+    
+    
+    /***********VERIFICADOR DE CANTIDAD*************/
+    public static void verificarStockProductos(){
+        for(ModelCellProductos m: returnProductos()){
+            if(m.getCantidad() <= 4){
+                JOptionPane.showMessageDialog(null, "El producto " + m.getProducto() +"-"+ m.getMarca()+"-"+m.getDescripcion() + " solo tiene " + m.getCantidad(),"",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+
 }

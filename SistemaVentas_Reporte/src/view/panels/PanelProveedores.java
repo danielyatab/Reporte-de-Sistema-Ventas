@@ -407,7 +407,7 @@ public class PanelProveedores extends javax.swing.JPanel {
             System.out.println("DELETE PROVEEDORES");
             ModelCellProveedores deleteProveedores = listProveedor.get(TableProveedores.getSelectedRow());
             String[] opciones = {"Si", "No"};
-            ImageIcon icono = new ImageIcon("src/img/message/advertencia.png"); // Ruta al archivo de imagen del ícono
+            ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
             int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al proveedor " + deleteProveedores.getNombres() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
             if (opcion == JOptionPane.YES_OPTION) {
                 JsonProveedoresCRUD.deleteProveedor(deleteProveedores.getIdProveedor());

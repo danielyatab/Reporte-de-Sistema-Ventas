@@ -26,6 +26,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         FileCarpet.crearCarpetas();
+        
         if (ValidateRegular.intentConnect != 1) {
             //Validacion Unica
             ValidateRegular.intentConnect =1;

@@ -51,7 +51,7 @@ public class FormAddProducto {
         campoTextoCantidad.setHorizontalAlignment(SwingConstants.CENTER);
 
         campoTextoCantidad.setText("1");
-        JComboBox<String> comboBox = new JComboBox<>(new String[]{"Codigo", "Nombre", "Marca"});
+        JComboBox<String> comboBox = new JComboBox<>(new String[]{"Codigo"});
 
         JLabel etiquetaTitle = new JLabel("PRODUCTO");
         etiquetaTitle.setFont(etiquetaTitle.getFont().deriveFont(Font.BOLD));

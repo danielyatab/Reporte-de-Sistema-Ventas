@@ -60,7 +60,6 @@ public class PanelCliente extends javax.swing.JPanel {
         IconSearch = new javax.swing.JLabel();
         typeName = new javax.swing.JLabel();
         typeTelefono = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         typeApellido = new javax.swing.JLabel();
         typeNumDOC = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -141,13 +140,6 @@ public class PanelCliente extends javax.swing.JPanel {
             }
         });
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(16, 21, 64));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC" }));
-        jComboBox2.setBorder(null);
-        jComboBox2.setFocusable(false);
-
         typeApellido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/types/typeApellido.png"))); // NOI18N
         typeApellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -171,15 +163,13 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addComponent(TextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(typeName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(23, 23, 23)
                 .addComponent(typeApellido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(typeTelefono)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(typeNumDOC)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         ContextSearchLayout.setVerticalGroup(
             ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +181,6 @@ public class PanelCliente extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(ContextSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(typeApellido)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(typeTelefono)
                     .addComponent(typeName)
                     .addComponent(typeNumDOC))
@@ -274,8 +263,8 @@ public class PanelCliente extends javax.swing.JPanel {
             ContentTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentTableLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
-                .addGap(66, 66, 66))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ContentPanelLayout = new javax.swing.GroupLayout(ContentPanel);
@@ -496,7 +485,6 @@ public class PanelCliente extends javax.swing.JPanel {
     private javax.swing.JLabel TitleProveedores;
     private javax.swing.JLabel btn_AgregarProveedores;
     private javax.swing.JLabel btn_ExportarExcel;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

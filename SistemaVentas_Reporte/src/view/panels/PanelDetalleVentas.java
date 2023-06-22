@@ -234,8 +234,8 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
             ContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout PanelContentLayout = new javax.swing.GroupLayout(PanelContent);
@@ -402,7 +402,8 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         modelo.setColumnIdentifiers(columns);
         TableDetalles.setModel(modelo);
         for (ModelCellDetalles m : listaVentas) {
-            ModelCellClientes cl = JsonClienteCRUD.searchClienteHistorialCodigo(m.getCliente());
+            JsonClienteCRUD clbew = new JsonClienteCRUD();
+            ModelCellClientes cl = clbew.searchClienteHistorialCodigo(m.getCliente());
             TableDetalles.addRow(new ModelCellDetalles(m.getnVenta(), cl.getNombre(), m.getTotalVenta(), m.getFecha()).toRowTable(event));
         }
     }

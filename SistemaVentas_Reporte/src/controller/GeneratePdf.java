@@ -33,7 +33,8 @@ import java.util.List;
  */
 public class GeneratePdf {
     
-    public static void pdf(List<ModelCellVenta> listVenta, ModelCellClientes cliente, ModelCellDetalles detalleVenta, double efectivo, double vuelto) throws DocumentException{
+    public static void pdf(List<ModelCellVenta> listVenta, ModelCellClientes cliente, ModelCellDetalles detalleVenta, 
+                                                               double efectivo, double vuelto) throws DocumentException{
          try {
             FileOutputStream archivo;
             FileOutputStream archivo2;

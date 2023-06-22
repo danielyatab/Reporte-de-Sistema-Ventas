@@ -33,7 +33,7 @@ public class JsonProductoCRUD {
         Gson gson = new Gson();
         try (Reader reader = new FileReader(FileJson.rutaProducto)) { // Asegura que se cerrara de manera segura el archivo
             productoGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellProductos>>() {
-            }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
+            }.getType()); // (en este caso almacena los datos en tipo producto a una lista
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,7 +43,7 @@ public class JsonProductoCRUD {
     /**
      * *********************CRUD PRODUCTOS*************************
      */
-    /*Retorno de Usuarios*/
+    /*Agregar Productos*/
     public static void addProducto(ModelCellProductos newProducto) {
         productoGlobal = returnProductos();
         if (productoGlobal != null) {
@@ -81,17 +81,6 @@ public class JsonProductoCRUD {
         }
     }
 
-    public static void deleteProducto(String codeDelete) {
-        List<ModelCellProductos> listProductos = returnProductos();
-        for (int i = 0; i < listProductos.size(); i++) {
-            if (listProductos.get(i).getCodigo().equals(codeDelete)) {
-                listProductos.remove(i);
-                break;
-            }
-        }
-        modificarProducto(listProductos);
-    }
-
     public static void updateProducto(ModelCellProductos updateCl) {
         List<ModelCellProductos> listaProductos = returnProductos();
         List<ModelCellProductos> listaProductosHistorial = returnProductoHistorial();
@@ -113,6 +102,17 @@ public class JsonProductoCRUD {
         modificarProducto(listaProductos);
         modificarProductoHistorial(listaProductosHistorial);
         ValidateRegular.setUpdateProducto = true;
+    }
+
+    public static void deleteProducto(String codeDelete) {
+        List<ModelCellProductos> listProductos = returnProductos();
+        for (int i = 0; i < listProductos.size(); i++) {
+            if (listProductos.get(i).getCodigo().equals(codeDelete)) {
+                listProductos.remove(i);
+                break;
+            }
+        }
+        modificarProducto(listProductos);
     }
 
     /**
@@ -214,10 +214,8 @@ public class JsonProductoCRUD {
         return productos;
     }
 
-    
     /*LIOSTADO DE BUSQUEDA*/
-    /*BUSUQEDA DE JCOMBO*/
-    
+ /*BUSUQEDA DE JCOMBO*/
     public static ModelCellProductos searchProductoNombre(String nombre) {
         for (ModelCellProductos p : returnProductos()) {
             if (p.getProducto().trim().toLowerCase().equals(nombre.trim().toLowerCase())) {
@@ -226,7 +224,7 @@ public class JsonProductoCRUD {
         }
         return null;
     }
-    
+
     public static ModelCellProductos searchProductoCodigo(String codigo) {
         for (ModelCellProductos p : returnProductos()) {
             if (p.getCodigo().trim().toLowerCase().equals(codigo.trim().toLowerCase())) {
@@ -235,11 +233,7 @@ public class JsonProductoCRUD {
         }
         return null;
     }
-    
-    
-    
-    
-    
+
     /**
      * ***********************METODOS DE INTEGRACION DE DATOS
      * JSON******************************
@@ -312,16 +306,16 @@ public class JsonProductoCRUD {
         codeGlobal = code;
         return true;
     }
-    
-    
-    /***********VERIFICADOR DE CANTIDAD*************/
-    public static void verificarStockProductos(){
-        for(ModelCellProductos m: returnProductos()){
-            if(m.getCantidad() <= 4){
-                JOptionPane.showMessageDialog(null, "El producto " + m.getProducto() +"-"+ m.getMarca()+"-"+m.getDescripcion() + " solo tiene " + m.getCantidad(),"",JOptionPane.ERROR_MESSAGE);
+
+    /**
+     * *********VERIFICADOR DE CANTIDAD************
+     */
+    public static void verificarStockProductos() {
+        for (ModelCellProductos m : returnProductos()) {
+            if (m.getCantidad() <= 4) {
+                JOptionPane.showMessageDialog(null, "El producto " + m.getProducto() + "-" + m.getMarca() + "-" + m.getDescripcion() + " solo tiene " + m.getCantidad(), "", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    
 
 }

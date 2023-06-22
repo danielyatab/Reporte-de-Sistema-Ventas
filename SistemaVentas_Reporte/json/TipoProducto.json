@@ -1,1 +1,8 @@
-[{"tipoProducto":"Golosinas"},{"tipoProducto":"Lacteos"},{"tipoProducto":"Bebida"}]
+[
+  {
+    "tipoProducto": "Golosinas"
+  },
+  {
+    "tipoProducto": "Lacteos"
+  }
+]

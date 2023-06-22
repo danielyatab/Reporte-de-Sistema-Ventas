@@ -498,6 +498,7 @@ public class FormClientes extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Regitro exitoso del Cliente", "", 0, icononew);
         /*LLENADO MYSQL*/
         if (ValidateRegular.conexion) {
+            System.out.println(":::::::::::::::::::::::Entre a agregar un nuevo cliente yahuuuuuuuu");
             try {
                 CrudMysql.crudMysqlClientes();
                 CrudMysql.crudMysqlHistorialClientes();

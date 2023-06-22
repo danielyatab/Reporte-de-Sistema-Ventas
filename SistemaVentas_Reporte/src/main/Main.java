@@ -80,8 +80,6 @@ public class Main extends javax.swing.JFrame {
         HeadPanel = new javax.swing.JPanel();
         btnClose = new javax.swing.JPanel();
         closeLabel = new javax.swing.JLabel();
-        btnMaximize = new javax.swing.JPanel();
-        maximizeLabel = new javax.swing.JLabel();
         btnMinimize = new javax.swing.JPanel();
         minimizeLabel = new javax.swing.JLabel();
         btnUsuarios = new javax.swing.JPanel();
@@ -230,34 +228,6 @@ public class Main extends javax.swing.JFrame {
             .addComponent(closeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        btnMaximize.setBackground(new java.awt.Color(255, 255, 255));
-
-        maximizeLabel.setBackground(new java.awt.Color(255, 255, 255));
-        maximizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maximizeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BtnMaximize.png"))); // NOI18N
-        maximizeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                maximizeLabelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                maximizeLabelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                maximizeLabelMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout btnMaximizeLayout = new javax.swing.GroupLayout(btnMaximize);
-        btnMaximize.setLayout(btnMaximizeLayout);
-        btnMaximizeLayout.setHorizontalGroup(
-            btnMaximizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(maximizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-        );
-        btnMaximizeLayout.setVerticalGroup(
-            btnMaximizeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(maximizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         btnMinimize.setBackground(new java.awt.Color(255, 255, 255));
         btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -319,9 +289,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 571, Short.MAX_VALUE)
                 .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(50, 50, 50)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -331,7 +299,6 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeadPanelLayout.createSequentialGroup()
                 .addGroup(HeadPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnMaximize, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -405,19 +372,6 @@ public class Main extends javax.swing.JFrame {
         btnClose.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_btnCloseMouseExited
 
-    private void maximizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseClicked
-        maximizeResize();
-        resizeFormsPanels();
-    }//GEN-LAST:event_maximizeLabelMouseClicked
-
-    private void maximizeLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseEntered
-        btnMaximize.setBackground(new Color(220, 220, 220));
-    }//GEN-LAST:event_maximizeLabelMouseEntered
-
-    private void maximizeLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizeLabelMouseExited
-        btnMaximize.setBackground(new Color(255, 255, 255));
-    }//GEN-LAST:event_maximizeLabelMouseExited
-
     private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
         setState(ICONIFIED);
     }//GEN-LAST:event_btnMinimizeMouseClicked
@@ -470,11 +424,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonExitMouseClicked
 
     private void ButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonClientesMouseClicked
-        Maximize.isForm = false;
-        resizeFormsPanels();
         cambiarIconoColor(ButtonClientes);
         indexPanel = 1;
-        updatePanelMinMax();
+        addConatiner(new PanelCliente(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
     }//GEN-LAST:event_ButtonClientesMouseClicked
 
     private void labelUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelUsuariosMouseClicked
@@ -488,48 +440,7 @@ public class Main extends javax.swing.JFrame {
         updatePanelMinMax();
     }
 
-    private void maximizeResize() {
-        if (maximize) {
-            setSize(1220, 760);
-            MenuPanel.setPreferredSize(new Dimension(342, getHeight()));
-            pack();
-            setLocationRelativeTo(null);
-            LogoLabel.setIcon(new ImageIcon(getClass().getResource("/img/LogoIsrael.png")));
-            autoLabelsResize();
-            maximize = false;
-        } else {
-            MenuPanel.setPreferredSize(new Dimension(442, getHeight()));
-            pack();
-            setExtendedState(MAXIMIZED_BOTH);
-            autoLabelsResize();
-            LogoLabel.setIcon(new ImageIcon(getClass().getResource("/img/LogoIsraelFull.png")));
-            maximize = true;
-        }
-    }
 
-    private void autoLabelsResize() {
-        for (int i = 0; i < listaLabels.size(); i++) {
-            Icon icono = listaLabels.get(i).getIcon();
-            ImageIcon miImagen = (ImageIcon) icono;
-            String rutaArchivo = miImagen.getDescription();
-            File archivo = new File(rutaArchivo);
-            rutaArchivo = archivo.getAbsolutePath();
-            if (!maximize) {
-                if (rutaArchivo.contains("White")) {
-                    rute = rutas[i] + "FullWhite.png";
-                } else {
-                    rute = rutas[i] + "Full.png";
-                }
-            } else {
-                if (rutaArchivo.contains("White")) {
-                    rute = rutas[i] + "White.png";
-                } else {
-                    rute = rutas[i] + ".png";
-                }
-            }
-            listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
-        }
-    }
 
     public void cambiarIconoColor(JLabel labelWhite) {
         for (int i = 0; i < listaLabels.size(); i++) {
@@ -625,28 +536,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel LogoLabel;
     private javax.swing.JPanel MenuPanel;
     private javax.swing.JPanel btnClose;
-    private javax.swing.JPanel btnMaximize;
     private javax.swing.JPanel btnMinimize;
     private javax.swing.JPanel btnUsuarios;
     private javax.swing.JLabel closeLabel;
     private javax.swing.JLabel labelUsuarios;
-    private javax.swing.JLabel maximizeLabel;
     private javax.swing.JLabel minimizeLabel;
     // End of variables declaration//GEN-END:variables
 
-    /*
-    * BACKGROOUND MENU
-     */
-    class FondoPanel extends JPanel {
 
-        private Image imagen;
-
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/img/BackgroundMenu.png")).getImage();
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-            setOpaque(false);
-            super.paint(g);
-        }
-    }
 }

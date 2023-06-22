@@ -1187,6 +1187,11 @@ public class PanelVentas extends javax.swing.JPanel {
 
     public void resetContent() {
         txtCantidadCompra.setText("1");
+        txtNameProducto.setText("");
+        txtMarca.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        listarNombres();
     }
 
     public void resetCliente() {

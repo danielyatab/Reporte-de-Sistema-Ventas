@@ -110,7 +110,6 @@ public class JsonUserValidation {
             ValidateRegular.setCreateUser = true;
             return true;
         }
-
     }
 
     public static void verifCodeUser(ModelUser newUser) {

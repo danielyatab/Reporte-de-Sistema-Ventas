@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,10 @@ import view.panels.forms.Maximize;
 
 public class PanelProducto extends javax.swing.JPanel {
 
+    private String rutas[] = {"/img/types/typeCodigo", "/img/types/typeProductos", "/img/types/typeMarca_2"};
+    private ArrayList<JLabel> listaLabels = new ArrayList<>();
+    private String rute = "";
+    
     private static List<ModelCellProductos> listProduct = new ArrayList<ModelCellProductos>();
     private String banderaSearch = "producto";
 
@@ -31,6 +36,7 @@ public class PanelProducto extends javax.swing.JPanel {
         TableProductos.setIconsColumns(9, 7, 8);
         listaTiposProductos();
         listarProductos();
+        autoList();
     }
 
     @SuppressWarnings("unchecked")
@@ -295,7 +301,6 @@ public class PanelProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 
     private void txtSearchProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchProductoKeyReleased
-        
             switch (banderaSearch) {
                 case "codigo":
                     listarCodigos();
@@ -317,16 +322,19 @@ public class PanelProducto extends javax.swing.JPanel {
 
     private void typeCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeCodeMouseClicked
         banderaSearch = "codigo";
+        cambiarIconoColor(typeCode);
         listarCodigos();
     }//GEN-LAST:event_typeCodeMouseClicked
 
     private void typeProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeProductosMouseClicked
         banderaSearch = "producto";
+        cambiarIconoColor(typeProductos);
         listarProductos();
     }//GEN-LAST:event_typeProductosMouseClicked
 
     private void typeMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeMarcaMouseClicked
         banderaSearch = "marca";
+        cambiarIconoColor(typeMarca);
         listarMarca();
     }//GEN-LAST:event_typeMarcaMouseClicked
 
@@ -476,7 +484,26 @@ public class PanelProducto extends javax.swing.JPanel {
         c.repaint();
     }
 
-  
+     public void cambiarIconoColor(JLabel labelWhite) {
+        for (int i = 0; i < listaLabels.size(); i++) {
+            if (!listaLabels.get(i).equals(labelWhite)) {
+                rute = rutas[i] + ".png";
+                listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
+            } else {
+                rute = rutas[i] + "On.png";
+                listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
+            }
+        }
+    }
+
+    void autoList() {
+        typeCode.setIcon(new ImageIcon(getClass().getResource("/img/types/typeCodigoOn.png")));
+        /*JLABEL*/
+        listaLabels.add(typeCode);
+        listaLabels.add(typeProductos);
+        listaLabels.add(typeMarca);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ContentButtonsSearch;

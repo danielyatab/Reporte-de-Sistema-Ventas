@@ -26,9 +26,9 @@ public class JsonClienteCRUD {
 
     public static List<ModelCellClientes> returnClientes() {
         Gson gson = new Gson();
-        try (Reader reader = new FileReader(FileJson.rutaCliente)) { // Asegura que se cerrara de manera segura el archivo
+        try (Reader reader = new FileReader(FileJson.rutaCliente)) { 
             clienteGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellClientes>>() {
-            }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
+            }.getType()); 
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -199,6 +199,8 @@ public class FormBoleta extends javax.swing.JPanel {
                 if (opcionSeleccionada == 1) {
                     imprimirArchivo();
                 }
+                ImageIcon icononew = new ImageIcon(getClass().getResource("/img/message/comprobado.png"));
+                JOptionPane.showMessageDialog(null, "Archivo guardado con exito", "", 0, icononew);
             }
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());

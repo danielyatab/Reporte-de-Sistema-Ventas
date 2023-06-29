@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +23,11 @@ import view.panels.forms.Maximize;
 
 public class PanelProveedores extends javax.swing.JPanel {
 
+    
+    private String rutas[] = {"/img/types/typeNombre", "/img/types/typeRuc", "/img/types/typeTelefono", "/img/types/typeProductos"};
+    private ArrayList<JLabel> listaLabels = new ArrayList<>();
+    private String rute = "";
+    
     private static List<ModelCellProveedores> listProveedor;
     private ArrayList<String> busquedaLista = new ArrayList<>();
     private static String searchSelect = "";
@@ -32,6 +38,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         TableProveedores.fixTable(jScrollPane2);
         TableProveedores.setIconsColumns(9, 6, 7);
         listarProveedores();
+        autoList();
     }
 
     /**
@@ -339,6 +346,7 @@ public class PanelProveedores extends javax.swing.JPanel {
 
     private void typeNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNameMouseClicked
         banderaSearch = "nombres";
+        cambiarIconoColor(typeName);
         listarNombres();
     }//GEN-LAST:event_typeNameMouseClicked
 
@@ -350,16 +358,19 @@ public class PanelProveedores extends javax.swing.JPanel {
 
     private void typeTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeTelefonoMouseClicked
         banderaSearch = "telefono";
+        cambiarIconoColor(typeTelefono);
         listarTelefono();
     }//GEN-LAST:event_typeTelefonoMouseClicked
 
     private void typeProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeProductoMouseClicked
         banderaSearch = "productos";
+        cambiarIconoColor(typeProducto);
         listarProductos();
     }//GEN-LAST:event_typeProductoMouseClicked
 
     private void typeRucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeRucMouseClicked
         banderaSearch = "ruc";
+        cambiarIconoColor(typeRuc);
         listarNumero();
     }//GEN-LAST:event_typeRucMouseClicked
 
@@ -498,6 +509,28 @@ public class PanelProveedores extends javax.swing.JPanel {
         busquedaLista.add("productos");
         busquedaLista.add("tipo");
         busquedaLista.add("ultimo");
+    }
+    
+    
+    public void cambiarIconoColor(JLabel labelWhite) {
+        for (int i = 0; i < listaLabels.size(); i++) {
+            if (!listaLabels.get(i).equals(labelWhite)) {
+                rute = rutas[i] + ".png";
+                listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
+            } else {
+                rute = rutas[i] + "On.png";
+                listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
+            }
+        }
+    }
+
+    void autoList() {
+        typeName.setIcon(new ImageIcon(getClass().getResource("/img/types/typeNombreOn.png")));
+        /*JLABEL*/
+        listaLabels.add(typeName);
+        listaLabels.add(typeRuc);
+        listaLabels.add(typeTelefono);
+        listaLabels.add(typeProducto);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

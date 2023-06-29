@@ -44,16 +44,12 @@ public class JsonVentaCRUD {
     }
 
     /**
-     * *********************CRUD CLIENTES*************************
+     * *********************CRUD VENTAS*************************
      */
-    /*Retorno de Usuarios*/
     public static void addVenta(ModelCellDetalles newVenta) {
         ventaGlobal = returnVentas();
-
         verifCodeVenta(newVenta);
-
         String rutaIncial = newVenta.getRutaBoleta();
-
         newVenta.setRutaBoleta("boleta/" + rutaIncial);
 
         /*Verificar llenado*/

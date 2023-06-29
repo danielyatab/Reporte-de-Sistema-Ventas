@@ -29,13 +29,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class JsonProveedoresCRUD {
 
     private static List<ModelCellProveedores> proveedorGlobal = null;
-    static ImageIcon icono = new ImageIcon(JsonProveedoresCRUD.class.getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
+    static ImageIcon icono = new ImageIcon(JsonProveedoresCRUD.class.getResource("/img/message/usuarioError.png")); 
 
     public static List<ModelCellProveedores> returnProveedores() {
         Gson gson = new Gson();
-        try (Reader reader = new FileReader(FileJson.rutaProveedores)) { // Asegura que se cerrara de manera segura el archivo
+        try (Reader reader = new FileReader(FileJson.rutaProveedores)) { 
             proveedorGlobal = gson.fromJson(reader, new TypeToken<List<ModelCellProveedores>>() {
-            }.getType()); // Como debe de convertir los datos json (en este caso almacena los datos en tipo persona a una lista)
+            }.getType()); 
         } catch (IOException e) {
             e.printStackTrace();
         }

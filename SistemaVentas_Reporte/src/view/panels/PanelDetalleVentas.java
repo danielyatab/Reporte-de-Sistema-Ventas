@@ -325,10 +325,10 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         JFileChooser archivo_selec = new JFileChooser();
         File archivo;
         Modelo_Excel model_ex = new Modelo_Excel();
-        
+
         if (archivo_selec.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
             archivo = archivo_selec.getSelectedFile();
-            
+
             String nombreArchivo = archivo.getName();
             if (!nombreArchivo.toLowerCase().endsWith(".xls") && !nombreArchivo.toLowerCase().endsWith(".xlsx")) {
                 // Agregar extensión .xlsx si no está presente en el nombre del archivo
@@ -360,13 +360,21 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
         public void onDelete(ModelCellDetalles detalles) {
             String codventa = listaVentas.get(TableDetalles.getSelectedRow()).getCodVenta();
             String numventa = listaVentas.get(TableDetalles.getSelectedRow()).getnVenta();
-            JsonVentaCRUD.deleteVenta(codventa.trim());
-            JsonDetalleProducto.deleteList(numventa.trim());
-            listarDetalles();
-            if (ValidateRegular.conexion) {
-                CrudMysql.crudMysqlVentas();
-                CrudMysql.crudMysqlDetalleProducto();
+            
+            String[] opciones = {"Si", "No"};
+            ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
+            int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar la venta Nº" + numventa + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+            if (opcion == JOptionPane.YES_OPTION) {
+                JsonVentaCRUD.deleteVenta(codventa.trim());
+                JsonDetalleProducto.deleteList(numventa.trim());
+                listarDetalles();
+                if (ValidateRegular.conexion) {
+                    CrudMysql.crudMysqlVentas();
+                    CrudMysql.crudMysqlDetalleProducto();
+                }
             }
+
         }
 
         @Override

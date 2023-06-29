@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,10 @@ import view.panels.forms.Maximize;
 
 public class PanelCliente extends javax.swing.JPanel {
 
+    private String rutas[] = {"/img/types/typeNombre", "/img/types/typeApellido", "/img/types/typeTelefono","/img/types/typeNumDoc"};
+    private ArrayList<JLabel> listaLabels = new ArrayList<>();
+    private String rute = "";
+    
     private List<ModelCellClientes> listClient = new ArrayList<ModelCellClientes>();
     private ArrayList<String> busquedaLista = new ArrayList<>();
     private String searchSelect = "";
@@ -32,6 +37,7 @@ public class PanelCliente extends javax.swing.JPanel {
 
     public PanelCliente() {
         initComponents();
+        autoList();
         TableClientes.fixTable(jScrollPane1);
         TableClientes.setIconsColumns(8, 6, 7);
         listarClientes();
@@ -324,28 +330,32 @@ public class PanelCliente extends javax.swing.JPanel {
 
     private void typeNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNameMouseClicked
         banderaSearch = "nombres";
+        cambiarIconoColor(typeName);
         listarNombres();
     }//GEN-LAST:event_typeNameMouseClicked
 
     private void typeApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeApellidoMouseClicked
         banderaSearch = "apellidos";
+        cambiarIconoColor(typeApellido);
         listarApellidos();
     }//GEN-LAST:event_typeApellidoMouseClicked
 
     private void typeTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeTelefonoMouseClicked
         banderaSearch = "telefono";
+        cambiarIconoColor(typeTelefono);
         listarTelefono();
     }//GEN-LAST:event_typeTelefonoMouseClicked
 
     private void typeNumDOCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_typeNumDOCMouseClicked
         banderaSearch = "numero";
+        cambiarIconoColor(typeNumDOC);
         listarNumero();
     }//GEN-LAST:event_typeNumDOCMouseClicked
 
     private void btn_ExportarExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ExportarExcelMouseClicked
         if (archivo_selec.showDialog(null, "Guardar") == JFileChooser.APPROVE_OPTION) {
             archivo = archivo_selec.getSelectedFile();
-            
+
             String nombreArchivo = archivo.getName();
             if (!nombreArchivo.toLowerCase().endsWith(".xls") && !nombreArchivo.toLowerCase().endsWith(".xlsx")) {
                 // Agregar extensión .xlsx si no está presente en el nombre del archivo
@@ -471,6 +481,27 @@ public class PanelCliente extends javax.swing.JPanel {
         busquedaLista.add("numDocumento");
         busquedaLista.add("tipoDocumento");
         busquedaLista.add("ultimo");
+    }
+
+    public void cambiarIconoColor(JLabel labelWhite) {
+        for (int i = 0; i < listaLabels.size(); i++) {
+            if (!listaLabels.get(i).equals(labelWhite)) {
+                rute = rutas[i] + ".png";
+                listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
+            } else {
+                rute = rutas[i] + "On.png";
+                listaLabels.get(i).setIcon(new ImageIcon(getClass().getResource(rute)));
+            }
+        }
+    }
+
+    void autoList() {
+        typeName.setIcon(new ImageIcon(getClass().getResource("/img/types/typeNombreOn.png")));
+        /*JLABEL*/
+        listaLabels.add(typeName);
+        listaLabels.add(typeApellido);
+        listaLabels.add(typeTelefono);
+        listaLabels.add(typeNumDOC);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

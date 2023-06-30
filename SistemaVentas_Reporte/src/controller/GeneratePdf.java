@@ -6,7 +6,6 @@ package controller;
 
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
-import Model.ModelCellProductos;
 import Model.ModelCellVenta;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;

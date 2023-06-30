@@ -1,10 +1,8 @@
 package controller;
 
-import Model.ModelCellClientes;
 import Model.ModelCellProductos;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import static controller.JsonClienteCRUD.returnClientes;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;

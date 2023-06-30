@@ -179,8 +179,6 @@ public class JsonClienteCRUD {
     }
     
      
-    /////////////////////////////////////////////////////////////////// 
-     
     public static ModelCellClientes searchClienteCodigo(String codigo) {
         for (ModelCellClientes p : returnClientes()) {
             if (p.getIdCliente().trim().equals(codigo)) {
@@ -199,18 +197,6 @@ public class JsonClienteCRUD {
         return null;
     }
 
-    
-
-    /*public static List<ModelCellClientes> searchClienteTelefono(String telefono) {
-        List<ModelCellClientes> searchClienteList = null;
-        for (ModelCellClientes p : returnClientes()) {
-            if (p.getTelefono().equals(telefono)) {
-                searchClienteList.add(p);
-                break;
-            }
-        }
-        return searchClienteList;
-    }*/
 
     public static List<ModelCellClientes> searchClienteTipoDoc(String tipo) {
         List<ModelCellClientes> searchClienteList = null;
@@ -328,16 +314,6 @@ public class JsonClienteCRUD {
         return false;
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     /*COMPROBAR CLIENTE UPDATE(UPDATECLIENTE, INDICE PARA OBVIARLO CON CONTINUE)*/
     /**

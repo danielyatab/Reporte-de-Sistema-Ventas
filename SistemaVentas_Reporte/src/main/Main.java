@@ -52,7 +52,6 @@ public class Main extends javax.swing.JFrame {
         Maximize.heigth_maximize = getHeight();
         Maximize.mainSet = true;
         autoList();
-        updatePanelMinMax();
         setLocationRelativeTo(null);
         JsonProductoCRUD.verificarStockProductos();
     }
@@ -430,9 +429,6 @@ public class Main extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_labelUsuariosMouseClicked
 
-    public void resizeFormsPanels() {
-        updatePanelMinMax();
-    }
 
 
 
@@ -458,13 +454,6 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    private void updatePanelMinMax() {
-        int width = getWidth() - MenuPanel.getWidth();
-        int heigth_min = 760;
-        int heigth_max = getHeight() - HeadPanel.getHeight();
-        System.out.println("ES HORA DE APRCER VENTANA: PANEL DETALLE VENTA");
-        addConatiner(listaJpanel.get(indexPanel), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
-    }
 
     public void setUpdateDetalleProduct() {
         int width = getWidth() - MenuPanel.getWidth();
@@ -497,6 +486,7 @@ public class Main extends javax.swing.JFrame {
     private void autoList() {
 
         ButtonReporteVentas.setIcon(new ImageIcon(getClass().getResource("/img/btn_ReporteVentasWhite.png")));
+        addConatiner(new PanelReporteVentas(), ContentPanel.getWidth(), ContentPanel.getHeight(), ContentPanel);
         /*JLABEL*/
         listaLabels.add(ButtonReporteVentas);
         listaLabels.add(ButtonClientes);

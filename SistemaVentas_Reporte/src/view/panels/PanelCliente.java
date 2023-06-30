@@ -305,7 +305,6 @@ public class PanelCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 
     private void txtSearchClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchClienteKeyReleased
-        System.out.println("Campturando el texto: " + txtSearchCliente.getText());
         if (txtSearchCliente.getText().trim().isEmpty()) {
             listarClientes();
         } else {
@@ -393,7 +392,6 @@ public class PanelCliente extends javax.swing.JPanel {
             ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
             int opcion = JOptionPane.showOptionDialog(null, "¿Desea eliminar al cliente " + deleteCliente.getNombre() + " ?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
             if (opcion == JOptionPane.YES_OPTION) {
-                System.out.println("Seleccione el yes option");
                 new JsonClienteCRUD().deleteCliente(deleteCliente.getIdCliente());
                 if (ValidateRegular.conexion) {
                     try {
@@ -420,7 +418,6 @@ public class PanelCliente extends javax.swing.JPanel {
         modelo.setColumnIdentifiers(columns);
         if (listClient != null) {
             for (ModelCellClientes cl : listClient) {
-                System.out.println("ESTOY LISTADO A CLIENTE: " + cl.getApellido());
                 TableClientes.addRow(new ModelCellClientes(cl.getNombre(), cl.getApellido(), cl.getTipoDocumento(), cl.getNumDocumento(), cl.getTelefono(),
                         cl.getCorreo()).toRowTable(event));
             }

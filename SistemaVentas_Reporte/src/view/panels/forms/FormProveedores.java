@@ -409,7 +409,7 @@ public class FormProveedores extends javax.swing.JPanel {
         //setDesignWindows();
         String[] opciones = {"Si", "No"};
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/advertencia.png")); // Ruta al archivo de imagen del ícono
-        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
+        int opcion = JOptionPane.showOptionDialog(this, "¿Desea salir sin agregar al proveedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, icono, opciones, opciones[0]);
         if (opcion == JOptionPane.YES_OPTION) {
             //setDisignNimbus();
             addContainer(new PanelProveedores(), getWidth(), getHeight(), PanelContent);

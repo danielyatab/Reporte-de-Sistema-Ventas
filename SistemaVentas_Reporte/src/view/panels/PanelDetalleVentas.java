@@ -268,7 +268,6 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
     private void btnSearchFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchFechaActionPerformed
         String dateFormat = "yyyy-MM-dd";
         Date selectedDate = jDateChooser.getDate();
-        System.out.println("Fecha seleccionada: " + selectedDate);
         if (selectedDate == null) {
             JOptionPane.showMessageDialog(null, "Seleccione alguna fecha", "", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -281,7 +280,6 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
 
     private void jcomboTipoSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboTipoSearchActionPerformed
         String search = valueOf(jcomboTipoSearch.getSelectedItem());
-        System.out.println("Selecciona en el combo: " + search);
         switch (search) {
             case "Nº Venta":
                 banderaSearch = "numVenta";
@@ -352,7 +350,6 @@ public class PanelDetalleVentas extends javax.swing.JPanel {
     TableActionEventDetalles event = new TableActionEventDetalles() {
         @Override
         public void onEdit(ModelCellDetalles detalles) {
-            System.out.println("edit " + TableDetalles.getSelectedRow());
             //addContainer(new FormDetalle(), getWidth(), getHeight(), PanelContent);
         }
 

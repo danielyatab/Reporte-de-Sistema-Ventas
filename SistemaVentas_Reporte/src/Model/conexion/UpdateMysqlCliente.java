@@ -37,9 +37,7 @@ public class UpdateMysqlCliente extends Thread{
                 String correo = rs.getString("correo");
                 
                 ModelCellClientes cl = new ModelCellClientes(codigo, nombre, apellido, tipoDocumento, numDocumento, telefono, correo);
-               
                 listClient.add(cl);
-                System.out.println(cl.getIdCliente());
             }         
             JsonClienteCRUD.modificarClientes(listClient);
         } catch (SQLException e) {
@@ -60,9 +58,7 @@ public class UpdateMysqlCliente extends Thread{
                 String correo = rs.getString("correo");
                 
                 ModelCellClientes cl = new ModelCellClientes(codigo, nombre, apellido, tipoDocumento, numDocumento, telefono, correo);
-               
                 listClient.add(cl);
-                System.out.println(cl.getIdCliente());
             }         
             JsonClienteCRUD.modificarClienteHistorial(listClient);
         } catch (SQLException e) {

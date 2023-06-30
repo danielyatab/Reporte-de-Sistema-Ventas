@@ -34,16 +34,16 @@ public class MainSystem {
                         Thread.sleep(100);
                         progress.porcentaje.setText(Integer.toString(i) + "%");
                         progress.barra.setValue(i);
-                        if (i == 100) {
+                        if (i == 100){
                             /*Aparicion de */
                             progress.setVisible(false);
                             login.setVisible(true);
                         }
                     }
                 } catch (Exception e) {
-                    System.out.println("Error al ejecutar barra progresiva");
+                    System.out.println("Error al ejecutar barra progresiva: " +e.getMessage());
                 }
-                System.out.println("Es Viernes, ejecutando el código...");
+               
             } else {
                 login.setVisible(true);
             }

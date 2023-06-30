@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
                         new FullCrudMysql();
                     }
                 } catch (Exception e) {
-                    System.out.println("Error de conexion");
+                    System.out.println("Error de conexion: "+ e.getMessage());
                 }
             }
         }

@@ -152,7 +152,6 @@ public class LoginInit extends javax.swing.JFrame {
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
         char[] contraseña = txtContraseña.getPassword();
         String passwordStr = valueOf(contraseña);
-        int newPassword = contraseña.length;
         String userName = txtUsuario.getText();
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/message/usuarioError.png")); // Ruta al archivo de imagen del ícono
         ModelUser user = new ModelUser(userName, passwordStr);

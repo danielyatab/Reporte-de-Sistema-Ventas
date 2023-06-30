@@ -4,10 +4,8 @@
  */
 package Model.conexion;
 
-import Model.ModelCellProductos;
 import Model.ModelCellVenta;
 import controller.JsonDetalleProducto;
-import controller.JsonProductoCRUD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

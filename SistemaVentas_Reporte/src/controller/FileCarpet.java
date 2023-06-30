@@ -4,7 +4,6 @@
  */
 package controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,8 +35,6 @@ public class FileCarpet {
                 Files.createDirectory(carpeta);
                 Files.createDirectory(carpeta2);
                 Files.createDirectory(carpeta3);
-
-                System.out.println("La carpeta se ha creado exitosamente.");
             } catch (IOException e) {
                 System.out.println("No se pudo crear la carpeta: " + e.getMessage());
             }

@@ -77,8 +77,6 @@ public class CrudMysql {
                 ps.setString(3, user.getCargo());
                 ps.setString(4, user.getPassword());
                 ps.executeUpdate();
-
-                System.out.println("USUARIOS PASADOS A MYSQL HISTORIAL: " + user.getUser());
             }
             // Volver a habilitar las comprobaciones de clave externa
             stmt.execute("SET FOREIGN_KEY_CHECKS=1;");

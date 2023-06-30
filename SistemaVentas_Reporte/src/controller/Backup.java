@@ -31,8 +31,6 @@ public class Backup {
                     Path.of(rutaCarpeta), DosFileAttributeView.class);
             DosFileAttributes attributes = fileAttributes.readAttributes();
             fileAttributes.setHidden(true);
-
-            System.out.println("Carpeta de backup creada y oculta exitosamente.");
         } catch (IOException e) {
             System.out.println("Error al crear la carpeta de backup: " + e.getMessage());
         }
@@ -44,8 +42,6 @@ public class Backup {
         try {
             // Crear la carpeta segura
             Files.createDirectory(Path.of(rutaCarpeta));
-
-            System.out.println("Carpeta json segura creada exitosamente.");
         } catch (IOException e) {
             System.out.println("Error al crear la carpeta segura: " + e.getMessage());
         }
@@ -53,15 +49,12 @@ public class Backup {
     
     /*Copy Files*/
     public static void copyJson(String ruta){
-         // Ruta del archivo original y la copia
+        // Ruta del archivo original y la copia
         Path rutaArchivoOriginal = Path.of(ruta);
         Path rutaArchivoCopia = Path.of("C:/backup/"+ruta);
-        
         try {
             // Hacer la copia del archivo
             Files.copy(rutaArchivoOriginal, rutaArchivoCopia, StandardCopyOption.REPLACE_EXISTING);
-            
-            System.out.println("Copia de archivo creada exitosamente.");
         } catch (IOException x) {
             System.out.println("Error al hacer la copia del archivo: " + x.getMessage());
         }

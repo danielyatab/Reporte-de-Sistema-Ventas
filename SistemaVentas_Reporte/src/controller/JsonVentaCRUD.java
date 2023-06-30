@@ -6,11 +6,8 @@ package controller;
 
 import Model.ModelCellClientes;
 import Model.ModelCellDetalles;
-import Model.ModelCellProductos;
-import Model.ModelCellVenta;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import static controller.JsonProductoCRUD.returnProductos;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,10 +49,6 @@ public class JsonVentaCRUD {
         String rutaIncial = newVenta.getRutaBoleta();
         newVenta.setRutaBoleta("boleta/" + rutaIncial);
 
-        /*Verificar llenado*/
-        for (ModelCellDetalles v : ventaGlobal) {
-            System.out.println("INTEGRAN22222;:" + v.getnVenta());
-        }
         ventaGlobal.add(newVenta);
         modificarVentas(ventaGlobal);
 
@@ -88,7 +81,6 @@ public class JsonVentaCRUD {
     public static void deleteVenta(String codeDelete) {
         List<ModelCellDetalles> listVentas = returnVentas();
         for (int i = 0; i < listVentas.size(); i++) {
-            System.out.println("List" + listVentas.get(i).getCodVenta());
             if (listVentas.get(i).getCodVenta().equals(codeDelete)) {
                 listVentas.remove(i);
                 break;
@@ -186,7 +178,6 @@ public class JsonVentaCRUD {
         for (ModelCellDetalles us : returnVentasHistorial()) {
             //Si el id historial es igual o el usuario
             if (us.getCodVenta().equals(cl.getCodVenta())) {
-                System.out.println("El id se repite");
                 return false;
             }
         }
@@ -232,7 +223,6 @@ public class JsonVentaCRUD {
         ValidateRegular.totalesSemana = new double[7];
 
         int mesActual = fechaActual.getMonthValue();
-        System.out.println("EL MES ACUTAL ES: " + mesActual);
 
         // Recorrer la lista de fechas en formato de cadena
         for (ModelCellDetalles v : returnVentas()) {
@@ -241,7 +231,6 @@ public class JsonVentaCRUD {
             if (mesFecha == mesActual) {
                 DayOfWeek diaSemana = fecha.getDayOfWeek();
                 int indiceDia = diaSemana.getValue(); // Obtener el índice del día de la semana (1 a 7)
-                System.out.println("EL DIA OBTENIDO ES " + indiceDia);
                 ValidateRegular.totalesSemana[indiceDia-1] += v.getTotalVenta();
             }
         }
@@ -252,7 +241,6 @@ public class JsonVentaCRUD {
         
         /*Obtencion año actual*/
         int añoActual = fechaActual.getYear();
-        System.out.println("EL MES ACUTAL ES: " + añoActual);
         for (ModelCellDetalles v : returnVentas()) {
             LocalDate fecha = LocalDate.parse(v.getFecha());
             int añoFecha = fecha.getYear();

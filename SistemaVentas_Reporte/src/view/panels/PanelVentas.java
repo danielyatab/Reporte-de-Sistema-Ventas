@@ -526,6 +526,7 @@ public class PanelVentas extends javax.swing.JPanel {
 
         txtMoney.setEditable(false);
         txtMoney.setBackground(new java.awt.Color(229, 228, 228));
+        txtMoney.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
         txtMoney.setForeground(new java.awt.Color(0, 0, 102));
         txtMoney.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMoney.setBorder(null);
@@ -554,6 +555,7 @@ public class PanelVentas extends javax.swing.JPanel {
 
         txtTotal.setEditable(false);
         txtTotal.setBackground(new java.awt.Color(229, 228, 228));
+        txtTotal.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
         txtTotal.setForeground(new java.awt.Color(0, 0, 102));
         txtTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTotal.setBorder(null);
@@ -577,6 +579,7 @@ public class PanelVentas extends javax.swing.JPanel {
         jLabel6.setText("Efectivo:");
 
         txtEfective.setBackground(new java.awt.Color(229, 228, 228));
+        txtEfective.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
         txtEfective.setForeground(new java.awt.Color(0, 0, 102));
         txtEfective.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtEfective.setBorder(null);
@@ -1007,7 +1010,6 @@ public class PanelVentas extends javax.swing.JPanel {
 
     private void btn_AgregarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AgregarProductoMouseClicked
             int cantidad = 1;
-            System.out.println("EL COTNENIDO DEL JCOMBO INGHRESADO ES: " +  valueOf(jcomboSearchProducto.getSelectedItem()));         
             
             //Tabla de datos
             if (JsonProductoCRUD.buscarProductoCodigo(productoVenta.getCodigo()) != null) {

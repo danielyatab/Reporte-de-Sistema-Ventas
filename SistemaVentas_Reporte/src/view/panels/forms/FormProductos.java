@@ -105,7 +105,6 @@ public class FormProductos extends javax.swing.JPanel {
         txtCodigo.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtCodigo.setForeground(new java.awt.Color(0, 0, 102));
         txtCodigo.setBorder(null);
-        txtCodigo.setOpaque(false);
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyReleased(evt);
@@ -135,7 +134,6 @@ public class FormProductos extends javax.swing.JPanel {
         txtProducto.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtProducto.setForeground(new java.awt.Color(0, 0, 102));
         txtProducto.setBorder(null);
-        txtProducto.setOpaque(false);
 
         javax.swing.GroupLayout TextLastNameLayout = new javax.swing.GroupLayout(TextLastName);
         TextLastName.setLayout(TextLastNameLayout);
@@ -176,7 +174,6 @@ public class FormProductos extends javax.swing.JPanel {
         txtMarca.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtMarca.setForeground(new java.awt.Color(0, 0, 102));
         txtMarca.setBorder(null);
-        txtMarca.setOpaque(false);
 
         javax.swing.GroupLayout TextLastName1Layout = new javax.swing.GroupLayout(TextLastName1);
         TextLastName1.setLayout(TextLastName1Layout);
@@ -205,7 +202,6 @@ public class FormProductos extends javax.swing.JPanel {
         txtDescripcion.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtDescripcion.setForeground(new java.awt.Color(0, 0, 102));
         txtDescripcion.setBorder(null);
-        txtDescripcion.setOpaque(false);
 
         javax.swing.GroupLayout TextPhone1Layout = new javax.swing.GroupLayout(TextPhone1);
         TextPhone1.setLayout(TextPhone1Layout);
@@ -243,7 +239,6 @@ public class FormProductos extends javax.swing.JPanel {
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("AGREGAR PRODUCTO");
 
-        comboTipo.setBackground(new java.awt.Color(255, 255, 255));
         comboTipo.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 17)); // NOI18N
         comboTipo.setForeground(new java.awt.Color(16, 21, 64));
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Consumibles", "Libros" }));
@@ -260,7 +255,6 @@ public class FormProductos extends javax.swing.JPanel {
         txtCantidad.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
         txtCantidad.setForeground(new java.awt.Color(0, 0, 102));
         txtCantidad.setBorder(null);
-        txtCantidad.setOpaque(false);
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
@@ -291,10 +285,9 @@ public class FormProductos extends javax.swing.JPanel {
         TextPhone2.setOpaque(false);
 
         txtPrecioU.setBackground(new java.awt.Color(245, 244, 244));
-        txtPrecioU.setFont(new java.awt.Font("Dubai Light", 0, 18)); // NOI18N
+        txtPrecioU.setFont(new java.awt.Font("Ebrima", 1, 18)); // NOI18N
         txtPrecioU.setForeground(new java.awt.Color(0, 0, 102));
         txtPrecioU.setBorder(null);
-        txtPrecioU.setOpaque(false);
         txtPrecioU.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecioUKeyTyped(evt);

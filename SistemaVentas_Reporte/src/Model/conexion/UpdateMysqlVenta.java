@@ -5,9 +5,6 @@
 package Model.conexion;
 
 import Model.ModelCellDetalles;
-import Model.ModelCellProductos;
-import Model.ModelCellVenta;
-import controller.JsonProductoCRUD;
 import controller.JsonVentaCRUD;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

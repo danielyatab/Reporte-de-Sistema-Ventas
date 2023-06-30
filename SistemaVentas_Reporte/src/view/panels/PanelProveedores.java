@@ -318,7 +318,6 @@ public class PanelProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_AgregarProveedoresMouseClicked
 
     private void txtSearchProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchProveedorKeyReleased
-        System.out.println("Campturadbno el texto: " + txtSearchProveedor.getText());
         if (txtSearchProveedor.getText().trim().isEmpty()) {
             listarProveedores();
         } else {
@@ -351,7 +350,6 @@ public class PanelProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_typeNameMouseClicked
 
     private void JcomboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcomboTipoActionPerformed
-        System.out.println("Elemento seleccionado: " + JcomboTipo.getSelectedItem());
         banderaSearch = "tipo";
         listarTipo();
     }//GEN-LAST:event_JcomboTipoActionPerformed

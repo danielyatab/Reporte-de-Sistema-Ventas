@@ -9,4 +9,4 @@ Sistema de ventas para cualquier tipo de tienda , con almacenamieto local.
 [![producto.png](https://i.postimg.cc/s2kvtvKm/producto.png)](https://postimg.cc/gwKzhcCL)
 
 
-[![Detalle.png](https://i.postimg.cc/qq0gvSPC/Detalle.png)](https://postimg.cc/1nCyWC59)
+[![reporte-venta.png](https://i.postimg.cc/s26tXhbP/reporte-venta.png)](https://postimg.cc/JyXTYGrt)
